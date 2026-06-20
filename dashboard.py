@@ -98,10 +98,15 @@ st.markdown("""
 # ==========================================
 # 2. SESSION STATE INITIALIZATION
 # ==========================================
-if "portfolio" not in st.session_state:
-    st.session_state.portfolio = {
-        "NABIL": {"shares": 120, "avg_cost": 465.0},
-        "HDL": {"shares": 15, "avg_cost": 1850.0}
+st.session_state.portfolio = {
+        "HFIN": {"shares": 10, "avg_cost": 100.0},
+        "HLI": {"shares": 12, "avg_cost": 100.0},
+        "MBJC": {"shares": 10, "avg_cost": 100.0},
+        "NESDO": {"shares": 11, "avg_cost": 100.0},
+        "NIFRA": {"shares": 64, "avg_cost": 100.0},
+        "PCIL": {"shares": 10, "avg_cost": 100.0},
+        "RNLI": {"shares": 12, "avg_cost": 100.0},
+        "TAMOR": {"shares": 10, "avg_cost": 100.0}
     }
 
 # ==========================================
