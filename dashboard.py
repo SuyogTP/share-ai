@@ -275,11 +275,17 @@ def smart_compare_candidates(target_row, all_df):
 m_summary = meta.get("market_summary", {"index": 2100.0, "change": 0.0, "pct_change": 0.0, "turnover": 0})
 chg_color = "#00ff88" if m_summary['change'] >= 0 else "#ff4444"
 
+# Format strings BEFORE injecting into HTML
+m_idx_str = f"{m_summary['index']:,}"
+m_chg_str = f"{m_summary['change']:+,.2f}"
+m_pct_str = f"{m_summary['pct_change']:+.2f}%"
+m_trn_str = f"{m_summary['turnover']:,}"
+
 st.markdown(f"""
 <div style='background:#0d111a; border-bottom:1px solid #1f2937; padding:10px 20px; display:flex; gap:40px; align-items:center;'>
-    <div><span style='color:#8b949e; font-size:0.75rem;'>NEPSE INDEX</span><br><span style='font-family:monospace; font-size:1.2rem; font-weight:700;'>{m_summary['index']:,}</span></div>
-    <div><span style='color:#8b949e; font-size:0.75rem;'>CHANGE</span><br><span style='font-family:monospace; font-size:1.2rem; font-weight:700; color:{chg_color};'>{m_summary['change']:+,.2f} ({m_summary['pct_change']:+.2f}%)</span></div>
-    <div><span style='color:#8b949e; font-size:0.75rem;'>DAILY TURNOVER</span><br><span style='font-family:monospace; font-size:1.2rem; font-weight:700; color:#ffd700;'>NPR {m_summary['turnover']:,}</span></div>
+    <div><span style='color:#8b949e; font-size:0.75rem;'>NEPSE INDEX</span><br><span style='font-family:monospace; font-size:1.2rem; font-weight:700;'>{m_idx_str}</span></div>
+    <div><span style='color:#8b949e; font-size:0.75rem;'>CHANGE</span><br><span style='font-family:monospace; font-size:1.2rem; font-weight:700; color:{chg_color};'>{m_chg_str} ({m_pct_str})</span></div>
+    <div><span style='color:#8b949e; font-size:0.75rem;'>DAILY TURNOVER</span><br><span style='font-family:monospace; font-size:1.2rem; font-weight:700; color:#ffd700;'>NPR {m_trn_str}</span></div>
 </div>
 <br>
 """, unsafe_allow_html=True)
@@ -326,12 +332,14 @@ with app_tab_main:
                 border_color = "#00ff88" if is_active else "#21262d"
                 color_txt = "#00ff88" if chg >= 0 else "#ff4444"
                 
-                html_row = f"""
+                # Format string BEFORE injecting
+                chg_str = f"{chg:+.2f}%"
+                
                 html_row = f"""
                 <div style='border:1px solid {border_color}; padding:10px; border-radius:6px; margin-bottom:8px; background:#111625;'>
                     <div style='display:flex; justify-content:space-between; align-items:center;'>
                         <span style='font-family:monospace; font-weight:bold; font-size:1rem;'>{sym}</span>
-                        <span style='color:{color_txt}; font-family:monospace; font-size:0.9rem; margin-left:auto;'>{chg:+.2f}%</span>
+                        <span style='color:{color_txt}; font-family:monospace; font-size:0.9rem; margin-left:auto;'>{chg_str}</span>
                     </div>
                     <div style='display:flex; justify-content:space-between; font-size:0.75rem; color:#8b949e; margin-top:4px;'>
                         <span>LTP: Rs {ltp}</span>
