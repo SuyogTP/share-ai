@@ -361,9 +361,111 @@ for col, (val, label) in zip(k, kpis):
 st.markdown("<br>", unsafe_allow_html=True)
 
 # ─── Main Tabs ───────────────────────────────────────────────────────────────
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "📊 All Stocks", "🔬 Stock Deep-Dive", "📉 Charts", "⚖️ Compare", "🌏 Macro & Political"
+tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "💼 My Portfolio", "📊 All Stocks", "🔬 Stock Deep-Dive", "📉 Charts", "⚖️ Compare", "🌏 Macro & Political"
 ])
+
+# ══════════════════════════════════════════════════════════
+# TAB 0 — MY PORTFOLIO
+# ══════════════════════════════════════════════════════════
+with tab0:
+    st.markdown("### 💼 My Portfolio — Suyog's Holdings")
+
+    portfolio_syms = {
+        "HFIN": 10, "HLI": 12, "MBJC": 10, "NESDO": 11,
+        "NIFRA": 64, "PCIL": 10, "RNLI": 12, "TAMOR": 0,
+    }
+
+    pdf = df[df["symbol"].isin(portfolio_syms.keys())].copy()
+    if pdf.empty:
+        st.warning("Portfolio stocks not found in data. Make sure data/data.json is updated.")
+    else:
+        pdf["units"] = pdf["symbol"].map(portfolio_syms).fillna(0).astype(int)
+        pdf["invested_est"] = pdf["units"] * pdf["ltp"]  # current value (no buy price stored)
+        pdf["current_value"] = pdf["units"] * pdf["ltp"]
+
+        # KPI row
+        total_val = pdf["current_value"].sum()
+        gainers_p = int((pdf["change_pct"] > 0).sum())
+        losers_p  = int((pdf["change_pct"] < 0).sum())
+        avg_score = pdf["health_score"].mean()
+
+        k0,k1,k2,k3 = st.columns(4)
+        k0.markdown(f"<div class='kpi-card'><div class='kpi-val' style='color:#00ff88'>Rs {total_val:,.0f}</div><div class='kpi-label'>Portfolio Value (est.)</div></div>", unsafe_allow_html=True)
+        k1.markdown(f"<div class='kpi-card'><div class='kpi-val'>{len(pdf)}</div><div class='kpi-label'>Stocks Held</div></div>", unsafe_allow_html=True)
+        k2.markdown(f"<div class='kpi-card'><div class='kpi-val' style='color:#00ff88'>{gainers_p} 🟢 / {losers_p} 🔴</div><div class='kpi-label'>Today's Movers</div></div>", unsafe_allow_html=True)
+        k3.markdown(f"<div class='kpi-card'><div class='kpi-val'>{avg_score:.0f}/100</div><div class='kpi-label'>Avg Health Score</div></div>", unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # Individual stock cards
+        for _, row in pdf.sort_values("health_score", ascending=False).iterrows():
+            sym   = row["symbol"]
+            units = int(row.get("units", 0))
+            ltp   = row.get("ltp", 0) or 0
+            chg   = row.get("change_pct", 0) or 0
+            score = row.get("health_score", 0) or 0
+            grade = row.get("grade", "?")
+            val   = units * ltp
+            chg_color = "#00ff88" if chg >= 0 else "#ff4444"
+            chg_arrow = "▲" if chg >= 0 else "▼"
+
+            st.markdown(f"""
+            <div class='stock-card'>
+              <div style='display:flex;justify-content:space-between;align-items:center'>
+                <div>
+                  <span style='color:#e6edf3;font-size:1.1rem;font-weight:600;font-family:JetBrains Mono'>{sym}</span>
+                  <span style='color:#8b949e;font-size:.8rem;margin-left:10px'>{row.get("name","")}</span>
+                  <span class='tag tag-neut' style='margin-left:8px'>{row.get("sector","")}</span>
+                </div>
+                <span class='grade-{grade_class(grade)}'>{grade}</span>
+              </div>
+              <div style='display:flex;gap:32px;margin-top:10px;flex-wrap:wrap'>
+                <div><div style='color:#8b949e;font-size:.72rem'>UNITS</div>
+                     <div style='color:#e6edf3;font-family:JetBrains Mono'>{units}</div></div>
+                <div><div style='color:#8b949e;font-size:.72rem'>LTP</div>
+                     <div style='color:#e6edf3;font-family:JetBrains Mono'>Rs {ltp:,.0f}</div></div>
+                <div><div style='color:#8b949e;font-size:.72rem'>TODAY</div>
+                     <div style='color:{chg_color};font-family:JetBrains Mono'>{chg_arrow} {abs(chg):.2f}%</div></div>
+                <div><div style='color:#8b949e;font-size:.72rem'>VALUE</div>
+                     <div style='color:#e6edf3;font-family:JetBrains Mono'>Rs {val:,.0f}</div></div>
+                <div><div style='color:#8b949e;font-size:.72rem'>EPS</div>
+                     <div style='color:#e6edf3;font-family:JetBrains Mono'>{row.get("eps",0):.1f}</div></div>
+                <div><div style='color:#8b949e;font-size:.72rem'>P/E</div>
+                     <div style='color:#e6edf3;font-family:JetBrains Mono'>{row.get("pe_ratio",0):.1f}</div></div>
+                <div><div style='color:#8b949e;font-size:.72rem'>DIV %</div>
+                     <div style='color:#e6edf3;font-family:JetBrains Mono'>{row.get("dividend_yield",0):.1f}%</div></div>
+                <div><div style='color:#8b949e;font-size:.72rem'>SCORE</div>
+                     <div style='color:#00ff88;font-family:JetBrains Mono'>{score}/100</div></div>
+              </div>
+            </div>""", unsafe_allow_html=True)
+
+        # Portfolio allocation pie
+        st.markdown("#### Allocation by Value")
+        pie_df = pdf[pdf["units"] > 0].copy()
+        if not pie_df.empty:
+            pie_df["value"] = pie_df["units"] * pie_df["ltp"]
+            fig = px.pie(pie_df, names="symbol", values="value",
+                         color_discrete_sequence=["#00ff88","#58a6ff","#ffd700","#ff8c00","#7fff00","#ff4444","#c792ea","#89ddff"])
+            fig.update_layout(paper_bgcolor="#0a0e1a", height=320,
+                               margin=dict(l=0,r=0,t=0,b=0),
+                               legend=dict(font_color="#8b949e"))
+            st.plotly_chart(fig, use_container_width=True, key="portfolio_pie")
+
+        # Sector breakdown
+        st.markdown("#### Sector Exposure")
+        sec_val = pdf[pdf["units"]>0].groupby("sector").apply(
+            lambda x: (x["units"] * x["ltp"]).sum()).reset_index()
+        sec_val.columns = ["Sector","Value"]
+        fig2 = px.bar(sec_val, x="Sector", y="Value",
+                      color_discrete_sequence=["#00ff88"])
+        fig2.update_layout(paper_bgcolor="#0a0e1a", plot_bgcolor="#0d1117", height=260,
+                            margin=dict(l=0,r=0,t=0,b=0),
+                            xaxis=dict(color="#8b949e"), yaxis=dict(color="#8b949e",gridcolor="#21262d"))
+        st.plotly_chart(fig2, use_container_width=True, key="sector_exposure")
+
+        st.info("💡 Tip: Go to **Stock Deep-Dive** tab and search any of your holdings for candlestick charts and full technical analysis.")
+
 
 # ══════════════════════════════════════════════════════════
 # TAB 1 — ALL STOCKS TABLE
