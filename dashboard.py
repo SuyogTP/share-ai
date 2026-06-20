@@ -323,9 +323,10 @@ with app_tab_main:
             st.info("No assets found matching current criteria.")
         else:
             for idx, row in filtered_df.iterrows():
-                sym = row["symbol"]
-                ltp = row["ltp"]
-                chg = row["pct_change"]
+                # FIX: Using .get() prevents KeyErrors if your JSON is missing these columns
+                sym = row.get("symbol", "UNKNOWN")
+                ltp = row.get("ltp", 0.0)
+                chg = row.get("pct_change", 0.0)
                 grd = row.get("grade", "B")
                 
                 is_active = st.session_state.get("active_symbol") == sym
