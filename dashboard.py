@@ -446,14 +446,10 @@ with tab_terminal:
                                 vertical_spacing=0.04, row_heights=[0.6,0.2,0.2])
             # Candles
             fig.add_trace(go.Candlestick(
-                x=cdf_show["date"], open=cdf_show["open"], high=cdf_show["high"],
-                low=cdf_show["low"], close=cdf_show["close"], name="Price",
-                increasing_line_color="#00ff88", decreasing_line_color="#ff4444",
-                increasing_fillcolor="#00ff8840", decreasing_fillcolor="#ff444440",
-            ), row=1, col=1)
-            fig.add_trace(go.Scatter(x=cdf_show["date"],y=cdf_show["sma20"],name="SMA20",line=dict(color="#ff9f43",width=1.2)), row=1,col=1)
-            fig.add_trace(go.Scatter(x=cdf_show["date"],y=cdf_show["bb_upper"],name="BB+",line=dict(color="#00d2d3",width=0.8,dash="dash")), row=1,col=1)
-            fig.add_trace(go.Scatter(x=cdf_show["date"],y=cdf_show["bb_lower"],name="BB-",line=dict(color="#00d2d3",width=0.8,dash="dash"),fill="tonexty",fillcolor="rgba(0,210,211,0.04)"), row=1,col=1)
+    x=cdf_show["date"], open=cdf_show["open"], high=cdf_show["high"],
+    low=cdf_show["low"], close=cdf_show["close"], name="Price",
+    increasing_line_color="#00ff88", decreasing_line_color="#ff4444",
+), row=1, col=1)
             # Volume
             vcolors = ["#00ff88" if c>=o else "#ff4444" for c,o in zip(cdf_show["close"],cdf_show["open"])]
             fig.add_trace(go.Bar(x=cdf_show["date"],y=cdf_show["volume"],name="Volume",marker_color=vcolors,showlegend=False), row=2,col=1)
