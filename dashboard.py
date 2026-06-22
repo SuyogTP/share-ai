@@ -89,34 +89,39 @@ df = load_market_data()
 # ==========================================
 # 3. V3 AUTHENTICATION GATE (LOGIN PAGE)
 # ==========================================
+# ==========================================
+# 3. V3 AUTHENTICATION GATEWAY (FIXED)
+# ==========================================
 if "authenticated" not in st.session_state:
     st.session_state["authenticated"] = False
 
 if not st.session_state["authenticated"]:
-    # Center login UI wrapper
-    _, col_login, _ = st.columns([1, 1.5, 1])
+    _, col_login, _ = st.columns([1, 1.2, 1])
     with col_login:
-        st.write("\n\n")
+        st.write("\n\n\n")
         st.markdown("""
-        <div style='text-align: center; margin-bottom: 25px;'>
-            <h2 style='color:#3b82f6; margin-bottom:0;'>⬡ NEPSE IQ</h2>
-            <p style='color:#8892a4; font-size:12px; text-transform:uppercase;'>Market Intelligence Portal · V3 Auth</p>
+        <div style='text-align: center; margin-bottom: 20px;'>
+            <h2 style='color:#3b82f6; margin-bottom:0;'>⬡ NEPSE IQ TERMINAL</h2>
+            <p style='color:#8892a4; font-size:11px; text-transform:uppercase; letter-spacing:1px;'>Secure Access Node · Version 3.0</p>
         </div>
         """, unsafe_allow_html=True)
         
-        with st.form("auth_gate"):
-            user_input = st.text_input("User Access Handle ID", value="admin")
-            pass_input = st.text_input("Security Core Passkey", type="password", value="nepseiq2026")
-            submit_auth = st.form_submit_button("Authenticate Engine Connection", use_container_width=True)
+        with st.form("terminal_auth"):
+            # CHANGED: value is now empty "" instead of prefilled "admin"
+            username = st.text_input("Node Operator Handle", value="")
             
-            if submit_auth:
-                if user_input == "admin" and pass_input == "nepseiq2026":
+            # CHANGED: value is now empty "" instead of prefilled "nepseiq2026"
+            passkey = st.text_input("Cryptographic Passkey", type="password", value="")
+            
+            submit_btn = st.form_submit_button("Initialize Node Handshake", use_container_width=True)
+            
+            if submit_btn:
+                if username == "admin" and passkey == "nepseiq2026":
                     st.session_state["authenticated"] = True
                     st.rerun()
                 else:
-                    st.error("Invalid credentials. Core node connection refused.")
+                    st.error("Handshake Refused. Security string signature mismatch.")
     st.stop()
-
 # ==========================================
 # 4. SIDEBAR LOGO & NAVIGATION ENGINE
 # ==========================================
