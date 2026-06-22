@@ -51,7 +51,7 @@ if not st.session_state["authenticated"]:
             u = st.text_input("User ID")
             p = st.text_input("Passkey", type="password")
             if st.form_submit_button("Authenticate"):
-                if u == "admin" and p == "nepse2026":
+                if u == "admin" and p == "nepseiq2026":
                     st.session_state["authenticated"] = True
                     st.rerun()
                 else:
