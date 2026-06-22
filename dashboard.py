@@ -369,30 +369,34 @@ elif nav_selection == "◇ Pattern Engine":
 # ==========================================
 # 10. VIEW 6: PORTFOLIO & IPO MONITOR
 # ==========================================
-# In Section 10, replace your holdings_raw list with this:
-user_portfolio = {
-    "NABIL": {"qty": 250, "wacc": 1120},
-    "NICA": {"qty": 400, "wacc": 390},
-    "UPPER": {"qty": 600, "wacc": 290}
-}
+elif nav_selection == "▣ Portfolio & IPO Tracker":
+    st.markdown("### Multi-Account Managed Portfolio Accounting Ledger")
+    
+    # 1. Logic for your portfolio
+    user_portfolio = {
+        "NABIL": {"qty": 250, "wacc": 1120},
+        "NICA": {"qty": 400, "wacc": 390},
+        "UPPER": {"qty": 600, "wacc": 290}
+    }
 
-holdings = []
-for sym, data in user_portfolio.items():
-    current_price = df.loc[df['sym'] == sym, 'ltp'].values[0] if sym in df['sym'].values else 0
-    market_val = data['qty'] * current_price
-    cost = data['qty'] * data['wacc']
-    holdings.append({
-        "Symbol": sym,
-        "Qty": data['qty'],
-        "LTP": current_price,
-        "Cost": cost,
-        "Market Value": market_val,
-        "P&L": market_val - cost
-    })
-h_df = pd.DataFrame(holdings)
-
-# Display this in your dataframe
-st.dataframe(h_df, use_container_width=True)
+    holdings = []
+    for sym, data in user_portfolio.items():
+        # Pull live price from the global 'df'
+        current_price = df.loc[df['sym'] == sym, 'ltp'].values[0] if sym in df['sym'].values else 0
+        market_val = data['qty'] * current_price
+        cost = data['qty'] * data['wacc']
+        holdings.append({
+            "Symbol": sym,
+            "Qty": data['qty'],
+            "LTP": current_price,
+            "Cost": cost,
+            "Market Value": market_val,
+            "P&L": market_val - cost
+        })
+    h_df = pd.DataFrame(holdings)
+    
+    # Display
+    st.dataframe(h_df, use_container_width=True)
 
 # ==========================================
 # 11. VIEW 7: RISK ALERTS & MACRO STREAM
@@ -408,15 +412,8 @@ elif nav_selection == "◉ Risk & System Alerts":
             <div class='alert-stock'>🚨 CRITICAL — Overbought Threshold Limit Encountered (NABIL)</div>
             <div class='alert-msg'>The technical scanning nodes registered an asset value disconnect from standard moving channels. RSI prints 72 indicating technical over-exhaustion profiles. Trigger dynamic profit trailing stops.</div>
         </div>
-        <div class='alert-item sell'>
-            <div class='alert-stock'>⚠️ SYSTEM WARNING — Sector Disconnection Velocity (PLIC)</div>
-            <div class='alert-msg'>Scrip Multipliers have structurally broken from peer-group means. Accumulation patterns flags early distribution footprints by institutional block wallets. Monitor support limits.</div>
-        </div>
-        <div class='alert-item buy'>
-            <div class='alert-stock'>❇️ RISK ADVANTAGE — Key Support Matrix Alignment (NICA)</div>
-            <div class='alert-msg'>The underlying prints localized structural consolidation boxes above historical multi-month pivot lines. Risk-to-Reward profile presents mathematical optimization metrics at 1:3.5.</div>
-        </div>
         """, unsafe_allow_html=True)
+
 
     with col_r2:
         st.markdown("##### Macroeconomic Event Horizon Stream Tracker")
