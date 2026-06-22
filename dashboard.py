@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
@@ -71,20 +72,26 @@ st.markdown("""
 # ==========================================
 # 2. SEED MOCK COMPREHENSIVE DATA ENGINE
 # ==========================================
-@st.cache_data
+@st.cache_data(ttl=60)
 def load_market_data():
-    stocks_pool = [
-        {"sym": "NABIL", "name": "Nabil Bank", "sector": "Banking", "ltp": 1245.0, "chg": 2.3, "vol": 82400, "rsi": 72, "pe": 18.4, "eps": 67.6, "h52": 1380, "l52": 920, "signal": "SELL", "roe": 19.5},
-        {"sym": "NICA", "name": "NIC Asia Bank", "sector": "Banking", "ltp": 422.0, "chg": 1.8, "vol": 64200, "rsi": 48, "pe": 14.2, "eps": 29.7, "h52": 498, "l52": 310, "signal": "BUY", "roe": 21.2},
-        {"sym": "NRIC", "name": "Nepal Reinsurance", "sector": "Insurance", "ltp": 1870.0, "chg": -1.2, "vol": 12100, "rsi": 61, "pe": 22.1, "eps": 84.6, "h52": 2100, "l52": 1420, "signal": "HOLD", "roe": 12.4},
-        {"sym": "UPPER", "name": "Upper Tamakoshi", "sector": "Hydropower", "ltp": 278.0, "chg": 0.7, "vol": 38600, "rsi": 55, "pe": 19.8, "eps": 14.0, "h52": 342, "l52": 198, "signal": "HOLD", "roe": 6.8},
-        {"sym": "NHPC", "name": "Nepal Hydro Power", "sector": "Hydropower", "ltp": 142.0, "chg": 4.5, "vol": 95000, "rsi": 68, "pe": 25.4, "eps": 5.6, "h52": 185, "l52": 95, "signal": "BUY", "roe": 8.1},
-        {"sym": "PLIC", "name": "Prime Life Insurance", "sector": "Insurance", "ltp": 590.0, "chg": -2.1, "vol": 15400, "rsi": 32, "pe": 28.1, "eps": 21.0, "h52": 680, "l52": 510, "signal": "SELL", "roe": 11.3},
-        {"sym": "MLBL", "name": "Mahalaxmi Bikas Bank", "sector": "Finance", "ltp": 365.0, "chg": 0.0, "vol": 8900, "rsi": 50, "pe": 16.5, "eps": 22.1, "h52": 420, "l52": 330, "signal": "HOLD", "roe": 14.0}
-    ]
-    return pd.DataFrame(stocks_pool)
+    try:
+        url = "https://www.sharesansar.com/live-trading"
+        res = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
+        dfs = pd.read_html(res.text)
+        raw = dfs[0]
+        # Map to your existing variable names
+        df = pd.DataFrame({
+            'sym': raw['Symbol'],
+            'ltp': pd.to_numeric(raw['Close'].astype(str).str.replace(',', ''), errors='coerce'),
+            'chg': pd.to_numeric(raw['% Diff'].astype(str).str.replace(',', ''), errors='coerce'),
+            'vol': pd.to_numeric(raw['Vol'].astype(str).str.replace(',', ''), errors='coerce')
+        })
+        return df.dropna()
+    except:
+        # Fallback to empty if site is down
+        return pd.DataFrame(columns=['sym', 'ltp', 'chg', 'vol'])
 
-df = load_market_data()
+df = load_market_data() # This now pulls live data
 
 # ==========================================
 # 3. V3 AUTHENTICATION GATE (LOGIN PAGE)
@@ -362,42 +369,30 @@ elif nav_selection == "◇ Pattern Engine":
 # ==========================================
 # 10. VIEW 6: PORTFOLIO & IPO MONITOR
 # ==========================================
-elif nav_selection == "▣ Portfolio & IPO Tracker":
-    st.markdown("### Multi-Account Managed Portfolio Accounting Ledger")
-    
-    p_a, p_b, p_c, p_d = st.columns(4)
-    p_a.markdown("<div class='kpi-card' style='border-left:4px solid #3b82f6;'><div class='kpi-label'>Trading Node A</div><div class='kpi-val'>Rs 4.25L</div><div class='stat-delta up'>▲ +18.2% Capital Gain</div></div>", unsafe_allow_html=True)
-    p_b.markdown("<div class='kpi-card' style='border-left:4px solid #10b981;'><div class='kpi-label'>Strategic Holding B</div><div class='kpi-val'>Rs 2.80L</div><div class='stat-delta up'>▲ +31.4% Value Compounded</div></div>", unsafe_allow_html=True)
-    p_c.markdown("<div class='kpi-card' style='border-left:4px solid #f59e0b;'><div class='kpi-label'>Retail Family Node C</div><div class='kpi-val'>Rs 1.40L</div><div class='stat-delta down'>▼ -2.1% Tactical Deficit</div></div>", unsafe_allow_html=True)
-    p_d.markdown("<div class='kpi-card' style='border-left:4px solid #8b5cf6;'><div class='kpi-label'>Corporate Core Wallet D</div><div class='kpi-val'>Rs 12.10L</div><div class='stat-delta up'>▲ +14.8% Steady Income</div></div>", unsafe_allow_html=True)
+# In Section 10, replace your holdings_raw list with this:
+user_portfolio = {
+    "NABIL": {"qty": 250, "wacc": 1120},
+    "NICA": {"qty": 400, "wacc": 390},
+    "UPPER": {"qty": 600, "wacc": 290}
+}
 
-    st.markdown("##### Consolidated Ledger Holdings Position Architecture")
-    holdings_raw = [
-        {"Symbol": "NABIL", "Shares Position": 250, "Avg Purchase Cost": 1120.0, "Current Market Price": 1245.0, "Target Ledger Node": "Trading Node A"},
-        {"Symbol": "NICA", "Shares Position": 400, "Avg Purchase Cost": 390.0, "Current Market Price": 422.0, "Target Ledger Node": "Strategic Holding B"},
-        {"Symbol": "UPPER", "Shares Position": 600, "Avg Purchase Cost": 290.0, "Current Market Price": 278.0, "Target Ledger Node": "Retail Family Node C"},
-        {"Symbol": "SBL", "Shares Position": 300, "Avg Purchase Cost": 310.0, "Current Market Price": 348.0, "Target Ledger Node": "Corporate Core Wallet D"}
-    ]
-    h_df = pd.DataFrame(holdings_raw)
-    h_df['Net Valuation'] = h_df['Shares Position'] * h_df['Current Market Price']
-    h_df['Capital Layout'] = h_df['Shares Position'] * h_df['Avg Purchase Cost']
-    h_df['Net P&L Return'] = h_df['Net Valuation'] - h_df['Capital Layout']
-    h_df['Return Ratio %'] = ((h_df['Net P&L Return'] / h_df['Capital Layout']) * 100).round(2)
-    
-    st.dataframe(
-        h_df[['Symbol', 'Shares Position', 'Avg Purchase Cost', 'Current Market Price', 'Net Valuation', 'Net P&L Return', 'Return Ratio %', 'Target Ledger Node']].style.format({
-            "Avg Purchase Cost": "Rs {:.2f}", "Current Market Price": "Rs {:.2f}", "Net Valuation": "Rs {:.2f}", "Net P&L Return": "Rs {:+.2f}", "Return Ratio %": "{:+.2f}%"
-        }),
-        use_container_width=True, hide_index=True
-    )
+holdings = []
+for sym, data in user_portfolio.items():
+    current_price = df.loc[df['sym'] == sym, 'ltp'].values[0] if sym in df['sym'].values else 0
+    market_val = data['qty'] * current_price
+    cost = data['qty'] * data['wacc']
+    holdings.append({
+        "Symbol": sym,
+        "Qty": data['qty'],
+        "LTP": current_price,
+        "Cost": cost,
+        "Market Value": market_val,
+        "P&L": market_val - cost
+    })
+h_df = pd.DataFrame(holdings)
 
-    st.markdown("##### Primary Allotments Primary IPO Registry Ledger")
-    ipo_registry = [
-        {"Target Corporation Name": "Upper Mai Hydropower Energy", "Sector Profile": "Hydropower", "Base Price": 100, "Applied Allocation": "40 Units", "Status Verdict": "ALLOTTED", "Listing Target Window": "Within 4 Operating Days"},
-        {"Target Corporation Name": "Reliable Nepal Life Assurances", "Sector Profile": "Insurance", "Base Price": 257, "Applied Allocation": "10 Units", "Status Verdict": "REFUNDED", "Listing Target Window": "Historical Close (Listed)"},
-        {"Target Corporation Name": "Citizen Life Insurance Group", "Sector Profile": "Insurance", "Base Price": 244, "Applied Allocation": "10 Units", "Status Verdict": "PENDING", "Listing Target Window": "Within 12 Operating Days"}
-    ]
-    st.dataframe(pd.DataFrame(ipo_registry), use_container_width=True, hide_index=True)
+# Display this in your dataframe
+st.dataframe(h_df, use_container_width=True)
 
 # ==========================================
 # 11. VIEW 7: RISK ALERTS & MACRO STREAM
