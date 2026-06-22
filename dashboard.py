@@ -18,17 +18,68 @@ st.markdown("""
 <style>
     .stApp { background-color: #0d0f14; color: #e8eaf0; }
     section[data-testid="stSidebar"] { background-color: #13161e !important; border-right: 1px solid #2a2f3d; }
-    .kpi-card { background-color: #13161e; border: 1px solid #2a2f3d; padding: 18px; border-radius: 10px; }
-    .kpi-val { font-size: 24px; font-weight: 700; color: #3b82f6; }
+    .kpi-card { background-color: #13161e; border: 1px solid #2a2f3d; padding: 18px; border-radius: 10px; margin-bottom: 12px; }
+    .kpi-label { font-size: 11px; color: #8892a4; text-transform: uppercase; }
+    .kpi-val { font-size: 24px; font-weight: 700; margin: 4px 0; color: #3b82f6; }
 </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 2. YOUR PERSONAL PORTFOLIO DATA ENGINE
+# 2. DATA ENGINE
 # ==========================================
-def load_personal_portfolio():
-    # Data provided by user
-    data = [
+@st.cache_data
+def load_market_data():
+    stocks_pool = [
+        {"sym": "NABIL", "name": "Nabil Bank", "sector": "Banking", "ltp": 1245.0, "chg": 2.3, "rsi": 72, "signal": "SELL", "roe": 19.5},
+        {"sym": "NICA", "name": "NIC Asia Bank", "sector": "Banking", "ltp": 422.0, "chg": 1.8, "rsi": 48, "signal": "BUY", "roe": 21.2},
+        {"sym": "UPPER", "name": "Upper Tamakoshi", "sector": "Hydropower", "ltp": 278.0, "chg": 0.7, "rsi": 55, "signal": "HOLD", "roe": 6.8}
+    ]
+    return pd.DataFrame(stocks_pool)
+
+df = load_market_data()
+
+# ==========================================
+# 3. AUTHENTICATION GATE
+# ==========================================
+if "authenticated" not in st.session_state: st.session_state["authenticated"] = False
+
+if not st.session_state["authenticated"]:
+    _, col_login, _ = st.columns([1, 1.5, 1])
+    with col_login:
+        st.markdown("<h2 style='text-align:center;'>⬡ NEPSE IQ Authentication</h2>", unsafe_allow_html=True)
+        with st.form("auth"):
+            u = st.text_input("User ID")
+            p = st.text_input("Passkey", type="password")
+            if st.form_submit_button("Authenticate"):
+                if u == "admin" and p == "nepse2026":
+                    st.session_state["authenticated"] = True
+                    st.rerun()
+                else:
+                    st.error("Invalid Credentials.")
+    st.stop()
+
+# ==========================================
+# 4. SIDEBAR & NAVIGATION
+# ==========================================
+with st.sidebar:
+    st.markdown("### ⬡ NEPSE IQ")
+    nav_selection = st.radio("Navigate", ["◈ Dashboard View", "▣ Portfolio & IPO Tracker"])
+    if st.button("Disconnect"):
+        st.session_state["authenticated"] = False
+        st.rerun()
+
+# ==========================================
+# 5. VIEWS
+# ==========================================
+if nav_selection == "◈ Dashboard View":
+    st.markdown("### Market Overview")
+    st.dataframe(df, use_container_width=True)
+
+elif nav_selection == "▣ Portfolio & IPO Tracker":
+    st.markdown("### Multi-Account Managed Portfolio Accounting Ledger")
+    
+    # YOUR PORTFOLIO DATA
+    holdings = [
         {"Scrip": "1HFIN", "Balance": 108, "Last_Close": 1538.0, "LTP": 1502.0},
         {"Scrip": "2HLI", "Balance": 123, "Last_Close": 336.0, "LTP": 335.0},
         {"Scrip": "3MBJC", "Balance": 10, "Last_Close": 282.0, "LTP": 282.0},
@@ -38,55 +89,12 @@ def load_personal_portfolio():
         {"Scrip": "7RNLI", "Balance": 12, "Last_Close": 459.0, "LTP": 459.0},
         {"Scrip": "8TAMOR", "Balance": 10, "Last_Close": 452.9, "LTP": 453.0}
     ]
-    df = pd.DataFrame(data)
-    df['Val_Close'] = df['Balance'] * df['Last_Close']
-    df['Val_LTP'] = df['Balance'] * df['LTP']
-    return df
-
-# ==========================================
-# 3. AUTHENTICATION (Updated)
-# ==========================================
-if "authenticated" not in st.session_state: st.session_state["authenticated"] = False
-
-if not st.session_state["authenticated"]:
-    st.title("⬡ NEPSE IQ - Access Gateway")
-    with st.form("login"):
-        user = st.text_input("Username")
-        pwd = st.text_input("Password", type="password")
-        if st.form_submit_button("Enter Portal"):
-            if user == "admin" and pwd == "secure123": # Change these!
-                st.session_state["authenticated"] = True
-                st.rerun()
-            else:
-                st.error("Access Denied.")
-    st.stop()
-
-# ==========================================
-# 4. NAVIGATION & DASHBOARD
-# ==========================================
-with st.sidebar:
-    st.title("⬡ NEPSE IQ")
-    page = st.radio("Navigation", ["Dashboard", "Personal Holdings"])
-    if st.button("Logout"):
-        st.session_state["authenticated"] = False
-        st.rerun()
-
-if page == "Dashboard":
-    st.header("Market Overview")
-    st.write("Welcome to your private financial intelligence hub.")
-
-elif page == "Personal Holdings":
-    st.header("My Portfolio Performance")
-    port_df = load_personal_portfolio()
+    h_df = pd.DataFrame(holdings)
+    h_df['Val_Close'] = h_df['Balance'] * h_df['Last_Close']
+    h_df['Val_LTP'] = h_df['Balance'] * h_df['LTP']
     
-    # KPIs
     c1, c2 = st.columns(2)
-    c1.markdown(f"<div class='kpi-card'><div class='kpi-val'>Rs {port_df['Val_Close'].sum():,.2f}</div>Portfolio Value (Close)</div>", unsafe_allow_html=True)
-    c2.markdown(f"<div class='kpi-card'><div class='kpi-val'>Rs {port_df['Val_LTP'].sum():,.2f}</div>Portfolio Value (LTP)</div>", unsafe_allow_html=True)
+    c1.markdown(f"<div class='kpi-card'><div class='kpi-label'>Total (Close)</div><div class='kpi-val'>Rs {h_df['Val_Close'].sum():,.2f}</div></div>", unsafe_allow_html=True)
+    c2.markdown(f"<div class='kpi-card'><div class='kpi-label'>Total (LTP)</div><div class='kpi-val'>Rs {h_df['Val_LTP'].sum():,.2f}</div></div>", unsafe_allow_html=True)
     
-    st.write("---")
-    st.dataframe(port_df, use_container_width=True)
-    
-    # Visualizing your stocks
-    fig = px.bar(port_df, x="Scrip", y="Val_LTP", title="Value Distribution by Scrip")
-    st.plotly_chart(fig, use_container_width=True)
+    st.dataframe(h_df, use_container_width=True, hide_index=True)
