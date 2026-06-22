@@ -1,763 +1,1452 @@
-"""
-NEPSE Market Tracker — v3.0 Quant Trading Terminal
-"""
-
-import json
-import os
-import random
-from datetime import datetime, timedelta
-from pathlib import Path
-
-import numpy as np
-import pandas as pd
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import streamlit as st
-
-# ══════════════════════════════════════════════════════════
-# 1. PAGE CONFIG
-# ══════════════════════════════════════════════════════════
-st.set_page_config(
-    page_title="NEPSE Terminal v3.0",
-    page_icon="📈",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-
-st.markdown("""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NEPSE Intelligence Platform</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;500;600&display=swap');
-  html, body, [data-testid="stApp"] { background:#070913 !important; color:#c9d1d9 !important; font-family:'Inter',sans-serif !important; }
-  [data-testid="stSidebar"] { background:#0d111a !important; border-right:1px solid #1f2937; }
-  h1,h2,h3,h4 { font-family:'Inter',sans-serif !important; font-weight:600 !important; color:#f0f6fc !important; }
-  .kpi-card { background:linear-gradient(135deg,#111625,#0b0e17); border:1px solid #21262d; border-radius:8px; padding:16px; text-align:left; }
-  .kpi-val { font-size:1.6rem; font-weight:700; font-family:'JetBrains Mono',monospace; color:#ffffff; }
-  .kpi-label { font-size:0.72rem; color:#8b949e; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
-  .stock-card { background:#121824; border:1px solid #21262d; border-radius:8px; padding:14px; margin-bottom:10px; }
-  .grade-Ap { color:#00ff88; font-weight:700; } .grade-A { color:#7fff00; font-weight:700; }
-  .grade-B { color:#ffd700; font-weight:700; } .grade-C { color:#ff8c00; font-weight:700; }
-  .grade-D { color:#ff4444; font-weight:700; }
-  .tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:600; margin-right:4px; font-family:'JetBrains Mono',monospace; }
-  .tag-bull { background:#0c2b1a; color:#00ff88; border:1px solid #00ff8830; }
-  .tag-bear { background:#331212; color:#ff4444; border:1px solid #ff444430; }
-  .tag-neut { background:#1a2233; color:#8b949e; border:1px solid #30363d; }
-  .signal-box { background:#0b0f19; border-left:3px solid #00ff88; border-radius:4px; padding:12px; margin:8px 0; font-size:0.85rem; color:#c9d1d9; line-height:1.6; }
-  div[data-testid="stTab"] button[aria-selected="true"] { color:#00ff88 !important; border-bottom-color:#00ff88 !important; }
+:root {
+  --bg: #0d0f14;
+  --bg2: #13161e;
+  --bg3: #1a1e28;
+  --bg4: #222736;
+  --border: #2a2f3d;
+  --border2: #353c50;
+  --text: #e8eaf0;
+  --text2: #8892a4;
+  --text3: #555f72;
+  --blue: #3b82f6;
+  --blue-dim: #1e3a5f;
+  --green: #10b981;
+  --green-dim: #0a3728;
+  --red: #ef4444;
+  --red-dim: #3b1212;
+  --amber: #f59e0b;
+  --amber-dim: #3b2a06;
+  --purple: #8b5cf6;
+  --purple-dim: #2e1a5e;
+  --teal: #14b8a6;
+  --teal-dim: #0a2e2b;
+  --radius: 10px;
+  --radius-sm: 6px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ─── LAYOUT ─── */
+.app { display: flex; min-height: 100vh; }
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  z-index: 100;
+}
+.sidebar-logo {
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.logo-mark {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: -0.5px;
+}
+.logo-sub {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+.sidebar-nav { flex: 1; padding: 12px 10px; overflow-y: auto; }
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 8px 4px;
+  margin-top: 8px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 13px;
+  transition: all .15s;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+}
+.nav-item:hover { background: var(--bg3); color: var(--text); }
+.nav-item.active {
+  background: var(--blue-dim);
+  color: var(--blue);
+  border-color: #1e3a5f;
+}
+.nav-item .icon { font-size: 15px; width: 18px; text-align: center; flex-shrink: 0; }
+.sidebar-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text3);
+}
+.live-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-right: 5px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* ─── MAIN ─── */
+.main { margin-left: 220px; flex: 1; display: flex; flex-direction: column; }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.page-title { font-size: 16px; font-weight: 600; }
+.page-sub { font-size: 12px; color: var(--text2); }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.btn {
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: inherit;
+}
+.btn:hover { background: var(--bg4); color: var(--text); }
+.btn.primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  font-weight: 500;
+}
+.btn.primary:hover { background: #2563eb; }
+.btn.danger { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+.btn.success { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+
+/* ─── CONTENT ─── */
+.content { padding: 24px 28px; flex: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 18px;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-title span { color: var(--text2); font-size: 11px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+/* ─── STAT GRID ─── */
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.stat-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+.stat-value { font-size: 22px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.stat-delta { font-size: 11px; }
+.stat-delta.up { color: var(--green); }
+.stat-delta.down { color: var(--red); }
+
+/* ─── BADGE / TAGS ─── */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.badge.green { background: var(--green-dim); color: var(--green); border: 1px solid #0a4a38; }
+.badge.red { background: var(--red-dim); color: var(--red); border: 1px solid #5b1a1a; }
+.badge.amber { background: var(--amber-dim); color: var(--amber); border: 1px solid #4a3210; }
+.badge.blue { background: var(--blue-dim); color: var(--blue); border: 1px solid #1a3a6a; }
+.badge.purple { background: var(--purple-dim); color: var(--purple); border: 1px solid #3e1f7a; }
+
+/* ─── TABLE ─── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text);
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--bg3); }
+.td-green { color: var(--green); font-weight: 500; }
+.td-red { color: var(--red); font-weight: 500; }
+.td-amber { color: var(--amber); }
+.td-blue { color: var(--blue); }
+.td-dim { color: var(--text2); }
+
+/* ─── HORIZON TABS ─── */
+.hz-row { display: flex; gap: 12px; margin-bottom: 20px; }
+.hz-btn {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  cursor: pointer;
+  text-align: center;
+  transition: all .15s;
+  font-family: inherit;
+}
+.hz-btn:hover { border-color: var(--border2); background: var(--bg3); }
+.hz-btn.active.short { border-color: var(--red); background: var(--red-dim); }
+.hz-btn.active.medium { border-color: var(--amber); background: var(--amber-dim); }
+.hz-btn.active.long { border-color: var(--green); background: var(--green-dim); }
+.hz-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
+.hz-btn.active.short .hz-label { color: var(--red); }
+.hz-btn.active.medium .hz-label { color: var(--amber); }
+.hz-btn.active.long .hz-label { color: var(--green); }
+.hz-period { font-size: 15px; font-weight: 700; }
+.hz-btn.active.short .hz-period { color: var(--red); }
+.hz-btn.active.medium .hz-period { color: var(--amber); }
+.hz-btn.active.long .hz-period { color: var(--green); }
+.hz-focus { font-size: 11px; color: var(--text3); margin-top: 3px; }
+
+/* ─── TWO-COL GRID ─── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+/* ─── ALERTS ─── */
+.alert-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  margin-bottom: 10px;
+}
+.alert-item.sell { border-left: 3px solid var(--red); }
+.alert-item.hold { border-left: 3px solid var(--amber); }
+.alert-item.buy { border-left: 3px solid var(--green); }
+.alert-item.macro { border-left: 3px solid var(--purple); }
+.alert-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.alert-icon.sell { background: var(--red-dim); color: var(--red); }
+.alert-icon.hold { background: var(--amber-dim); color: var(--amber); }
+.alert-icon.buy { background: var(--green-dim); color: var(--green); }
+.alert-icon.macro { background: var(--purple-dim); color: var(--purple); }
+.alert-body { flex: 1; }
+.alert-stock { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.alert-msg { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.alert-actions { display: flex; gap: 6px; margin-top: 8px; }
+.alert-btn {
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: inherit;
+}
+.alert-btn.sell-btn { border-color: var(--red); color: var(--red); background: var(--red-dim); }
+.alert-btn.hold-btn { border-color: var(--amber); color: var(--amber); background: var(--amber-dim); }
+.alert-btn.buy-btn { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+.alert-time { font-size: 11px; color: var(--text3); white-space: nowrap; }
+
+/* ─── PATTERN CARDS ─── */
+.pattern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.pattern-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.pattern-card:hover { border-color: var(--border2); background: var(--bg3); }
+.pattern-card.detected { border-color: var(--blue); }
+.pat-svg { width: 100%; height: 56px; margin-bottom: 8px; }
+.pat-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.pat-meta { font-size: 11px; color: var(--text3); margin-bottom: 8px; }
+.conf-bar-track { height: 3px; background: var(--border); border-radius: 2px; }
+.conf-bar-fill { height: 3px; border-radius: 2px; transition: width .5s; }
+
+/* ─── PILLAR SLIDERS ─── */
+.pillar-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.pillar-row:last-child { border-bottom: none; }
+.pillar-label { font-size: 13px; font-weight: 500; width: 200px; flex-shrink: 0; }
+.pillar-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.pillar-slider { flex: 1; -webkit-appearance: none; height: 4px; border-radius: 2px; outline: none; cursor: pointer; }
+.pillar-pct { font-size: 16px; font-weight: 700; min-width: 48px; text-align: right; }
+
+/* ─── IPO / PORTFOLIO ─── */
+.acct-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+.acct-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.acct-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.acct-card.a::before { background: var(--blue); }
+.acct-card.b::before { background: var(--green); }
+.acct-card.c::before { background: var(--amber); }
+.acct-card.d::before { background: var(--purple); }
+.acct-name { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+.acct-val { font-size: 20px; font-weight: 700; margin-bottom: 3px; }
+.acct-pnl { font-size: 12px; margin-bottom: 10px; }
+.mini-bars { display: flex; gap: 2px; align-items: flex-end; height: 28px; }
+.mini-bar { flex: 1; border-radius: 1px 1px 0 0; min-width: 3px; }
+
+/* ─── SEARCH BAR ─── */
+.search-row {
+  display: flex; gap: 10px;
+  margin-bottom: 18px;
+  align-items: center;
+}
+.search-input {
+  flex: 1;
+  padding: 9px 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .15s;
+}
+.search-input:focus { border-color: var(--blue); }
+.search-input::placeholder { color: var(--text3); }
+select.filter-select {
+  padding: 9px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text2);
+  font-size: 12px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ─── CHART CONTAINERS ─── */
+.chart-wrap { position: relative; width: 100%; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  font-size: 13px;
+  color: var(--text);
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all .3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .sidebar { width: 56px; }
+  .sidebar-logo { padding: 14px 10px; }
+  .logo-sub, .nav-item span, .nav-section-label { display: none; }
+  .main { margin-left: 56px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .acct-grid { grid-template-columns: 1fr 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .pattern-grid { grid-template-columns: 1fr 1fr; }
+}
 </style>
-""", unsafe_allow_html=True)
+</head>
+<body>
 
-# ══════════════════════════════════════════════════════════
-# 2. SESSION STATE
-# ══════════════════════════════════════════════════════════
-if "portfolio" not in st.session_state:
-    st.session_state.portfolio = {
-        "HFIN":  {"shares": 10,  "avg_cost": 148.0},
-        "HLI":   {"shares": 12,  "avg_cost": 620.0},
-        "MBJC":  {"shares": 10,  "avg_cost": 365.0},
-        "NESDO": {"shares": 11,  "avg_cost": 1420.0},
-        "NIFRA": {"shares": 64,  "avg_cost": 210.0},
-        "PCIL":  {"shares": 10,  "avg_cost": 980.0},
-        "RNLI":  {"shares": 12,  "avg_cost": 1150.0},
-        "TAMOR": {"shares": 10,  "avg_cost": 285.0},
-    }
-if "active_symbol" not in st.session_state:
-    st.session_state.active_symbol = "HFIN"
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
-
-# ══════════════════════════════════════════════════════════
-# 3. AUTH
-# ══════════════════════════════════════════════════════════
-_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
-if _PASSWORD and not st.session_state.authenticated:
-    st.markdown("""
-    <div style='text-align:center;margin-top:10vh'>
-      <h1 style='color:#00ff88;font-family:JetBrains Mono'>📈 NEPSE TERMINAL 3.0</h1>
-      <p style='color:#8b949e'>Nepal Stock Market Intelligence Suite</p>
-    </div>""", unsafe_allow_html=True)
-    _, col, _ = st.columns([1, 1.5, 1])
-    with col:
-        pw = st.text_input("Password", type="password", placeholder="Enter password…")
-        if st.button("Access Terminal →", use_container_width=True):
-            if pw == _PASSWORD:
-                st.session_state.authenticated = True
-                st.rerun()
-            else:
-                st.error("Wrong password.")
-    st.stop()
-
-# ══════════════════════════════════════════════════════════
-# 4. DATA LOADER
-# ══════════════════════════════════════════════════════════
-DATA_PATH = next(
-    (p for p in [Path("data/data.json"), Path("data.json")] if p.exists()),
-    Path("data/data.json")
-)
-
-@st.cache_data(ttl=300)
-def load_data():
-    fallback_stocks = [
-        {"symbol":"HFIN",  "name":"Himalayan Finance",              "sector":"Finance",      "ltp":148,  "eps":10.2,"pe_ratio":14.5,"dividend_yield":4.5, "pbv":1.41,"health_score":40,"grade":"C","change_pct":0.6, "volume":6200},
-        {"symbol":"HLI",   "name":"Himalayan Life Insurance",        "sector":"Insurance",    "ltp":620,  "eps":38.5,"pe_ratio":16.1,"dividend_yield":6.0, "pbv":2.18,"health_score":52,"grade":"B","change_pct":-0.5,"volume":4100},
-        {"symbol":"MBJC",  "name":"Marsyangdi Jalvidhyut",          "sector":"Hydropower",   "ltp":365,  "eps":21.4,"pe_ratio":17.1,"dividend_yield":5.5, "pbv":2.05,"health_score":47,"grade":"C","change_pct":1.1, "volume":9800},
-        {"symbol":"NESDO", "name":"Nerude Laghubitta",               "sector":"Microfinance", "ltp":1420, "eps":88.0,"pe_ratio":16.1,"dividend_yield":7.0, "pbv":2.73,"health_score":53,"grade":"B","change_pct":0.2, "volume":2200},
-        {"symbol":"NIFRA", "name":"Nepal Infrastructure Bank",       "sector":"Development",  "ltp":210,  "eps":14.8,"pe_ratio":14.2,"dividend_yield":5.0, "pbv":1.59,"health_score":37,"grade":"C","change_pct":-1.0,"volume":18500},
-        {"symbol":"PCIL",  "name":"Panchakanya Mali Laghubitta",     "sector":"Microfinance", "ltp":980,  "eps":62.5,"pe_ratio":15.7,"dividend_yield":8.0, "pbv":2.39,"health_score":62,"grade":"B","change_pct":0.8, "volume":3100},
-        {"symbol":"RNLI",  "name":"Rastriya Nagarik Laghubitta",     "sector":"Microfinance", "ltp":1150, "eps":74.0,"pe_ratio":15.5,"dividend_yield":7.5, "pbv":2.47,"health_score":62,"grade":"B","change_pct":-0.3,"volume":2800},
-        {"symbol":"TAMOR", "name":"Tamor Hydropower",                "sector":"Hydropower",   "ltp":285,  "eps":17.2,"pe_ratio":16.6,"dividend_yield":4.8, "pbv":1.84,"health_score":37,"grade":"C","change_pct":1.4, "volume":7400},
-        {"symbol":"NABIL", "name":"Nabil Bank",                      "sector":"Banking",      "ltp":1020, "eps":82.5,"pe_ratio":12.4,"dividend_yield":12,  "pbv":1.96,"health_score":74,"grade":"A","change_pct":1.2, "volume":48000},
-        {"symbol":"NICA",  "name":"NIC Asia Bank",                   "sector":"Banking",      "ltp":395,  "eps":35.2,"pe_ratio":11.2,"dividend_yield":10,  "pbv":1.79,"health_score":69,"grade":"A","change_pct":0.9, "volume":62000},
-        {"symbol":"UPPER", "name":"Upper Tamakoshi",                  "sector":"Hydropower",   "ltp":258,  "eps":16.5,"pe_ratio":15.6,"dividend_yield":5,   "pbv":1.74,"health_score":47,"grade":"C","change_pct":1.5, "volume":38000},
-        {"symbol":"ADBL",  "name":"Agriculture Dev Bank",             "sector":"Banking",      "ltp":305,  "eps":28.3,"pe_ratio":10.8,"dividend_yield":8.5, "pbv":1.56,"health_score":67,"grade":"A","change_pct":0.2, "volume":41000},
-        {"symbol":"NLICL", "name":"Nepal Life Insurance",             "sector":"Insurance",    "ltp":1280, "eps":95.0,"pe_ratio":13.5,"dividend_yield":14,  "pbv":2.06,"health_score":74,"grade":"A","change_pct":0.7, "volume":15000},
-        {"symbol":"CHCL",  "name":"Chilime Hydro",                   "sector":"Hydropower",   "ltp":495,  "eps":29.8,"pe_ratio":16.6,"dividend_yield":7,   "pbv":2.15,"health_score":52,"grade":"B","change_pct":0.5, "volume":18000},
-        {"symbol":"SANIMA","name":"Sanima Bank",                     "sector":"Banking",      "ltp":331,  "eps":30.1,"pe_ratio":11.0,"dividend_yield":9,   "pbv":1.58,"health_score":67,"grade":"A","change_pct":-0.3,"volume":34000},
-    ]
-    if not DATA_PATH.exists():
-        return pd.DataFrame(fallback_stocks), {"stocks": fallback_stocks, "market_summary": {"index":2150.45,"change":14.32,"pct_change":0.67,"turnover":4120534200}}
-    try:
-        with open(DATA_PATH) as f:
-            raw = json.load(f)
-        stocks = raw.get("stocks", [])
-        # Merge fallback symbols not in file
-        existing = {s["symbol"] for s in stocks}
-        for s in fallback_stocks:
-            if s["symbol"] not in existing:
-                stocks.append(s)
-        df = pd.DataFrame(stocks)
-        # Normalise column names
-        if "pct_change" not in df.columns and "change_pct" in df.columns:
-            df["pct_change"] = df["change_pct"]
-        if "change_pct" not in df.columns and "pct_change" in df.columns:
-            df["change_pct"] = df["pct_change"]
-        raw["stocks"] = stocks
-        return df, raw
-    except Exception as e:
-        st.error(f"Data load error: {e}")
-        return pd.DataFrame(fallback_stocks), {}
-
-df, meta = load_data()
-
-# ══════════════════════════════════════════════════════════
-# 5. QUANT ENGINES
-# ══════════════════════════════════════════════════════════
-def generate_candles(symbol, ltp, days=120):
-    random.seed(hash(symbol) % 9999)
-    price = ltp * 0.95
-    data, base_date = [], datetime.today() - timedelta(days=days)
-    for i in range(days):
-        change = random.gauss(0.0005, 0.015)
-        open_p = price
-        close_p = price * (1 + change)
-        high_p = max(open_p, close_p) * (1 + random.uniform(0, 0.008))
-        low_p  = min(open_p, close_p) * (1 - random.uniform(0, 0.008))
-        data.append({"date": base_date + timedelta(days=i),
-                     "open": round(open_p,2), "high": round(high_p,2),
-                     "low": round(low_p,2),  "close": round(close_p,2),
-                     "volume": int(random.uniform(10000,150000))})
-        price = close_p
-    return pd.DataFrame(data)
-
-def compute_indicators(cdf):
-    cdf = cdf.copy()
-    cdf["sma20"] = cdf["close"].rolling(20).mean()
-    cdf["sma50"] = cdf["close"].rolling(50).mean()
-    std20 = cdf["close"].rolling(20).std()
-    cdf["bb_upper"] = cdf["sma20"] + 2*std20
-    cdf["bb_lower"] = cdf["sma20"] - 2*std20
-    delta = cdf["close"].diff()
-    gain  = delta.clip(lower=0).rolling(14).mean()
-    loss  = (-delta.clip(upper=0)).rolling(14).mean()
-    cdf["rsi"] = 100 - (100 / (1 + gain / loss.replace(0, 1e-9)))
-    ema12 = cdf["close"].ewm(span=12, adjust=False).mean()
-    ema26 = cdf["close"].ewm(span=26, adjust=False).mean()
-    cdf["macd"]        = ema12 - ema26
-    cdf["macd_signal"] = cdf["macd"].ewm(span=9, adjust=False).mean()
-    cdf["macd_hist"]   = cdf["macd"] - cdf["macd_signal"]
-    return cdf
-
-def detect_candle_patterns(cdf):
-    if len(cdf) < 3:
-        return [("⚪ Not enough data","Need at least 3 days of candles.","neut",50)]
-    c0,c1,c2 = cdf.iloc[-1], cdf.iloc[-2], cdf.iloc[-3]
-    def body(c):       return abs(c["close"]-c["open"])
-    def rng(c):        return c["high"]-c["low"]
-    def uw(c):         return c["high"]-max(c["close"],c["open"])
-    def lw(c):         return min(c["close"],c["open"])-c["low"]
-    def bull(c):       return c["close"]>c["open"]
-    def bear(c):       return c["close"]<c["open"]
-    def doji(c):       return body(c) <= rng(c)*0.1
-
-    patterns = []
-    if doji(c0):
-        patterns.append(("🔵 Doji","Open and close almost the same price. Market is confused — buyers and sellers equally matched. Wait before acting.","neut",60))
-    if lw(c0)>=body(c0)*2 and uw(c0)<=body(c0)*0.3 and c1["close"]<c2["close"]:
-        patterns.append(("🟢 Hammer","Price fell hard during the day but buyers pushed it back up before close. Like a rubber ball bouncing off the floor. Good sign — drop may be ending.","bull",72))
-    if uw(c0)>=body(c0)*2 and lw(c0)<=body(c0)*0.3 and c1["close"]>c2["close"]:
-        patterns.append(("🔴 Shooting Star","Price rose during the day but sellers crushed it back down. Like a rocket running out of fuel. Rise may be ending. Be careful.","bear",70))
-    if bull(c0) and uw(c0)<body(c0)*0.05 and lw(c0)<body(c0)*0.05:
-        patterns.append(("🟢 Bullish Marubozu","Solid green candle, no wicks. Buyers in complete control all day. Very strong buying pressure.","bull",75))
-    if bear(c0) and uw(c0)<body(c0)*0.05 and lw(c0)<body(c0)*0.05:
-        patterns.append(("🔴 Bearish Marubozu","Solid red candle, no wicks. Sellers in complete control all day. Very strong selling pressure.","bear",75))
-    if bear(c1) and bull(c0) and c0["open"]<c1["close"] and c0["close"]>c1["open"]:
-        patterns.append(("🟢 Bullish Engulfing","Today's green candle completely swallowed yesterday's red one. Buyers overpowered sellers in a big way. One of the strongest buy signals.","bull",82))
-    if bull(c1) and bear(c0) and c0["open"]>c1["close"] and c0["close"]<c1["open"]:
-        patterns.append(("🔴 Bearish Engulfing","Today's red candle completely swallowed yesterday's green one. Sellers overpowered buyers. One of the strongest sell signals.","bear",82))
-    if bear(c2) and body(c2)>rng(c2)*0.5 and body(c1)<rng(c1)*0.2 and bull(c0) and c0["close"]>(c2["open"]+c2["close"])/2:
-        patterns.append(("🟢 Morning Star","Big red fall → tiny uncertain candle → big green recovery. Like sunrise after a dark night. Very reliable signal that downtrend is ending.","bull",85))
-    if bull(c2) and body(c2)>rng(c2)*0.5 and body(c1)<rng(c1)*0.2 and bear(c0) and c0["close"]<(c2["open"]+c2["close"])/2:
-        patterns.append(("🔴 Evening Star","Big green rise → tiny uncertain candle → big red fall. Uptrend is likely ending. Consider protecting profits.","bear",85))
-    if bull(c0) and bull(c1) and bull(c2) and c0["close"]>c1["close"]>c2["close"]:
-        patterns.append(("🟢 Three White Soldiers","Three green candles in a row, each closing higher. Buyers winning for 3 days straight. Very bullish.","bull",88))
-    if bear(c0) and bear(c1) and bear(c2) and c0["close"]<c1["close"]<c2["close"]:
-        patterns.append(("🔴 Three Black Crows","Three red candles in a row, each closing lower. Sellers winning for 3 days straight. Very bearish.","bear",88))
-    if not patterns:
-        patterns.append(("⚪ No Clear Pattern","Market moving normally. No strong signal today. Hold and watch.","neut",50))
-    return patterns
-
-def get_indicator_signals(cdf):
-    last = cdf.iloc[-1]
-    signals, bull_pts, bear_pts = [], 0, 0
-    rsi      = last.get("rsi", 50)
-    macd     = last.get("macd", 0)
-    macd_sig = last.get("macd_signal", 0)
-    close    = last["close"]
-    sma20    = last.get("sma20", close)
-    sma50    = last.get("sma50", close)
-    bb_lower = last.get("bb_lower", close*0.97)
-    bb_upper = last.get("bb_upper", close*1.03)
-
-    if rsi < 35:
-        signals.append(("🟢 RSI Oversold", f"RSI={rsi:.0f}. Stock sold too much — like a compressed spring. Usually bounces back up.", "bull")); bull_pts+=2
-    elif rsi > 70:
-        signals.append(("🔴 RSI Overbought", f"RSI={rsi:.0f}. Too many people bought — stock may pull back. Consider taking profit.", "bear")); bear_pts+=2
-    else:
-        signals.append(("⚪ RSI Normal", f"RSI={rsi:.0f}. Normal zone, no extreme signal.", "neut"))
-
-    if macd > macd_sig:
-        signals.append(("🟢 MACD Bullish", "Fast average above slow — momentum building upward. Buyers accelerating.", "bull")); bull_pts+=2
-    else:
-        signals.append(("🔴 MACD Bearish", "Fast average below slow — momentum pointing down. Sellers dominating.", "bear")); bear_pts+=2
-
-    if close > sma20 > sma50:
-        signals.append(("🟢 Strong Uptrend", "Price > SMA20 > SMA50. Climbing stairs — each step higher. Best condition to hold.", "bull")); bull_pts+=3
-    elif close < sma20 < sma50:
-        signals.append(("🔴 Strong Downtrend", "Price < SMA20 < SMA50. Going down stairs. Not a good time to buy more.", "bear")); bear_pts+=3
-    else:
-        signals.append(("🟡 Mixed Trend", "Price between short and long averages. Wait for clearer direction.", "neut"))
-
-    if close < bb_lower:
-        signals.append(("🟢 At Price Floor", "Below normal trading range — like a stretched rubber band downward. Often snaps back up.", "bull")); bull_pts+=2
-    elif close > bb_upper:
-        signals.append(("🔴 At Price Ceiling", "Above normal range — like a stretched rubber band upward. Often snaps back down.", "bear")); bear_pts+=2
-
-    if bull_pts >= 6:   action = "BUY"
-    elif bear_pts >= 6: action = "SELL"
-    elif bull_pts > bear_pts+1: action = "WEAK BUY"
-    elif bear_pts > bull_pts+1: action = "WEAK SELL"
-    else: action = "HOLD"
-    return signals, action
-
-def political_macro_analysis(row):
-    sector = str(row.get("sector",""))
-    eps    = row.get("eps",0) or 0
-    div    = row.get("dividend_yield",0) or 0
-    score  = row.get("health_score",0) or 0
-    signals = []
-    sector_macro = {
-        "Banking":     ["🏛️ NRB policy rates and CRR/SLR fluctuations directly affect bank liquidity.",
-                        "📋 Basel III capital adequacy requirements limit aggressive expansion.",
-                        "💰 Remittance inflows (~35% of GDP) are the primary deposit driver."],
-        "Hydropower":  ["⚡ PPA rates set by NEA create a fixed revenue ceiling.",
-                        "🌧️ Monsoon variability creates seasonal output risk in Q1/Q2.",
-                        "🤝 India power export deals are a major long-term catalyst."],
-        "Insurance":   ["📜 Beema Samiti regulations can compress premium structures.",
-                        "💵 Mandatory third-party insurance expansion is a growth tailwind."],
-        "Microfinance":["⚠️ Political pressure on interest rate caps is a key regulatory risk.",
-                        "🏘️ Rural credit demand tied to agricultural output and monsoon season."],
-        "Development": ["🏗️ Government infrastructure budget drives revenue.",
-                        "📉 SME lending recovery from COVID still incomplete in some regions."],
-        "Finance":     ["🏦 Finance companies face tighter NRB scrutiny than commercial banks.",
-                        "📊 Deposit mobilization limits cap growth potential."],
-    }
-    for s, msgs in sector_macro.items():
-        if s.lower() in sector.lower():
-            signals.extend(msgs); break
-    signals.append("🌍 USD/NPR exchange rate affects import-heavy sectors and foreign debt costs.")
-    signals.append("📊 NEPSE is 90%+ retail-driven — sentiment swings fast around elections and budget.")
-    if score >= 65: signals.append("✅ Strong fundamentals provide a buffer against macro headwinds.")
-    if div > 8:     signals.append("💸 High dividend yield attracts institutional investors even in downturns.")
-    if eps < 10:    signals.append("⚠️ Low EPS makes this stock vulnerable to interest rate increases.")
-    return signals
-
-def smart_compare_candidates(target_row, all_df):
-    metrics = ["eps","pe_ratio","dividend_yield","health_score","pbv"]
-    clean = all_df.dropna(subset=[m for m in metrics if m in all_df.columns]).copy()
-    if len(clean) <= 1:
-        return pd.DataFrame()
-    norm = {}
-    for m in metrics:
-        if m not in clean.columns: continue
-        lo, hi = clean[m].min(), clean[m].max()
-        norm[m] = (clean[m] - lo) / ((hi-lo) if hi>lo else 1)
-    norm_df = pd.DataFrame(norm, index=clean.index)
-    try:
-        tidx = target_row.name
-        tvec = norm_df.loc[tidx]
-        clean["_distance"] = norm_df.apply(lambda r: float(np.linalg.norm(r-tvec)), axis=1)
-        return clean[clean.index != tidx].sort_values("_distance").head(3)
-    except Exception:
-        return clean.head(3)
-
-def grade_class(g):
-    return {"A+":"Ap","A":"A","B":"B","C":"C","D":"D"}.get(g,"neut")
-
-# ══════════════════════════════════════════════════════════
-# 6. MARKET BANNER
-# ══════════════════════════════════════════════════════════
-m_sum = meta.get("market_summary", {"index":2150.45,"change":14.32,"pct_change":0.67,"turnover":4120534200})
-chg_c = "#00ff88" if m_sum.get("change",0) >= 0 else "#ff4444"
-st.markdown(f"""
-<div style='background:#0d111a;border-bottom:1px solid #1f2937;padding:10px 20px;
-            display:flex;gap:40px;align-items:center;margin-bottom:12px'>
-  <div><span style='color:#8b949e;font-size:.72rem'>NEPSE INDEX</span><br>
-       <span style='font-family:monospace;font-size:1.2rem;font-weight:700'>{m_sum.get("index",0):,}</span></div>
-  <div><span style='color:#8b949e;font-size:.72rem'>CHANGE</span><br>
-       <span style='font-family:monospace;font-size:1.2rem;font-weight:700;color:{chg_c}'>{m_sum.get("change",0):+,.2f} ({m_sum.get("pct_change",0):+.2f}%)</span></div>
-  <div><span style='color:#8b949e;font-size:.72rem'>DAILY TURNOVER</span><br>
-       <span style='font-family:monospace;font-size:1.2rem;font-weight:700;color:#ffd700'>NPR {m_sum.get("turnover",0):,}</span></div>
-  <div style='margin-left:auto'><span style='color:#8b949e;font-size:.72rem'>TOTAL STOCKS</span><br>
-       <span style='font-family:monospace;font-size:1.2rem;font-weight:700'>{len(df)}</span></div>
-</div>""", unsafe_allow_html=True)
-
-# ══════════════════════════════════════════════════════════
-# 7. SIDEBAR
-# ══════════════════════════════════════════════════════════
-with st.sidebar:
-    st.markdown("### 🎛️ Terminal Controls")
-    search_query = st.text_input("🔍 Search", "", placeholder="Symbol or name…")
-    sectors = ["All Sectors"] + sorted(df["sector"].dropna().unique().tolist()) if not df.empty else ["All Sectors"]
-    sel_sector = st.selectbox("Sector", sectors)
-    min_score  = st.slider("Min Health Score", 0, 100, 0, 5)
-    st.divider()
-    if st.button("🔄 Refresh Data", use_container_width=True):
-        st.cache_data.clear(); st.rerun()
-    if meta:
-        ts = meta.get("generated_at","")[:16].replace("T"," ")
-        st.caption(f"Data: {ts} UTC" if ts else "Data: demo mode")
-
-# Filter
-fdf = df.copy()
-if search_query:
-    q = search_query.upper()
-    fdf = fdf[fdf["symbol"].str.upper().str.contains(q,na=False) |
-              fdf.get("name",pd.Series(dtype=str)).str.upper().str.contains(q,na=False)]
-if sel_sector != "All Sectors":
-    fdf = fdf[fdf["sector"]==sel_sector]
-if "health_score" in fdf.columns:
-    fdf = fdf[fdf["health_score"].fillna(0) >= min_score]
-
-# ══════════════════════════════════════════════════════════
-# 8. TABS
-# ══════════════════════════════════════════════════════════
-tab_terminal, tab_portfolio, tab_matrix, tab_guide = st.tabs([
-    "🖥️ Trading Terminal", "💼 My Portfolio", "📊 Market Analysis", "📖 Score Guide"
-])
-
-# ══════════════════════════════════════════════════════════
-# TAB 1 — TRADING TERMINAL
-# ══════════════════════════════════════════════════════════
-with tab_terminal:
-    col_list, col_chart = st.columns([1, 2.4])
-
-    with col_list:
-        st.markdown("#### 📜 Watchlist")
-        if fdf.empty:
-            st.info("No stocks match your filters.")
-        else:
-            for _, row in fdf.sort_values("health_score", ascending=False).iterrows():
-                sym  = row.get("symbol","?")
-                ltp  = row.get("ltp",0) or 0
-                chg  = row.get("pct_change", row.get("change_pct",0)) or 0
-                grd  = row.get("grade","?")
-                is_active = st.session_state.active_symbol == sym
-                bord = "#00ff88" if is_active else "#21262d"
-                ctxt = "#00ff88" if chg>=0 else "#ff4444"
-                st.markdown(f"""
-                <div style='border:1px solid {bord};padding:10px;border-radius:6px;
-                            margin-bottom:6px;background:#111625'>
-                  <div style='display:flex;justify-content:space-between'>
-                    <span style='font-family:monospace;font-weight:bold'>{sym}</span>
-                    <span style='color:{ctxt};font-family:monospace'>{chg:+.2f}%</span>
-                  </div>
-                  <div style='display:flex;justify-content:space-between;font-size:.75rem;
-                              color:#8b949e;margin-top:4px'>
-                    <span>Rs {ltp:,.0f}</span><span>Grade {grd}</span>
-                  </div>
-                </div>""", unsafe_allow_html=True)
-                if st.button(f"Analyse {sym}", key=f"sel_{sym}", use_container_width=True):
-                    st.session_state.active_symbol = sym
-                    st.rerun()
-
-    with col_chart:
-        sym = st.session_state.active_symbol
-        rows = df[df["symbol"]==sym]
-        if rows.empty:
-            st.info("Select a stock from the watchlist.")
-        else:
-            row = rows.iloc[0]
-            ltp  = row.get("ltp",0) or 0
-            chg  = row.get("pct_change", row.get("change_pct",0)) or 0
-            chg_c2 = "#00ff88" if chg>=0 else "#ff4444"
-
-            st.markdown(f"""
-            <div style='background:#121824;border:1px solid #21262d;padding:16px;
-                        border-radius:8px;margin-bottom:14px'>
-              <div style='display:flex;align-items:center'>
-                <div>
-                  <h2 style='margin:0;color:#f0f6fc'>{sym} · {row.get("name","")}</h2>
-                  <span style='color:#8b949e;font-size:.85rem'>{row.get("sector","")}</span>
-                </div>
-                <div style='margin-left:auto;text-align:right'>
-                  <span class='grade-{grade_class(row.get("grade","?"))}'>{row.get("grade","?")} Grade</span>
-                </div>
-              </div>
-            </div>""", unsafe_allow_html=True)
-
-            m1,m2,m3,m4,m5 = st.columns(5)
-            for col2, label, val in [
-                (m1,"LTP (NPR)", f"{ltp:,.0f}"),
-                (m2,"Change",    f"{chg:+.2f}%"),
-                (m3,"EPS",       f"{row.get('eps',0):.1f}"),
-                (m4,"P/E",       f"{row.get('pe_ratio',0):.1f}"),
-                (m5,"Score",     f"{row.get('health_score',0)}/100"),
-            ]:
-                col2.markdown(f"<div class='kpi-card'><div class='kpi-label'>{label}</div><div class='kpi-val'>{val}</div></div>", unsafe_allow_html=True)
-
-            st.markdown("<br>", unsafe_allow_html=True)
-
-            # Chart period selector
-            period = st.radio("Period", ["1M","3M","6M","All"], horizontal=True, key="chart_period")
-            days_map = {"1M":30,"3M":60,"6M":90,"All":120}
-            cdf = compute_indicators(generate_candles(sym, ltp, 120))
-            cdf_show = cdf.tail(days_map[period])
-
-            fig = make_subplots(rows=3, cols=1, shared_xaxes=True,
-                                vertical_spacing=0.04, row_heights=[0.6,0.2,0.2])
-            # Candles
-            fig.add_trace(go.Candlestick(
-    x=cdf_show["date"], open=cdf_show["open"], high=cdf_show["high"],
-    low=cdf_show["low"], close=cdf_show["close"], name="Price",
-    increasing_line_color="#00ff88", decreasing_line_color="#ff4444",
-), row=1, col=1)
-            # Volume
-            vcolors = ["#00ff88" if c>=o else "#ff4444" for c,o in zip(cdf_show["close"],cdf_show["open"])]
-            fig.add_trace(go.Bar(x=cdf_show["date"],y=cdf_show["volume"],name="Volume",marker_color=vcolors,showlegend=False), row=2,col=1)
-            # MACD
-            hcolors = ["#00ff88" if v>=0 else "#ff4444" for v in cdf_show["macd_hist"]]
-            fig.add_trace(go.Bar(x=cdf_show["date"],y=cdf_show["macd_hist"],name="Hist",marker_color=hcolors,showlegend=False), row=3,col=1)
-            fig.add_trace(go.Scatter(x=cdf_show["date"],y=cdf_show["macd"],name="MACD",line=dict(color="#54a0ff",width=1.2)), row=3,col=1)
-            fig.add_trace(go.Scatter(x=cdf_show["date"],y=cdf_show["macd_signal"],name="Signal",line=dict(color="#ffd700",width=1.2)), row=3,col=1)
-
-            fig.update_layout(
-                height=520, paper_bgcolor="#070913", plot_bgcolor="#0b0f19",
-                xaxis_rangeslider_visible=False,
-                margin=dict(l=10,r=10,t=10,b=10),
-                legend=dict(orientation="h",yanchor="bottom",y=1.01,xanchor="right",x=1,font_color="#8b949e"),
-            )
-            fig.update_xaxes(gridcolor="#1f2937",showline=True,linecolor="#21262d",color="#8b949e")
-            fig.update_yaxes(gridcolor="#1f2937",showline=True,linecolor="#21262d",color="#8b949e")
-            st.plotly_chart(fig, use_container_width=True, key="main_chart")
-
-            # Patterns + Signals
-            st.markdown("### 🕯️ What the Candles Are Saying")
-            patterns = detect_candle_patterns(cdf)
-            for pname, pdesc, pkind, pconf in patterns:
-                bg   = "#0c2b1a" if pkind=="bull" else "#331212" if pkind=="bear" else "#12161f"
-                bord = "#00ff88" if pkind=="bull" else "#ff4444" if pkind=="bear" else "#30363d"
-                cc   = "#00ff88" if pconf>=80 else "#ffd700" if pconf>=65 else "#8b949e"
-                st.markdown(f"""
-                <div style='background:{bg};border:1px solid {bord};border-radius:8px;
-                            padding:12px 16px;margin-bottom:8px'>
-                  <div style='display:flex;justify-content:space-between;margin-bottom:4px'>
-                    <span style='color:#e6edf3;font-weight:600'>{pname}</span>
-                    <span style='color:{cc};font-size:.78rem;font-family:monospace'>{pconf}% confidence</span>
-                  </div>
-                  <div style='color:#c9d1d9;font-size:.87rem;line-height:1.6'>{pdesc}</div>
-                </div>""", unsafe_allow_html=True)
-
-            st.markdown("### 🎯 Indicator Signals")
-            ind_signals, action = get_indicator_signals(cdf)
-            action_meta = {
-                "BUY":       ("#00ff88","#0c2b1a","✅ BUY",      "Most indicators agree — good conditions to hold or buy more."),
-                "WEAK BUY":  ("#7fff00","#0d2218","🟡 WEAK BUY", "More positive than negative. Could buy carefully with a small amount."),
-                "HOLD":      ("#ffd700","#1c1c0d","⏸️ HOLD",     "Mixed signals. Keep what you have. Wait for clearer direction."),
-                "WEAK SELL": ("#ff8c00","#2b1a0d","🟠 WEAK SELL","More negative than positive. Don't add more. Protect profits."),
-                "SELL":      ("#ff4444","#331212","🔴 SELL",     "Multiple indicators pointing down. Consider reducing position."),
-            }
-            ac,bg2,label,explanation = action_meta.get(action,action_meta["HOLD"])
-            st.markdown(f"""
-            <div style='background:{bg2};border:2px solid {ac};border-radius:10px;
-                        padding:16px 20px;margin-bottom:14px'>
-              <div style='color:{ac};font-size:1.5rem;font-weight:700;font-family:monospace'>{label}</div>
-              <div style='color:#c9d1d9;font-size:.88rem;margin-top:4px'>{explanation}</div>
-            </div>""", unsafe_allow_html=True)
-            for title, desc, kind in ind_signals:
-                tc = "tag-bull" if kind=="bull" else "tag-bear" if kind=="bear" else "tag-neut"
-                st.markdown(f"""
-                <div class='signal-box'>
-                  <span class='tag {tc}'>{title}</span>
-                  <div style='color:#c9d1d9;font-size:.85rem;margin-top:6px;line-height:1.5'>{desc}</div>
-                </div>""", unsafe_allow_html=True)
-
-# ══════════════════════════════════════════════════════════
-# TAB 2 — PORTFOLIO
-# ══════════════════════════════════════════════════════════
-with tab_portfolio:
-    st.markdown("### 💼 My Portfolio")
-    p_action, p_order = st.columns([1, 2.5])
-
-    with p_action:
-        st.markdown("#### 🔄 Buy / Sell")
-        sym_opts = sorted(df["symbol"].dropna().unique().tolist())
-        t_sym = st.selectbox("Ticker", sym_opts, key="order_sym")
-        t_shares = st.number_input("Shares", min_value=1, step=1, value=10)
-        match = df[df["symbol"]==t_sym]
-        default_price = float(match["ltp"].values[0]) if not match.empty else 100.0
-        t_price = st.number_input("Price (NPR)", min_value=1.0, step=0.5, value=default_price)
-        t_side  = st.selectbox("Action", ["BUY","SELL"])
-
-        if st.button("Execute Order", use_container_width=True):
-            cur = st.session_state.portfolio.get(t_sym, {"shares":0,"avg_cost":0.0})
-            if t_side == "BUY":
-                total = cur["shares"]*cur["avg_cost"] + t_shares*t_price
-                new_shares = cur["shares"] + t_shares
-                st.session_state.portfolio[t_sym] = {"shares":new_shares,"avg_cost":round(total/new_shares,2)}
-                st.success(f"Bought {t_shares} shares of {t_sym} @ Rs {t_price:.2f}")
-            else:
-                if cur["shares"] >= t_shares:
-                    new_shares = cur["shares"] - t_shares
-                    if new_shares == 0:
-                        st.session_state.portfolio.pop(t_sym,None)
-                    else:
-                        st.session_state.portfolio[t_sym]["shares"] = new_shares
-                    st.success(f"Sold {t_shares} shares of {t_sym}")
-                else:
-                    st.error(f"You only have {cur['shares']} shares of {t_sym}.")
-            st.rerun()
-
-    with p_order:
-        if not st.session_state.portfolio:
-            st.info("No holdings. Use the Buy/Sell panel to add positions.")
-        else:
-            records, total_val, total_cost = [], 0.0, 0.0
-            for psym, pdata in st.session_state.portfolio.items():
-                m = df[df["symbol"]==psym]
-                live = float(m["ltp"].values[0]) if not m.empty else pdata["avg_cost"]
-                sec  = m["sector"].values[0] if not m.empty else "—"
-                shares = pdata["shares"]
-                cost  = shares * pdata["avg_cost"]
-                mval  = shares * live
-                pnl   = mval - cost
-                pnl_p = (pnl/cost*100) if cost>0 else 0
-                total_val += mval; total_cost += cost
-                records.append({"Stock":psym,"Sector":sec,"Units":shares,
-                                 "Avg Cost":pdata["avg_cost"],"LTP":live,
-                                 "Cost Basis":cost,"Market Value":mval,
-                                 "P&L":pnl,"Return %":pnl_p})
-
-            tot_pnl = total_val - total_cost
-            tot_pct = (tot_pnl/total_cost*100) if total_cost>0 else 0
-            pnl_col = "#00ff88" if tot_pnl>=0 else "#ff4444"
-
-            k1,k2,k3 = st.columns(3)
-            k1.markdown(f"<div class='kpi-card'><div class='kpi-label'>Market Value</div><div class='kpi-val' style='color:#ffd700'>Rs {total_val:,.0f}</div></div>", unsafe_allow_html=True)
-            k2.markdown(f"<div class='kpi-card'><div class='kpi-label'>Cost Basis</div><div class='kpi-val'>Rs {total_cost:,.0f}</div></div>", unsafe_allow_html=True)
-            k3.markdown(f"<div class='kpi-card'><div class='kpi-label'>Total P&L</div><div class='kpi-val' style='color:{pnl_col}'>Rs {tot_pnl:+,.0f} ({tot_pct:+.1f}%)</div></div>", unsafe_allow_html=True)
-
-            st.markdown("<br>", unsafe_allow_html=True)
-            p_df = pd.DataFrame(records)
-            st.dataframe(
-                p_df.style.format({
-                    "Avg Cost":"Rs {:.2f}","LTP":"Rs {:.2f}",
-                    "Cost Basis":"Rs {:.0f}","Market Value":"Rs {:.0f}",
-                    "P&L":"Rs {:+.0f}","Return %":"{:+.1f}%"
-                }).map(lambda v: "color:#00ff88" if isinstance(v,float) and v>0
-                       else "color:#ff4444" if isinstance(v,float) and v<0 else "",
-                       subset=["P&L","Return %"]),
-                use_container_width=True, hide_index=True
-            )
-
-# ══════════════════════════════════════════════════════════
-# TAB 3 — MARKET ANALYSIS
-# ══════════════════════════════════════════════════════════
-with tab_matrix:
-    sym = st.session_state.active_symbol
-    rows = df[df["symbol"]==sym]
-    if rows.empty:
-        st.info("Select a stock from the Trading Terminal watchlist first.")
-    else:
-        row = rows.iloc[0]
-        st.markdown(f"### Analysis for {sym} — {row.get('name','')}")
-
-        col_macro, col_peer = st.columns(2)
-
-        with col_macro:
-            st.markdown("#### 🏛️ Political & Macro Risk")
-            for sig in political_macro_analysis(row):
-                st.markdown(f"<div class='signal-box' style='border-left-color:#58a6ff'>{sig}</div>", unsafe_allow_html=True)
-
-            st.markdown("<br>**🇳🇵 Nepal-Wide Macro Factors**")
-            macro_nw = [
-                ("📉 Interest Rate Cycle","NRB loosening policy rates stimulates credit demand but compresses bank margins short term."),
-                ("💸 Remittance Economy","~35% of GDP from remittances drives deposits and consumer spending."),
-                ("⚡ Energy Surplus","Nepal moving from power deficit to surplus — hydro stocks benefit from India export deals."),
-                ("🏛️ Political Stability","13 governments in 16 years adds regulatory uncertainty. Budget delays hurt infrastructure."),
-                ("📊 Retail Market","90%+ retail NEPSE volume creates high volatility around elections and budget announcements."),
-            ]
-            for title, body in macro_nw:
-                with st.expander(title):
-                    st.write(body)
-
-        with col_peer:
-            st.markdown("#### 🤖 Most Similar Stocks")
-            st.caption("Found using Euclidean distance across EPS, P/E, Dividend, Score, P/BV")
-            peers = smart_compare_candidates(row, df)
-            if peers.empty:
-                st.info("Need more stocks in the dataset for peer matching.")
-            else:
-                for _, pr in peers.iterrows():
-                    dist = pr.get("_distance",0)
-                    pg   = pr.get("grade","?")
-                    st.markdown(f"""
-                    <div class='stock-card'>
-                      <div style='display:flex;justify-content:space-between'>
-                        <span style='font-family:monospace;font-weight:bold;font-size:1rem'>{pr["symbol"]} — {pr.get("name","")}</span>
-                        <span style='color:#ffd700;font-family:monospace;font-size:.8rem'>dist {dist:.3f}</span>
-                      </div>
-                      <div style='color:#8b949e;font-size:.78rem;margin:4px 0'>{pr.get("sector","")}</div>
-                      <div style='display:flex;gap:16px;font-size:.85rem;font-family:monospace;margin-top:6px'>
-                        <span>Rs {pr.get("ltp",0):,.0f}</span>
-                        <span>P/E {pr.get("pe_ratio",0):.1f}</span>
-                        <span>EPS {pr.get("eps",0):.1f}</span>
-                        <span style='color:#00ff88'>Score {pr.get("health_score",0)}/100</span>
-                        <span class='grade-{grade_class(pg)}'>{pg}</span>
-                      </div>
-                    </div>""", unsafe_allow_html=True)
-
-        # Full market table
-        st.markdown("---")
-        st.markdown("#### 📋 Full Market Table")
-        disp = [c for c in ["symbol","name","sector","ltp","change_pct","eps","pe_ratio","dividend_yield","health_score","grade"] if c in df.columns]
-        st.dataframe(
-            df[disp].sort_values("health_score",ascending=False).rename(columns={"change_pct":"Chg %","pe_ratio":"P/E","dividend_yield":"Div %","health_score":"Score","ltp":"LTP"}),
-            use_container_width=True, height=400,
-            column_config={"Score": st.column_config.ProgressColumn("Score",min_value=0,max_value=100,format="%d")}
-        )
-
-# ══════════════════════════════════════════════════════════
-# TAB 4 — SCORE GUIDE
-# ══════════════════════════════════════════════════════════
-with tab_guide:
-    st.markdown("### 📖 Complete Score & Grade Guide")
-    st.caption("Everything explained in plain English — no finance degree needed.")
-
-    st.markdown("---")
-    st.markdown("## 🎓 Grades")
-    for grade, color, pts, label, desc in [
-        ("A+","#00ff88","80–100","Excellent","Almost everything is strong. Earnings are good, price is fair, pays solid dividend. These are the stocks you want to hold long-term."),
-        ("A", "#7fff00","65–79", "Very Good","Strong fundamentals with maybe one or two small weaknesses. A solid investment."),
-        ("B", "#ffd700","50–64", "Decent",   "Doing okay but has weaknesses — maybe low volume or thin dividend. Your PCIL, RNLI, NESDO are here. Not bad, just watch closely."),
-        ("C", "#ff8c00","35–49", "Weak",     "Several things below average. HFIN, MBJC, NIFRA, TAMOR are here. Understand why before adding more money."),
-        ("D", "#ff4444","0–34",  "High Risk","Failing multiple checks. Losing money, overpriced, or nobody trading it. Avoid unless you have a specific reason."),
-    ]:
-        st.markdown(f"""
-        <div style='background:#161b22;border:1px solid #21262d;border-radius:10px;
-                    padding:16px 20px;margin-bottom:10px;display:flex;gap:20px;align-items:flex-start'>
-          <div style='text-align:center;min-width:55px'>
-            <div style='color:{color};font-size:2rem;font-weight:700;font-family:monospace'>{grade}</div>
-            <div style='color:#8b949e;font-size:.68rem'>{pts} pts</div>
-          </div>
-          <div>
-            <div style='color:#e6edf3;font-weight:600;margin-bottom:4px'>{label}</div>
-            <div style='color:#c9d1d9;font-size:.87rem;line-height:1.6'>{desc}</div>
-          </div>
-        </div>""", unsafe_allow_html=True)
-
-    st.markdown("---")
-    st.markdown("## 🔢 The 6 Score Factors (100 pts total)")
-    factors = [
-        ("1. EPS — Earnings Per Share","20 pts","#00ff88",
-         "How much profit does the company make per share you own? Higher = better.",
-         [("Rs 50+","20","World class earner"),("Rs 30–50","15","Strong"),("Rs 15–30","10","Decent"),("Rs 1–15","5","Weak but profitable"),("Negative","0","Losing money 🚨")],
-         "Your best: NESDO (88), RNLI (74), PCIL (62) all get full 20 pts."),
-        ("2. P/E Ratio","20 pts","#58a6ff",
-         "How many years of earnings are you paying for? Lower = cheaper = better.",
-         [("Below 10","20","Very cheap — bargain"),("10–15","15","Fair value"),("15–20","10","Slightly expensive"),("20–30","5","Expensive"),("Above 30","0","Very overvalued")],
-         "Most of your stocks score 10–15 pts here. Reasonable for Nepal."),
-        ("3. Dividend Yield","20 pts","#ffd700",
-         "What % of your investment comes back as cash each year?",
-         [("Above 10%","20","Exceptional — beats most FDs"),("7–10%","15","Great"),("5–7%","10","Decent"),("2–5%","5","Low"),("Below 2%","0","Barely paying anything")],
-         "PCIL (8%), RNLI (7.5%), NESDO (7%) score 15 pts each."),
-        ("4. ROE — Return on Equity","20 pts","#c792ea",
-         "How efficiently does management turn your money into profit? (EPS ÷ Book Value × 100)",
-         [("Above 25%","20","Exceptional management"),("18–25%","15","Great"),("12–18%","10","Good"),("5–12%","5","Okay"),("Below 5%","0","Poor use of money")],
-         ""),
-        ("5. P/BV — Price to Book Value","10 pts","#ff8c00",
-         "Are you paying more or less than what the company is actually worth on paper?",
-         [("Below 1.0","10","Buying Rs 100 of assets for less than Rs 100"),("1.0–1.5","7","Fair — small premium"),("1.5–2.5","4","Moderate premium"),("Above 2.5","0","Paying a lot over real value")],
-         ""),
-        ("6. Momentum — Volume & Price","10 pts","#89ddff",
-         "Is the market actively interested in this stock today?",
-         [("High volume + price up","10","Strong interest, buyers winning"),("Medium volume + flat","5","Normal trading"),("Low volume","3","Not much interest — fine for long-term"),("Price fell 3%+","0","Active selling, be cautious")],
-         "Reason your microfinance stocks score C — great EPS but very low daily volume on NEPSE."),
-    ]
-    for title, maxpts, color, explanation, tiers, note in factors:
-        with st.expander(f"{title}  —  {maxpts}"):
-            st.markdown(f"<p style='color:#c9d1d9'>{explanation}</p>", unsafe_allow_html=True)
-            for tier_l, pts_v, tier_d in tiers:
-                st.markdown(f"""
-                <div style='display:flex;gap:14px;padding:7px 0;border-bottom:1px solid #21262d'>
-                  <div style='min-width:100px;color:{color};font-family:monospace;font-weight:600'>{tier_l}</div>
-                  <div style='min-width:50px;color:#00ff88;font-family:monospace'>{pts_v} pts</div>
-                  <div style='color:#8b949e;font-size:.83rem'>{tier_d}</div>
-                </div>""", unsafe_allow_html=True)
-            if note:
-                st.markdown(f"<p style='color:#58a6ff;font-size:.82rem;margin-top:8px'>💡 {note}</p>", unsafe_allow_html=True)
-
-    st.markdown("---")
-    st.markdown("## 🕯️ Candlestick Patterns — Plain English Reference")
-    for emoji, name, kind, desc in [
-        ("🟢","Hammer","bull","Price fell hard during day but buyers pushed back up before close. Drop may be ending."),
-        ("🟢","Bullish Engulfing","bull","Today's green candle swallowed yesterday's red one. Buyers won convincingly."),
-        ("🟢","Morning Star","bull","3 candles: big fall → small uncertain → big recovery. Downtrend ending."),
-        ("🟢","Three White Soldiers","bull","3 green candles in a row, each higher. Buyers dominating for 3 days."),
-        ("🔴","Shooting Star","bear","Price rose but sellers pushed it back down. Rise may be ending."),
-        ("🔴","Bearish Engulfing","bear","Today's red candle swallowed yesterday's green one. Sellers won convincingly."),
-        ("🔴","Evening Star","bear","3 candles: big rise → small uncertain → big fall. Uptrend ending."),
-        ("🔴","Three Black Crows","bear","3 red candles in a row, each lower. Sellers dominating for 3 days."),
-        ("🔵","Doji","neut","Open and close almost same price. Market is undecided. Wait before acting."),
-        ("🔵","Spinning Top","neut","Big wicks both ways, small body. Neither buyers nor sellers winning."),
-    ]:
-        bg   = "#0c2b1a" if kind=="bull" else "#331212" if kind=="bear" else "#12161f"
-        bord = "#00ff8840" if kind=="bull" else "#ff444440" if kind=="bear" else "#30363d"
-        st.markdown(f"""
-        <div style='background:{bg};border:1px solid {bord};border-radius:6px;
-                    padding:9px 14px;margin-bottom:5px;display:flex;gap:12px;align-items:center'>
-          <span>{emoji}</span>
-          <span style='color:#e6edf3;font-weight:600;min-width:180px;font-size:.88rem'>{name}</span>
-          <span style='color:#8b949e;font-size:.84rem'>{desc}</span>
-        </div>""", unsafe_allow_html=True)
-
-    st.markdown("---")
-    st.markdown("""
-    <div style='background:#121824;border:1px solid #21262d;border-radius:10px;padding:20px'>
-      <p style='color:#e6edf3;font-weight:600;margin-bottom:12px'>🎯 Signal Meanings</p>
-      <div style='margin:8px 0'><span style='color:#00ff88;font-family:monospace;font-weight:700'>BUY      </span><span style='color:#c9d1d9;margin-left:12px'>Most indicators agree. Good time to hold or add more.</span></div>
-      <div style='margin:8px 0'><span style='color:#7fff00;font-family:monospace;font-weight:700'>WEAK BUY </span><span style='color:#c9d1d9;margin-left:12px'>More positive than negative. Buy a small amount carefully.</span></div>
-      <div style='margin:8px 0'><span style='color:#ffd700;font-family:monospace;font-weight:700'>HOLD     </span><span style='color:#c9d1d9;margin-left:12px'>Mixed signals. Keep what you have. Wait for clarity.</span></div>
-      <div style='margin:8px 0'><span style='color:#ff8c00;font-family:monospace;font-weight:700'>WEAK SELL</span><span style='color:#c9d1d9;margin-left:12px'>More negative. Do not add more. Protect your profits.</span></div>
-      <div style='margin:8px 0'><span style='color:#ff4444;font-family:monospace;font-weight:700'>SELL     </span><span style='color:#c9d1d9;margin-left:12px'>Multiple indicators pointing down. Consider reducing position.</span></div>
-      <p style='color:#8b949e;font-size:.78rem;margin-top:14px'>⚠️ These are mathematical signals, not guarantees. Never invest money you cannot afford to lose.</p>
+<div class="app">
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">⬡ NEPSE IQ</div>
+    <div class="logo-sub">Market Intelligence</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Core</div>
+    <div class="nav-item active" onclick="goTo('dashboard',this)">
+      <span class="icon">◈</span><span>Dashboard</span>
     </div>
-    """, unsafe_allow_html=True)
+    <div class="nav-item" onclick="goTo('analyzer',this)">
+      <span class="icon">◎</span><span>Share Analyzer</span>
+    </div>
+    <div class="nav-item" onclick="goTo('stocks',this)">
+      <span class="icon">≋</span><span>Stock Screener</span>
+    </div>
+    <div class="nav-section-label">Intelligence</div>
+    <div class="nav-item" onclick="goTo('prediction',this)">
+      <span class="icon">◆</span><span>Prediction Engine</span>
+    </div>
+    <div class="nav-item" onclick="goTo('patterns',this)">
+      <span class="icon">◇</span><span>Pattern Engine</span>
+    </div>
+    <div class="nav-section-label">Portfolio</div>
+    <div class="nav-item" onclick="goTo('portfolio',this)">
+      <span class="icon">▣</span><span>IPO & Portfolio</span>
+    </div>
+    <div class="nav-item" onclick="goTo('alerts',this)">
+      <span class="icon">◉</span><span>Risk & Alerts</span>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <span class="live-dot"></span>Live Market Feed
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<div class="main">
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <div class="page-title" id="page-title">Market Dashboard</div>
+      <div class="page-sub" id="page-sub">NEPSE · Live Overview</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div style="font-size:12px;color:var(--text3)">
+      NEPSE: <span style="color:var(--green);font-weight:600">2,148.32</span>
+      <span style="color:var(--green);margin-left:6px">▲ +0.84%</span>
+    </div>
+    <button class="btn primary" onclick="refreshData()">↺ Refresh</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PANEL: DASHBOARD -->
+<!-- ══════════════════════════════════════ -->
+<div class="content">
+<div class="panel active" id="panel-dashboard">
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-label">NEPSE Index</div>
+      <div class="stat-value" style="color:var(--green)">2,148.32</div>
+      <div class="stat-delta up">▲ +17.82 (+0.84%) today</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Turnover (NPR)</div>
+      <div class="stat-value" style="color:var(--blue)">4.2B</div>
+      <div class="stat-delta up">▲ +12.3% vs avg</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Active Stocks</div>
+      <div class="stat-value">218</div>
+      <div class="stat-delta" style="color:var(--text2)">186 ↑ · 32 ↓</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Portfolio Value</div>
+      <div class="stat-value" style="color:var(--purple)">NPR 8.45L</div>
+      <div class="stat-delta up">▲ +23.4% total return</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">NEPSE Index — 12 Month <span>Daily Close</span></div>
+      <div class="chart-wrap" style="height:200px">
+        <canvas id="indexChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Sector Performance <span>% Change Today</span></div>
+      <div class="chart-wrap" style="height:200px">
+        <canvas id="sectorChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Top Movers Today</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Symbol</th><th>LTP</th><th>Change</th><th>Volume</th><th>Signal</th>
+          </tr></thead>
+          <tbody id="movers-table"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Active Risk Alerts <span id="alert-count"></span></div>
+      <div id="dash-alerts"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PANEL: SHARE ANALYZER -->
+<!-- ══════════════════════════════════════ -->
+<div class="panel" id="panel-analyzer">
+  <div class="hz-row">
+    <button class="hz-btn short active" onclick="selectHz(this,'short')">
+      <div class="hz-label">Short-Term</div>
+      <div class="hz-period">1–7 Days</div>
+      <div class="hz-focus">Momentum · Short Selling</div>
+    </button>
+    <button class="hz-btn medium" onclick="selectHz(this,'medium')">
+      <div class="hz-label">Medium-Term</div>
+      <div class="hz-period">1–12 Months</div>
+      <div class="hz-focus">Swing · Cyclical Growth</div>
+    </button>
+    <button class="hz-btn long" onclick="selectHz(this,'long')">
+      <div class="hz-label">Long-Term</div>
+      <div class="hz-period">1 Year+</div>
+      <div class="hz-focus">Fundamentals · Compounding</div>
+    </button>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title" id="hz-metrics-label">Active Metrics — Short-Term</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Metric</th><th>Weight</th><th>Signal</th><th>Priority</th></tr></thead>
+          <tbody id="hz-metrics-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Auto-Selected Stocks <span id="hz-mode-label">Short Mode</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Symbol</th><th>Score</th><th>Signal</th><th>Target</th></tr></thead>
+          <tbody id="auto-stocks-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Asset Filtration Criteria</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Filter</th><th>Short (1–7d)</th><th>Medium (1–12m)</th><th>Long (1y+)</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Min Daily Volume</td><td class="td-red">≥ 50,000 shares</td><td class="td-amber">≥ 10,000 shares</td><td class="td-green">≥ 1,000 shares</td></tr>
+          <tr><td>Volatility (ATR)</td><td class="td-red">High preferred</td><td class="td-amber">Medium range</td><td class="td-green">Low preferred</td></tr>
+          <tr><td>RSI Filter</td><td>RSI 45–75</td><td>RSI 40–65</td><td>RSI 30–60</td></tr>
+          <tr><td>Price Trend</td><td>Momentum breakout</td><td>MA cross + EPS</td><td>Fundamental dip</td></tr>
+          <tr><td>Sector Bias</td><td>Rotating sectors</td><td>Cyclical sectors</td><td>Defensive / Utility</td></tr>
+          <tr><td>Primary Indicators</td><td>RSI · VWAP · MACD</td><td>EMA · Bollinger · P/E</td><td>ROE · D/E · CAGR</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PANEL: STOCK SCREENER -->
+<!-- ══════════════════════════════════════ -->
+<div class="panel" id="panel-stocks">
+  <div class="search-row">
+    <input class="search-input" type="text" placeholder="Search symbol or company..." oninput="filterStocks(this.value)" id="stock-search"/>
+    <select class="filter-select" onchange="filterBySector(this.value)" id="sector-filter">
+      <option value="">All Sectors</option>
+      <option>Banking</option>
+      <option>Hydropower</option>
+      <option>Insurance</option>
+      <option>Finance</option>
+      <option>Manufacturing</option>
+      <option>Microfinance</option>
+    </select>
+    <select class="filter-select" onchange="filterBySignal(this.value)" id="signal-filter">
+      <option value="">All Signals</option>
+      <option>BUY</option>
+      <option>HOLD</option>
+      <option>SELL</option>
+    </select>
+    <button class="btn primary">Export CSV</button>
+  </div>
+  <div class="card" style="padding:0">
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Symbol</th><th>Company</th><th>Sector</th>
+          <th>LTP</th><th>Change %</th><th>Volume</th>
+          <th>RSI</th><th>P/E</th><th>EPS</th><th>52W H/L</th><th>Signal</th>
+        </tr></thead>
+        <tbody id="screener-table"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PANEL: PREDICTION ENGINE -->
+<!-- ══════════════════════════════════════ -->
+<div class="panel" id="panel-prediction">
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Pillar Weight Configuration <span>Drag to adjust</span></div>
+      <div id="pillar-controls"></div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px;color:var(--text3)">
+        <span>Total weight</span>
+        <span id="total-weight" style="color:var(--green);font-weight:600">100%</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Weight Distribution</div>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="pillarChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Prediction Output — Top Picks</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Symbol</th><th>Current</th><th>3-Day Target</th><th>30-Day Target</th>
+          <th>Confidence</th><th>Technical</th><th>Fundamental</th><th>Risk</th><th>Action</th>
+        </tr></thead>
+        <tbody id="prediction-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Prediction Methodology</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Output Field</th><th>Short-Term</th><th>Medium-Term</th><th>Long-Term</th></tr></thead>
+        <tbody>
+          <tr><td>Price Target</td><td>3-day range band</td><td>6-month target</td><td>Yearly band</td></tr>
+          <tr><td>Confidence Boost</td><td class="td-red">Technical ×3</td><td class="td-amber">Balanced 4-pillar</td><td class="td-green">Fundamental ×3</td></tr>
+          <tr><td>Risk Rating</td><td class="td-red">High</td><td class="td-amber">Medium</td><td class="td-green">Low–Medium</td></tr>
+          <tr><td>Entry Signal</td><td>Intraday momentum</td><td>Pullback + MA</td><td>Fundamental dip</td></tr>
+          <tr><td>Stop-Loss Logic</td><td>3% trailing</td><td>8% swing low</td><td>15% fundamental</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PANEL: PATTERN ENGINE -->
+<!-- ══════════════════════════════════════ -->
+<div class="panel" id="panel-patterns">
+  <div class="card">
+    <div class="card-title">Detected Formations — Live NEPSE Scan <span>Updated 2 min ago</span></div>
+    <div class="pattern-grid" id="pattern-grid"></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Technical Indicator Stack</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Indicator</th><th>Category</th><th>Horizon</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>RSI (14)</td><td class="td-dim">Momentum</td><td>Short</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>MACD (12,26,9)</td><td class="td-dim">Trend</td><td>Short/Med</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>Bollinger Bands (20)</td><td class="td-dim">Volatility</td><td>Medium</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>EMA 20/50/200</td><td class="td-dim">Trend</td><td>All</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>VWAP</td><td class="td-dim">Volume-Price</td><td>Short</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>Fibonacci Retracement</td><td class="td-dim">S/R</td><td>Medium</td><td><span class="badge blue">Passive</span></td></tr>
+            <tr><td>Stochastic (14,3)</td><td class="td-dim">Momentum</td><td>Short</td><td><span class="badge blue">Passive</span></td></tr>
+            <tr><td>ATR (14)</td><td class="td-dim">Volatility</td><td>All</td><td><span class="badge green">Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Fundamental Metrics Stack</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Metric</th><th>Use Case</th><th>Horizon</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>P/E Ratio</td><td class="td-dim">Valuation</td><td>Long</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>EPS Growth (YoY)</td><td class="td-dim">Earnings</td><td>Med/Long</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>ROE (3yr avg)</td><td class="td-dim">Efficiency</td><td>Long</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>Debt / Equity</td><td class="td-dim">Balance sheet</td><td>Long</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>Revenue CAGR</td><td class="td-dim">Growth</td><td>Long</td><td><span class="badge green">Active</span></td></tr>
+            <tr><td>Dividend Yield</td><td class="td-dim">Income</td><td>Long</td><td><span class="badge blue">Passive</span></td></tr>
+            <tr><td>Book Value / Share</td><td class="td-dim">Intrinsic</td><td>Long</td><td><span class="badge blue">Passive</span></td></tr>
+            <tr><td>Net Profit Margin</td><td class="td-dim">Profitability</td><td>Med/Long</td><td><span class="badge green">Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PANEL: IPO & PORTFOLIO -->
+<!-- ══════════════════════════════════════ -->
+<div class="panel" id="panel-portfolio">
+  <div class="acct-grid" id="acct-grid"></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Portfolio Performance — All Accounts</div>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="portChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Net Profit Breakdown</div>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="profitChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">IPO Tracker — Multi-Account</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Company</th><th>Sector</th><th>Issue Price</th><th>Applied</th><th>Shares Est.</th><th>Status</th><th>Expected Listing</th><th>Est. Return</th>
+        </tr></thead>
+        <tbody id="ipo-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Holdings — Consolidated View</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Symbol</th><th>Shares</th><th>Avg Cost</th><th>LTP</th><th>Market Value</th><th>P&L</th><th>P&L %</th><th>Account</th>
+        </tr></thead>
+        <tbody id="holdings-table"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PANEL: RISK & ALERTS -->
+<!-- ══════════════════════════════════════ -->
+<div class="panel" id="panel-alerts">
+  <div class="stat-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat-card">
+      <div class="stat-label">Active Alerts</div>
+      <div class="stat-value" style="color:var(--red)">7</div>
+      <div class="stat-delta down">4 critical · 3 moderate</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Sell Signals</div>
+      <div class="stat-value" style="color:var(--red)">3</div>
+      <div class="stat-delta down">Action required</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Hold Signals</div>
+      <div class="stat-value" style="color:var(--amber)">2</div>
+      <div class="stat-delta" style="color:var(--text2)">Monitor closely</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Buy Signals</div>
+      <div class="stat-value" style="color:var(--green)">2</div>
+      <div class="stat-delta up">Opportunity detected</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div id="alerts-list"></div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-title">Risk Threshold Configuration</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Parameter</th><th>Short</th><th>Medium</th><th>Long</th></tr></thead>
+            <tbody>
+              <tr><td>Max Drawdown Alert</td><td class="td-red">3%</td><td class="td-amber">8%</td><td class="td-green">15%</td></tr>
+              <tr><td>Volume Spike Trigger</td><td>2.0× avg</td><td>1.5× avg</td><td>3.0× avg</td></tr>
+              <tr><td>RSI Overbought</td><td class="td-red">&gt; 75</td><td class="td-red">&gt; 70</td><td class="td-red">&gt; 80</td></tr>
+              <tr><td>RSI Oversold</td><td class="td-green">&lt; 30</td><td class="td-green">&lt; 35</td><td class="td-green">&lt; 25</td></tr>
+              <tr><td>Stop-Loss Trigger</td><td class="td-red">3%</td><td class="td-amber">8%</td><td class="td-green">15%</td></tr>
+              <tr><td>Macro Event Alert</td><td>NRB Meeting</td><td>Budget / Policy</td><td>Annual Review</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="margin-top:0">
+        <div class="card-title">Macro Environment Monitor</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Event</th><th>Date</th><th>Impact</th></tr></thead>
+            <tbody>
+              <tr><td>NRB Monetary Policy Review</td><td class="td-dim">In 3 days</td><td><span class="badge red">High</span></td></tr>
+              <tr><td>Government Budget Revision</td><td class="td-dim">In 18 days</td><td><span class="badge amber">Medium</span></td></tr>
+              <tr><td>Q4 Annual Reports Deadline</td><td class="td-dim">In 32 days</td><td><span class="badge blue">Info</span></td></tr>
+              <tr><td>AGM Season — Banks</td><td class="td-dim">Ongoing</td><td><span class="badge amber">Medium</span></td></tr>
+              <tr><td>Hydropower Monsoon Peak</td><td class="td-dim">Seasonal</td><td><span class="badge green">Positive</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════
+// DATA
+// ════════════════════════════════════
+const STOCKS = [
+  {sym:'NABIL',name:'Nabil Bank',sector:'Banking',ltp:1245,chg:2.3,vol:82400,rsi:72,pe:18.4,eps:67.6,h52:1380,l52:920,signal:'SELL'},
+  {sym:'NICA',name:'NIC Asia Bank',sector:'Banking',ltp:422,chg:1.8,vol:64200,rsi:48,pe:14.2,eps:29.7,h52:498,l52:310,signal:'BUY'},
+  {sym:'NRIC',name:'Nepal Reinsurance',sector:'Insurance',ltp:1870,chg:-1.2,vol:12100,rsi:61,pe:22.1,eps:84.6,h52:2100,l52:1420,signal:'HOLD'},
+  {sym:'UPPER',name:'Upper Tamakoshi',sector:'Hydropower',ltp:278,chg:0.7,vol:38600,rsi:55,pe:19.8,eps:14.0,h52:342,l52:198,signal:'HOLD'},
+  {sym:'NHPC',name:'Nepal Hydro Power',sector:'Hydropower',ltp:142,chg:3.1,vol:91200,rsi:44,pe:28.4,eps:5.0,h52:195,l52:108,signal:'BUY'},
+  {sym:'SANIMA',name:'Sanima Bank',sector:'Banking',ltp:318,chg:-0.5,vol:28900,rsi:42,pe:13.8,eps:23.0,h52:390,l52:248,signal:'BUY'},
+  {sym:'CHCL',name:'Chilime Hydropower',sector:'Hydropower',ltp:512,chg:1.4,vol:18700,rsi:58,pe:24.6,eps:20.8,h52:598,l52:398,signal:'HOLD'},
+  {sym:'PLIC',name:'Prime Life Insurance',sector:'Insurance',ltp:2340,chg:-2.1,vol:8900,rsi:76,pe:31.2,eps:75.0,h52:2780,l52:1680,signal:'SELL'},
+  {sym:'NMB',name:'NMB Bank',sector:'Banking',ltp:196,chg:0.5,vol:44100,rsi:52,pe:12.1,eps:16.2,h52:248,l52:148,signal:'BUY'},
+  {sym:'HIDCL',name:'HIDCL',sector:'Hydropower',ltp:188,chg:1.9,vol:127400,rsi:67,pe:21.4,eps:8.8,h52:224,l52:142,signal:'HOLD'},
+  {sym:'GBIME',name:'Global IME Bank',sector:'Banking',ltp:268,chg:-1.4,vol:38200,rsi:38,pe:11.8,eps:22.7,h52:340,l52:210,signal:'BUY'},
+  {sym:'NLFICL',name:'NLG Insurance',sector:'Insurance',ltp:3120,chg:0.8,vol:5400,rsi:62,pe:28.8,eps:108.3,h52:3480,l52:2280,signal:'HOLD'},
+  {sym:'MLBL',name:'Manakamana Smart Laghubitta',sector:'Microfinance',ltp:1680,chg:4.2,vol:3200,rsi:79,pe:34.2,eps:49.1,h52:1890,l52:1120,signal:'SELL'},
+  {sym:'SHIVM',name:'Shivam Cement',sector:'Manufacturing',ltp:214,chg:-0.9,vol:22800,rsi:45,pe:18.6,eps:11.5,h52:280,l52:162,signal:'HOLD'},
+  {sym:'SBL',name:'Siddhartha Bank',sector:'Banking',ltp:348,chg:2.8,vol:52100,rsi:53,pe:15.4,eps:22.6,h52:420,l52:268,signal:'BUY'},
+];
+
+const ALERTS = [
+  {type:'sell',icon:'↘',stock:'NABIL — Nabil Bank Ltd',msg:'RSI at 72.4 (overbought zone). Volume declining 3 consecutive sessions. Head & Shoulders pattern forming. Projected drop within 2 sessions. Exit recommended above NPR 1,260.',time:'8 min ago'},
+  {type:'sell',icon:'↘',stock:'PLIC — Prime Life Insurance',msg:'RSI breached 76. Price rejected at major resistance 2,380. EPS growth slowing. Short-term sell signal confirmed by MACD bearish crossover.',time:'15 min ago'},
+  {type:'hold',icon:'⏸',stock:'UPPER — Upper Tamakoshi Hydropower',msg:'Approaching resistance at NPR 285. Consolidation phase expected 7–14 days. Hold until volume-confirmed breakout above 290. Monsoon season tailwind incoming.',time:'22 min ago'},
+  {type:'buy',icon:'↗',stock:'NICA — NIC Asia Bank',msg:'MACD bullish crossover confirmed. Support held firmly at NPR 410 for 5 sessions. EPS growth +18% YoY. Strong long-term accumulation signal. Target: 520.',time:'31 min ago'},
+  {type:'buy',icon:'↗',stock:'NHPC — Nepal Hydro Power',msg:'Bull flag breakout detected. Volume 2.4× average. Seasonal hydropower cycle entering peak generation period. RSI at healthy 44 with upside room.',time:'45 min ago'},
+  {type:'sell',icon:'↘',stock:'MLBL — Manakamana Laghubitta',msg:'RSI at 79 — severely overbought. P/E at 34.2 vs sector avg 22. Institutional selling detected on level 2 data. Take profits immediately.',time:'1 hr ago'},
+  {type:'hold',icon:'⏸',stock:'MACRO — NRB Monetary Policy Review',msg:'NRB policy meeting in 3 days. Banking sector rate-sensitive. Reduce short-term exposure to finance stocks. Hold core long-term positions unchanged.',time:'2 hr ago'},
+];
+
+const PORTFOLIO_ACCOUNTS = [
+  {id:'a',name:'Account A (Primary)',cls:'a',color:'#3b82f6',val:248500,pnl:42300,pct:20.5,bars:[40,55,48,62,71,68,80,92,85,95,88,105]},
+  {id:'b',name:'Account B (Spouse)',cls:'b',color:'#10b981',val:182000,pnl:18900,pct:11.6,bars:[60,58,65,70,66,75,78,72,80,85,90,95]},
+  {id:'c',name:'Account C (Child)',cls:'c',color:'#f59e0b',val:95400,pnl:8200,pct:9.4,bars:[30,35,32,40,45,42,50,48,55,52,58,60]},
+  {id:'d',name:'Account D (Parent)',cls:'d',color:'#8b5cf6',val:320000,pnl:61500,pct:23.8,bars:[50,60,75,70,85,95,100,110,105,120,130,140]},
+];
+
+const HOLDINGS = [
+  {sym:'NABIL',shares:120,cost:1140,ltp:1245,acct:'Account A'},
+  {sym:'NICA',shares:300,cost:390,ltp:422,acct:'Account A'},
+  {sym:'UPPER',shares:500,cost:248,ltp:278,acct:'Account B'},
+  {sym:'NHPC',shares:1000,cost:128,ltp:142,acct:'Account B'},
+  {sym:'CHCL',shares:80,cost:470,ltp:512,acct:'Account C'},
+  {sym:'SANIMA',shares:400,cost:295,ltp:318,acct:'Account C'},
+  {sym:'NMB',shares:600,cost:178,ltp:196,acct:'Account D'},
+  {sym:'GBIME',shares:800,cost:242,ltp:268,acct:'Account D'},
+  {sym:'HIDCL',shares:700,cost:168,ltp:188,acct:'Account D'},
+];
+
+const IPOS = [
+  {co:'Nepal Hydro Dev Ltd',sector:'Hydropower',price:100,applied:'A,B,C',shares:'3,200',status:'Open',listing:'~45 days',ret:'+35–60%'},
+  {co:'Himalayan Finance',sector:'Finance',price:100,applied:'A,B,C,D,+1',shares:'750',status:'Processing',listing:'~22 days',ret:'+20–40%'},
+  {co:'Nepal Telecom Ltd',sector:'Telecom',price:100,applied:'All 4',shares:'12,400',status:'Allotted',listing:'~8 days',ret:'+80–120%'},
+  {co:'Sunrise Insurance',sector:'Insurance',price:100,applied:'A,C',shares:'400',status:'Closed',listing:'Listed',ret:'+142%'},
+];
+
+const HZ_METRICS = {
+  short:[
+    ['RSI (14)','35%','Overbought/Oversold','Critical'],
+    ['VWAP Deviation','25%','Institutional price floor','High'],
+    ['MACD Crossover','20%','Trend entry/exit','High'],
+    ['Volume Surge','20%','Confirmation signal','Medium'],
+  ],
+  medium:[
+    ['EMA 20/50 Cross','25%','Trend direction','Critical'],
+    ['Bollinger Squeeze','20%','Breakout setup','High'],
+    ['EPS Growth YoY','25%','Fundamental health','High'],
+    ['Sector Rotation','15%','Macro flow','Medium'],
+    ['P/E vs Sector Avg','15%','Relative valuation','Medium'],
+  ],
+  long:[
+    ['ROE (3yr avg)','30%','Capital efficiency','Critical'],
+    ['Debt / Equity','20%','Balance sheet strength','Critical'],
+    ['Revenue CAGR','25%','Growth trajectory','High'],
+    ['Dividend Yield','15%','Income return','Medium'],
+    ['NRB Policy Stance','10%','Macro environment','Low'],
+  ]
+};
+
+const AUTO_STOCKS = {
+  short:[
+    {sym:'NHPC',score:'87',signal:'BUY',target:'155'},
+    {sym:'HIDCL',score:'82',signal:'BUY',target:'198'},
+    {sym:'SBL',score:'78',signal:'BUY',target:'368'},
+    {sym:'GBIME',score:'74',signal:'BUY',target:'285'},
+  ],
+  medium:[
+    {sym:'NICA',score:'91',signal:'BUY',target:'520'},
+    {sym:'SANIMA',score:'84',signal:'BUY',target:'355'},
+    {sym:'CHCL',score:'79',signal:'HOLD',target:'560'},
+    {sym:'UPPER',score:'72',signal:'HOLD',target:'310'},
+  ],
+  long:[
+    {sym:'NICA',score:'93',signal:'ACCUMULATE',target:'680'},
+    {sym:'NABIL',score:'86',signal:'ACCUMULATE',target:'1500'},
+    {sym:'NMB',score:'81',signal:'BUY',target:'260'},
+    {sym:'CHCL',score:'77',signal:'HOLD',target:'620'},
+  ]
+};
+
+const PATTERNS = [
+  {name:'Head & Shoulders',stock:'NABIL',conf:82,type:'Bearish Reversal',detected:true,
+   svg:'<polyline points="12,44 24,44 29,28 34,12 39,28 44,18 49,28 54,28 59,44 72,44" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-linejoin="round"/><line x1="12" y1="44" x2="72" y2="44" stroke="#ef4444" stroke-width="0.8" stroke-dasharray="3,2"/>'},
+  {name:'Bull Flag',stock:'NHPC',conf:74,type:'Bullish Continuation',detected:true,
+   svg:'<polyline points="12,48 22,36 32,22 42,12" fill="none" stroke="#10b981" stroke-width="2"/><rect x="42" y="12" width="28" height="18" fill="none" stroke="#10b981" stroke-width="1.2" rx="2" stroke-dasharray="3,2"/><line x1="70" y1="12" x2="76" y2="6" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr)"/>'},
+  {name:'Breakout',stock:'HIDCL',conf:91,type:'Momentum Entry',detected:true,
+   svg:'<line x1="10" y1="24" x2="68" y2="24" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4,2"/><polyline points="10,42 22,40 34,34 44,26 54,18 64,12" fill="none" stroke="#3b82f6" stroke-width="2"/>'},
+  {name:'Double Bottom',stock:'GBIME',conf:68,type:'Bullish Reversal',detected:false,
+   svg:'<polyline points="10,14 20,14 28,38 38,18 46,38 56,16 68,14" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round"/><line x1="10" y1="14" x2="68" y2="14" stroke="#f59e0b" stroke-width="0.8" stroke-dasharray="3,2"/>'},
+  {name:'Cup & Handle',stock:'SBL',conf:77,type:'Bullish Continuation',detected:true,
+   svg:'<path d="M10,14 Q42,50 74,14" fill="none" stroke="#8b5cf6" stroke-width="1.8"/><path d="M74,14 L80,20 L76,28" fill="none" stroke="#8b5cf6" stroke-width="1.5"/>'},
+  {name:'Support & Resistance',stock:'UPPER',conf:88,type:'Range Definition',detected:true,
+   svg:'<line x1="8" y1="12" x2="76" y2="12" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,2"/><line x1="8" y1="40" x2="76" y2="40" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2"/><polyline points="14,40 20,30 28,34 36,12 44,20 52,40 60,28 68,40" fill="none" stroke="#8892a4" stroke-width="1.2"/>'},
+];
+
+const PILLAR_STATE = [
+  {label:'Graphical / Technical',sub:'RSI, MACD, Patterns, S/R',val:35,color:'#3b82f6'},
+  {label:'Corporate Fundamentals',sub:'EPS, ROE, P/E, D/E Ratio',val:30,color:'#10b981'},
+  {label:'Historical Data',sub:'Seasonal trends, past cycles',val:20,color:'#f59e0b'},
+  {label:'Macro Environment',sub:'NRB policy, inflation, geopolitics',val:15,color:'#8b5cf6'},
+];
+
+let currentHz = 'short';
+let pillarChart = null, portChart = null, profitChart = null, indexChart = null, sectorChart = null;
+
+// ════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════
+const PAGE_META = {
+  dashboard:  {title:'Market Dashboard',     sub:'NEPSE · Live Overview'},
+  analyzer:   {title:'Share Analyzer',       sub:'3-Stage Horizon Engine'},
+  stocks:     {title:'Stock Screener',       sub:'Full Market · Live Data'},
+  prediction: {title:'Prediction Engine',    sub:'4-Pillar Hybrid Model'},
+  patterns:   {title:'Pattern Recognition',  sub:'Enterprise Chart Formation Engine'},
+  portfolio:  {title:'IPO & Portfolio',      sub:'Multi-Account Dashboard'},
+  alerts:     {title:'Risk & Alerts',        sub:'Dynamic Notification Engine'},
+};
+
+function goTo(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  el.classList.add('active');
+  const m = PAGE_META[id];
+  document.getElementById('page-title').textContent = m.title;
+  document.getElementById('page-sub').textContent = m.sub;
+  if (id === 'portfolio') initPortfolioCharts();
+  if (id === 'dashboard') initDashCharts();
+}
+
+// ════════════════════════════════════
+// RENDER: DASHBOARD
+// ════════════════════════════════════
+function renderDashboard() {
+  // Top movers
+  const sorted = [...STOCKS].sort((a,b)=>Math.abs(b.chg)-Math.abs(a.chg)).slice(0,6);
+  document.getElementById('movers-table').innerHTML = sorted.map(s=>`
+    <tr>
+      <td class="td-blue" style="font-weight:600">${s.sym}</td>
+      <td>NPR ${s.ltp}</td>
+      <td class="${s.chg>=0?'td-green':'td-red'}">${s.chg>=0?'▲':'▼'} ${Math.abs(s.chg)}%</td>
+      <td class="td-dim">${s.vol.toLocaleString()}</td>
+      <td>${signalBadge(s.signal)}</td>
+    </tr>`).join('');
+
+  // Dash alerts (top 3)
+  document.getElementById('alert-count').textContent = '7 Active';
+  document.getElementById('dash-alerts').innerHTML = ALERTS.slice(0,3).map(alertHTML).join('');
+}
+
+function initDashCharts() {
+  // Index chart
+  const months = ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+  const idx = [1840,1920,1870,2010,2080,1950,2020,2140,2060,2180,2110,2148];
+  const ictx = document.getElementById('indexChart');
+  if (indexChart) indexChart.destroy();
+  indexChart = new Chart(ictx, {
+    type:'line',
+    data:{
+      labels:months,
+      datasets:[{
+        data:idx,
+        borderColor:'#3b82f6',
+        backgroundColor:'rgba(59,130,246,0.08)',
+        borderWidth:2,
+        pointRadius:0,
+        fill:true,
+        tension:0.4
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{color:'#555f72',font:{size:11}},grid:{color:'#2a2f3d'}},
+        y:{ticks:{color:'#555f72',font:{size:11},callback:v=>v.toLocaleString()},grid:{color:'#2a2f3d'}}
+      }
+    }
+  });
+
+  // Sector chart
+  const sctx = document.getElementById('sectorChart');
+  if (sectorChart) sectorChart.destroy();
+  sectorChart = new Chart(sctx,{
+    type:'bar',
+    data:{
+      labels:['Banking','Hydropower','Insurance','Finance','Micro-finance','Manufacturing'],
+      datasets:[{
+        data:[1.4,-0.8,2.1,0.6,-1.3,0.3],
+        backgroundColor:v=>v.raw>=0?'rgba(16,185,129,0.7)':'rgba(239,68,68,0.7)',
+        borderRadius:4
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{color:'#555f72',font:{size:10}},grid:{display:false}},
+        y:{ticks:{color:'#555f72',font:{size:11},callback:v=>v+'%'},grid:{color:'#2a2f3d'}}
+      }
+    }
+  });
+}
+
+// ════════════════════════════════════
+// RENDER: ANALYZER
+// ════════════════════════════════════
+function selectHz(el, type) {
+  document.querySelectorAll('.hz-btn').forEach(b=>{b.classList.remove('active','short','medium','long')});
+  el.classList.add('active', type);
+  currentHz = type;
+  renderHzPanel(type);
+}
+
+function renderHzPanel(type) {
+  const labels = {short:'Short-Term',medium:'Medium-Term',long:'Long-Term'};
+  const modes = {short:'Short Mode',medium:'Medium Mode',long:'Long Mode'};
+  document.getElementById('hz-metrics-label').textContent = 'Active Metrics — '+labels[type];
+  document.getElementById('hz-mode-label').textContent = modes[type];
+  document.getElementById('hz-metrics-body').innerHTML = HZ_METRICS[type].map(([m,w,s,p])=>`
+    <tr>
+      <td style="font-weight:500">${m}</td>
+      <td class="td-blue">${w}</td>
+      <td class="td-dim">${s}</td>
+      <td>${prioBadge(p)}</td>
+    </tr>`).join('');
+  document.getElementById('auto-stocks-body').innerHTML = AUTO_STOCKS[type].map(s=>`
+    <tr>
+      <td class="td-blue" style="font-weight:600">${s.sym}</td>
+      <td><span style="color:var(--green);font-weight:600">${s.score}</span>/100</td>
+      <td>${signalBadge(s.signal)}</td>
+      <td class="td-dim">NPR ${s.target}</td>
+    </tr>`).join('');
+}
+
+// ════════════════════════════════════
+// RENDER: SCREENER
+// ════════════════════════════════════
+let filteredStocks = [...STOCKS];
+
+function renderScreener(stocks) {
+  document.getElementById('screener-table').innerHTML = stocks.map(s=>`
+    <tr>
+      <td class="td-blue" style="font-weight:600">${s.sym}</td>
+      <td class="td-dim">${s.name}</td>
+      <td>${s.sector}</td>
+      <td>NPR ${s.ltp}</td>
+      <td class="${s.chg>=0?'td-green':'td-red'}">${s.chg>=0?'+':''}${s.chg}%</td>
+      <td class="td-dim">${s.vol.toLocaleString()}</td>
+      <td class="${s.rsi>70?'td-red':s.rsi<35?'td-green':'td-dim'}">${s.rsi}</td>
+      <td class="td-dim">${s.pe}</td>
+      <td class="td-dim">${s.eps}</td>
+      <td class="td-dim">${s.h52} / ${s.l52}</td>
+      <td>${signalBadge(s.signal)}</td>
+    </tr>`).join('');
+}
+
+function filterStocks(q) {
+  filteredStocks = STOCKS.filter(s=>
+    s.sym.toLowerCase().includes(q.toLowerCase()) ||
+    s.name.toLowerCase().includes(q.toLowerCase())
+  );
+  applyFilters();
+}
+function filterBySector(sec) {
+  applyFilters();
+}
+function filterBySignal(sig) {
+  applyFilters();
+}
+function applyFilters() {
+  const q = document.getElementById('stock-search').value.toLowerCase();
+  const sec = document.getElementById('sector-filter').value;
+  const sig = document.getElementById('signal-filter').value;
+  let res = STOCKS.filter(s=>{
+    const mq = s.sym.toLowerCase().includes(q)||s.name.toLowerCase().includes(q)||!q;
+    const ms = !sec||s.sector===sec;
+    const mi = !sig||s.signal===sig;
+    return mq&&ms&&mi;
+  });
+  renderScreener(res);
+}
+
+// ════════════════════════════════════
+// RENDER: PREDICTION
+// ════════════════════════════════════
+function renderPillarControls() {
+  document.getElementById('pillar-controls').innerHTML = PILLAR_STATE.map((p,i)=>`
+    <div class="pillar-row">
+      <div style="width:200px;flex-shrink:0">
+        <div class="pillar-label" style="color:${p.color}">${p.label}</div>
+        <div class="pillar-sub">${p.sub}</div>
+      </div>
+      <input class="pillar-slider" type="range" min="5" max="70" value="${p.val}"
+        style="accent-color:${p.color}"
+        oninput="updatePillar(${i},this.value)"/>
+      <div class="pillar-pct" style="color:${p.color}" id="pp-${i}">${p.val}%</div>
+    </div>`).join('');
+  updatePillarChart();
+}
+
+function updatePillar(i, v) {
+  PILLAR_STATE[i].val = +v;
+  const total = PILLAR_STATE.reduce((s,p)=>s+p.val,0);
+  PILLAR_STATE.forEach((p,j)=>{
+    const norm = Math.round(p.val/total*100);
+    const el = document.getElementById('pp-'+j);
+    if(el) el.textContent = norm+'%';
+  });
+  document.getElementById('total-weight').textContent = '100%';
+  updatePillarChart();
+}
+
+function updatePillarChart() {
+  const total = PILLAR_STATE.reduce((s,p)=>s+p.val,0);
+  const data = PILLAR_STATE.map(p=>Math.round(p.val/total*100));
+  if (!pillarChart) {
+    const ctx = document.getElementById('pillarChart');
+    if (!ctx) return;
+    pillarChart = new Chart(ctx,{
+      type:'doughnut',
+      data:{
+        labels:PILLAR_STATE.map(p=>p.label.split('/')[0].trim()),
+        datasets:[{data,backgroundColor:PILLAR_STATE.map(p=>p.color),borderWidth:0,hoverOffset:4}]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,cutout:'60%',
+        plugins:{legend:{display:true,position:'right',labels:{color:'#8892a4',font:{size:11},boxWidth:10}}}
+      }
+    });
+  } else {
+    pillarChart.data.datasets[0].data = data;
+    pillarChart.update();
+  }
+}
+
+function renderPredictionTable() {
+  const preds = [
+    {sym:'NICA',cur:422,t3:'438–445',t30:'490–520',conf:88,tech:'Bullish',fund:'Strong',risk:'Low'},
+    {sym:'NHPC',cur:142,t3:'147–151',t30:'162–175',conf:82,tech:'Breakout',fund:'Medium',risk:'Low'},
+    {sym:'SBL',cur:348,t3:'355–362',t30:'385–410',conf:76,tech:'Bullish',fund:'Strong',risk:'Low-Med'},
+    {sym:'GBIME',cur:268,t3:'272–278',t30:'295–315',conf:71,tech:'Recovery',fund:'Good',risk:'Medium'},
+    {sym:'NABIL',cur:1245,t3:'1230–1250',t30:'—',conf:52,tech:'Overbought',fund:'Strong',risk:'High'},
+  ];
+  document.getElementById('prediction-table').innerHTML = preds.map(p=>`
+    <tr>
+      <td class="td-blue" style="font-weight:600">${p.sym}</td>
+      <td>NPR ${p.cur}</td>
+      <td class="td-green">${p.t3}</td>
+      <td class="td-green">${p.t30}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="height:4px;width:60px;background:var(--border);border-radius:2px">
+            <div style="height:4px;width:${p.conf}%;background:${p.conf>80?'#10b981':p.conf>60?'#f59e0b':'#ef4444'};border-radius:2px"></div>
+          </div>
+          <span style="font-size:12px;color:var(--text2)">${p.conf}%</span>
+        </div>
+      </td>
+      <td class="td-blue">${p.tech}</td>
+      <td class="td-green">${p.fund}</td>
+      <td class="${p.risk==='High'?'td-red':p.risk==='Medium'?'td-amber':'td-green'}">${p.risk}</td>
+      <td>${signalBadge(p.conf>75?'BUY':p.conf>55?'HOLD':'SELL')}</td>
+    </tr>`).join('');
+}
+
+// ════════════════════════════════════
+// RENDER: PATTERNS
+// ════════════════════════════════════
+function renderPatterns() {
+  document.getElementById('pattern-grid').innerHTML = PATTERNS.map(p=>`
+    <div class="pattern-card ${p.detected?'detected':''}">
+      <svg class="pat-svg" viewBox="0 0 84 56" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arr" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L6 4L1 7" fill="none" stroke="currentColor" stroke-width="1.5"/></marker></defs>
+        ${p.svg}
+      </svg>
+      <div class="pat-name">${p.name}</div>
+      <div class="pat-meta">${p.stock} · ${p.type}</div>
+      <div class="conf-bar-track">
+        <div class="conf-bar-fill" style="width:${p.conf}%;background:${p.conf>80?'#10b981':p.conf>65?'#3b82f6':'#f59e0b'}"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:5px;font-size:11px;color:var(--text3)">
+        <span>${p.detected?'✓ Detected':'Watching'}</span>
+        <span>${p.conf}% conf.</span>
+      </div>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════
+// RENDER: PORTFOLIO
+// ════════════════════════════════════
+function renderPortfolio() {
+  document.getElementById('acct-grid').innerHTML = PORTFOLIO_ACCOUNTS.map(a=>{
+    const mx = Math.max(...a.bars);
+    const bars = a.bars.map(v=>`<div class="mini-bar" style="height:${Math.round(v/mx*26)+2}px;background:${a.color};opacity:0.7"></div>`).join('');
+    return `<div class="acct-card ${a.cls}">
+      <div class="acct-name">${a.name}</div>
+      <div class="acct-val">NPR ${a.val.toLocaleString()}</div>
+      <div class="acct-pnl td-green">+NPR ${a.pnl.toLocaleString()} (+${a.pct}%)</div>
+      <div class="mini-bars">${bars}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('ipo-table').innerHTML = IPOS.map(i=>{
+    const sc = i.status==='Open'?'green':i.status==='Processing'?'amber':i.status==='Allotted'?'blue':'purple';
+    return `<tr>
+      <td style="font-weight:500">${i.co}</td>
+      <td class="td-dim">${i.sector}</td>
+      <td>NPR ${i.price}</td>
+      <td class="td-dim">${i.applied}</td>
+      <td class="td-green">${i.shares}</td>
+      <td><span class="badge ${sc}">${i.status}</span></td>
+      <td class="td-dim">${i.listing}</td>
+      <td class="td-green">${i.ret}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('holdings-table').innerHTML = HOLDINGS.map(h=>{
+    const mv = h.shares * h.ltp;
+    const pl = (h.ltp - h.cost) * h.shares;
+    const plp = ((h.ltp - h.cost)/h.cost*100).toFixed(1);
+    return `<tr>
+      <td class="td-blue" style="font-weight:600">${h.sym}</td>
+      <td>${h.shares}</td>
+      <td>NPR ${h.cost}</td>
+      <td>NPR ${h.ltp}</td>
+      <td>NPR ${mv.toLocaleString()}</td>
+      <td class="${pl>=0?'td-green':'td-red'}">${pl>=0?'+':''}NPR ${Math.abs(pl).toLocaleString()}</td>
+      <td class="${pl>=0?'td-green':'td-red'}">${pl>=0?'+':''}${plp}%</td>
+      <td class="td-dim">${h.acct}</td>
+    </tr>`;
+  }).join('');
+}
+
+function initPortfolioCharts() {
+  const pctx = document.getElementById('portChart');
+  const prctx = document.getElementById('profitChart');
+  if (!pctx||!prctx) return;
+  if (portChart) portChart.destroy();
+  if (profitChart) profitChart.destroy();
+
+  portChart = new Chart(pctx,{
+    type:'bar',
+    data:{
+      labels:PORTFOLIO_ACCOUNTS.map(a=>a.name.split('(')[0].trim()),
+      datasets:[{
+        label:'Value',
+        data:PORTFOLIO_ACCOUNTS.map(a=>a.val),
+        backgroundColor:PORTFOLIO_ACCOUNTS.map(a=>a.color+'cc'),
+        borderColor:PORTFOLIO_ACCOUNTS.map(a=>a.color),
+        borderWidth:1,
+        borderRadius:4
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{color:'#555f72',font:{size:11}},grid:{display:false}},
+        y:{ticks:{color:'#555f72',font:{size:11},callback:v=>'NPR '+Math.round(v/1000)+'k'},grid:{color:'#2a2f3d'}}
+      }
+    }
+  });
+
+  profitChart = new Chart(prctx,{
+    type:'doughnut',
+    data:{
+      labels:PORTFOLIO_ACCOUNTS.map(a=>a.name.split('(')[0].trim()),
+      datasets:[{
+        data:PORTFOLIO_ACCOUNTS.map(a=>a.pnl),
+        backgroundColor:PORTFOLIO_ACCOUNTS.map(a=>a.color),
+        borderWidth:0,hoverOffset:4
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,cutout:'55%',
+      plugins:{legend:{display:true,position:'right',labels:{color:'#8892a4',font:{size:11},boxWidth:10}}}
+    }
+  });
+}
+
+// ════════════════════════════════════
+// RENDER: ALERTS
+// ════════════════════════════════════
+function renderAlerts() {
+  document.getElementById('alerts-list').innerHTML = ALERTS.map(alertHTML).join('');
+}
+
+function alertHTML(a) {
+  const icons={sell:'↘',hold:'⏸',buy:'↗',macro:'⚡'};
+  const btnMap={
+    sell:`<button class="alert-btn sell-btn" onclick="showToast('SELL order placed for ${a.stock.split('—')[0].trim()}')">Execute Sell</button>`,
+    hold:`<button class="alert-btn hold-btn" onclick="showToast('Holding ${a.stock.split('—')[0].trim()} — alert set')">Set Hold Alert</button>`,
+    buy:`<button class="alert-btn buy-btn" onclick="showToast('BUY order queued for ${a.stock.split('—')[0].trim()}')">Execute Buy</button>`,
+    macro:`<button class="alert-btn" onclick="showToast('Portfolio review initiated')">Review Portfolio</button>`,
+  };
+  return `<div class="alert-item ${a.type}">
+    <div class="alert-icon ${a.type}">${icons[a.type]}</div>
+    <div class="alert-body">
+      <div class="alert-stock">${a.stock}</div>
+      <div class="alert-msg">${a.msg}</div>
+      <div class="alert-actions">${btnMap[a.type]}</div>
+    </div>
+    <div class="alert-time">${a.time}</div>
+  </div>`;
+}
+
+// ════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════
+function signalBadge(s) {
+  const map={BUY:'green',SELL:'red',HOLD:'amber',ACCUMULATE:'blue'};
+  return `<span class="badge ${map[s]||'blue'}">${s}</span>`;
+}
+function prioBadge(p) {
+  const map={Critical:'red',High:'amber',Medium:'blue',Low:'purple'};
+  return `<span class="badge ${map[p]||'blue'}">${p}</span>`;
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+function refreshData() {
+  showToast('Market data refreshed — ' + new Date().toLocaleTimeString());
+}
+
+// ════════════════════════════════════
+// INIT
+// ════════════════════════════════════
+renderDashboard();
+renderHzPanel('short');
+renderScreener(STOCKS);
+renderPillarControls();
+renderPredictionTable();
+renderPatterns();
+renderPortfolio();
+renderAlerts();
+setTimeout(initDashCharts, 100);
+</script>
+</body>
+</html>
