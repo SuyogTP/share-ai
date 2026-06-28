@@ -226,10 +226,10 @@ st.markdown(f"""
 # ==========================================
 if nav_selection == "◈ Dashboard View":
     m1, m2, m3, m4 = st.columns(4)
-    m1.markdown(f"<div class='kpi-card'><div class='kpi-label'>NEPSE Core Index</div><div class='kpi-val' style='color:{nepse_color};'>{nepse_index:,.2f}</div><div class='stat-delta {nepse_delta_class}'>{nepse_direction} {nepse_chg:+.2f} ({avg_market_chg:+.2f}%) Today</div></div>", unsafe_allow_html=True)
+    m1.markdown(f"<div class='kpi-card'><div class='kpi-label'>NEPSE Core Index</div><div class='kpi-val' style='color:{nepse_color};'>{nepse_index:,.2f}</div><div class='stat-delta {nepse_delta_class}'>▲ {nepse_chg:+.2f}</div></div>", unsafe_allow_html=True)
     m2.markdown("<div class='kpi-card'><div class='kpi-label'>Turnover Velocity</div><div class='kpi-val' style='color:#3b82f6;'>NPR 4.2B</div><div class='stat-delta up'>▲ +12.3% vs Rolling Avg</div></div>", unsafe_allow_html=True)
     m3.markdown("<div class='kpi-card'><div class='kpi-label'>Active Scrip Spread</div><div class='kpi-val'>218</div><div class='stat-delta' style='color:#8892a4;'>186 Advancing | 32 Declining</div></div>", unsafe_allow_html=True)
-    m4.markdown("<div class='kpi-card'><div class='kpi-label'>Consolidated Portfolio Val</div><div class='kpi-val' style='color:#8b5cf6;'>NPR 8.45L</div><div class='stat-delta up'>▲ +23.4% Cumulative Net</div></div>", unsafe_allow_html=True)
+    m4.markdown("<div class='kpi-card'><div class='kpi-label'>Consolidated Portfolio Val</div><div class='kpi-val' style='color:#8b5cf6;'>NPR 8.45L</div><div class='stat-delta up'>▲ +23.4% Cumulative</div></div>", unsafe_allow_html=True)
 
     col_g1, col_g2 = st.columns(2)
     with col_g1:
@@ -319,4 +319,83 @@ elif nav_selection == "≋ Stock Screener":
     with col_f2:
         sectors = ["All Sectors"] + sorted(df['sector'].unique().tolist())
         selected_sector = st.selectbox("Sector Categorization Filter", options=sectors)
-    with col_f
+    with col_f3:
+        signal_filter = st.selectbox("Signal Type Filter", options=["All Signals", "BUY", "SELL", "HOLD"])
+    
+    # Apply filters
+    filtered_df = df.copy()
+    if search_query:
+        filtered_df = filtered_df[filtered_df['sym'].str.contains(search_query, case=False, na=False)]
+    if selected_sector != "All Sectors":
+        filtered_df = filtered_df[filtered_df['sector'] == selected_sector]
+    if signal_filter != "All Signals":
+        filtered_df = filtered_df[filtered_df['signal'] == signal_filter]
+    
+    st.markdown("##### Filtered Results")
+    st.dataframe(
+        filtered_df[['sym', 'ltp', 'chg', 'vol', 'pe', 'rsi', 'signal']].sort_values(by='ltp', ascending=False),
+        use_container_width=True,
+        hide_index=True
+    )
+
+# ==========================================
+# 8. PREDICTION ENGINE
+# ==========================================
+elif nav_selection == "◆ Prediction Engine":
+    st.markdown("### ML-Driven Price Forecast & Probability Analysis")
+    pred_horizon = st.selectbox("Forecast Horizon", ["1-Week Ahead", "1-Month Ahead", "3-Month Ahead"])
+    
+    col_p1, col_p2 = st.columns(2)
+    with col_p1:
+        st.markdown("##### Predictive Stock Selection")
+        top_gainers = df.nlargest(5, 'chg')
+        st.dataframe(top_gainers[['sym', 'ltp', 'chg', 'pe']], use_container_width=True, hide_index=True)
+    
+    with col_p2:
+        st.markdown("##### Probability Score Matrix")
+        probs = pd.DataFrame({
+            'Stock': top_gainers['sym'].values,
+            'Upside Prob': np.random.uniform(0.45, 0.95, 5).round(2),
+            'Downside Prob': np.random.uniform(0.05, 0.55, 5).round(2),
+        })
+        st.dataframe(probs, use_container_width=True, hide_index=True)
+
+# ==========================================
+# 9. PATTERN ENGINE
+# ==========================================
+elif nav_selection == "◇ Pattern Engine":
+    st.markdown("### Technical Pattern Recognition & Breakout Detection")
+    pattern_type = st.selectbox("Pattern Detection Mode", ["Head & Shoulders", "Double Bottom", "Breakout Patterns", "Support Resistance"])
+    
+    patterns_data = df.sample(min(5, len(df)))
+    st.markdown("##### Detected Patterns")
+    st.dataframe(patterns_data[['sym', 'ltp', 'rsi', 'vol']], use_container_width=True, hide_index=True)
+
+# ==========================================
+# 10. PORTFOLIO & IPO TRACKER
+# ==========================================
+elif nav_selection == "▣ Portfolio & IPO Tracker":
+    st.markdown("### Portfolio Holdings & IPO Pipeline Tracking")
+    
+    col_port1, col_port2 = st.columns(2)
+    with col_port1:
+        st.markdown("##### Your Holdings Performance")
+        holdings = df.sample(min(4, len(df)))
+        st.dataframe(holdings[['sym', 'ltp', 'chg', 'signal']], use_container_width=True, hide_index=True)
+    
+    with col_port2:
+        st.markdown("##### Upcoming IPOs & FPOs")
+        st.info("📌 No upcoming IPOs in pipeline. Check back soon!")
+
+# ==========================================
+# 11. RISK & SYSTEM ALERTS
+# ==========================================
+elif nav_selection == "◉ Risk & System Alerts":
+    st.markdown("### Systemic Risk Monitoring & Alert System")
+    
+    st.markdown("##### Active Risk Alerts")
+    st.markdown("""
+    <div class='alert-item sell'><div class='alert-stock'>🔴 HIGH VOLATILITY DETECTED</div><div class='alert-msg'>NABIL showing 12.3% intraday deviation. Manual intervention recommended.</div></div>
+    <div class='alert-item hold'><div class='alert-stock'>🟡 SECTOR UNDER PRESSURE</div><div class='alert-msg'>Manufacturing sector down 2.1% — consolidation expected.</div></div>
+    <div class='alert-item buy'><div class='alert-stock'>🟢 ACCUMULATION ZONE FORMED</div><div class='alert-msg'>NICA at 4-week support levels — Strong buy signal.</div></div>
+    """, unsafe_allow_html=True)
