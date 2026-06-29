@@ -29,6 +29,12 @@ def _to_numeric(series: object, default: float = 0.0) -> pd.Series:
     return pd.Series([series], dtype="float64").fillna(default)
 
 
+def _to_string(series: object, default: str = "") -> pd.Series:
+    if isinstance(series, pd.Series):
+        return series.fillna(default).astype(str)
+    return pd.Series([str(series if series is not None else default)])
+
+
 def _build_price_history(record: dict[str, Any]) -> pd.DataFrame:
     base_price = float(record.get("ltp", 0) or 0)
     change_pct = float(record.get("change_pct", 0) or 0)
@@ -74,8 +80,8 @@ def enrich_market_records(records: list[dict[str, Any]] | pd.DataFrame) -> pd.Da
     if df.empty:
         return df
 
-    df["symbol"] = df.get("symbol", df.get("sym", "")).fillna("").astype(str).str.upper().str.strip()
-    df["name"] = df.get("name", df.get("company_name", "")).fillna("")
+    df["symbol"] = _to_string(df.get("symbol", df.get("sym", ""))).str.upper().str.strip()
+    df["name"] = _to_string(df.get("name", df.get("company_name", "")))
     df["ltp"] = _to_numeric(df.get("ltp", 0), 0.0)
     df["change_pct"] = _to_numeric(df.get("change_pct", 0), 0.0)
     df["volume"] = _to_numeric(df.get("volume", 0), 0.0).astype(int)
@@ -84,7 +90,7 @@ def enrich_market_records(records: list[dict[str, Any]] | pd.DataFrame) -> pd.Da
     df["book_value"] = _to_numeric(df.get("book_value", 0), 0.0)
     df["dividend_yield"] = _to_numeric(df.get("dividend_yield", df.get("div_yield", 0)), 0.0)
     df["health_score"] = _to_numeric(df.get("health_score", 50), 50.0)
-    df["grade"] = df.get("grade", "C")
+    df["grade"] = _to_string(df.get("grade", "C"))
     df["roe"] = _to_numeric(df.get("roe", 10), 10.0)
 
     df["sym"] = df["symbol"]
