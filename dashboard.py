@@ -86,15 +86,21 @@ def load_dashboard_data(force_refresh: bool = False):
 if "last_refresh" not in st.session_state:
     st.session_state.last_refresh = datetime.now()
 
+if "refresh_requested" not in st.session_state:
+    st.session_state.refresh_requested = False
+
 # Auto-refresh every 60 seconds
 current_time = datetime.now()
 if (current_time - st.session_state.last_refresh).seconds > 60:
-    st.cache_data.clear()
+    st.session_state.refresh_requested = True
     st.session_state.last_refresh = current_time
-    st.rerun()
 
 # Load live data
-force_refresh = st.session_state.pop("force_refresh", False)
+force_refresh = st.session_state.pop("force_refresh", False) or st.session_state.refresh_requested
+if force_refresh:
+    st.cache_data.clear()
+    st.session_state.refresh_requested = False
+
 df, data_source = load_dashboard_data(force_refresh=force_refresh)
 
 # Calculate market indices
@@ -169,7 +175,6 @@ with st.sidebar:
     if st.button("🔄 Force Refresh Market Data", use_container_width=True):
         st.session_state.force_refresh = True
         st.session_state.last_refresh = datetime.now()
-        st.cache_data.clear()
         st.rerun()
     
     if st.button("Disconnect Node (Logout)", use_container_width=True, type="secondary"):
@@ -203,9 +208,9 @@ st.markdown(f"""
 if nav_selection == "◈ Dashboard View":
     m1, m2, m3, m4 = st.columns(4)
     m1.markdown(f"<div class='kpi-card'><div class='kpi-label'>NEPSE Core Index</div><div class='kpi-val' style='color:{nepse_color};'>{nepse_index:,.2f}</div><div class='stat-delta {nepse_delta_class}'>{'▲' if nepse_chg >= 0 else '▼'} {abs(nepse_chg):.2f}</div></div>", unsafe_allow_html=True)
-    m2.markdown(f"<div class='kpi-card'><div class='kpi-label'>Turnover Velocity</div><div class='kpi-val' style='color:#3b82f6;'>NPR {total_turnover/1e9:.2f}B</div><div class='stat-delta up'>▲ +5.2%</div></div>", unsafe_allow_html=True)
-    m3.markdown(f"<div class='kpi-card'><div class='kpi-label'>Active Scrip Spread</div><div class='kpi-val'>{len(df)}</div><div class='stat-delta' style='color:#8892a4;'>{advancing} Advancing | {declining} Declining</div></div>", unsafe_allow_html=True)
-    m4.markdown(f"<div class='kpi-card'><div class='kpi-label'>Market Cap Indicator</div><div class='kpi-val' style='color:#8b5cf6;'>NPR {(total_turnover/1e13):.2f}T</div><div class='stat-delta up'>▲</div></div>", unsafe_allow_html=True)
+    m2.markdown(f"<div class='kpi-card'><div class='kpi-label'>Live Turnover</div><div class='kpi-val' style='color:#3b82f6;'>NPR {total_turnover:,.0f}</div><div class='stat-delta up'>▲ {advancing} advancing</div></div>", unsafe_allow_html=True)
+    m3.markdown(f"<div class='kpi-card'><div class='kpi-label'>Tracked Scrips</div><div class='kpi-val'>{len(df)}</div><div class='stat-delta' style='color:#8892a4;'>{advancing} Advancing | {declining} Declining</div></div>", unsafe_allow_html=True)
+    m4.markdown(f"<div class='kpi-card'><div class='kpi-label'>Avg Momentum</div><div class='kpi-val' style='color:#8b5cf6;'>{df['chg'].mean():+.2f}%</div><div class='stat-delta up'>Based on live change</div></div>", unsafe_allow_html=True)
 
     col_g1, col_g2 = st.columns(2)
     with col_g1:
@@ -368,18 +373,54 @@ elif nav_selection == "◇ Pattern Engine":
 # ==========================================
 elif nav_selection == "▣ Portfolio & IPO Tracker":
     st.markdown("### Portfolio Holdings & IPO Pipeline Tracking")
-    
+
+    portfolio_rows = [
+        {"symbol": "HFIN", "quantity": 10, "last_close": 755, "ltp": 730.17},
+        {"symbol": "HLI", "quantity": 12, "last_close": 828.93, "ltp": 897.63},
+        {"symbol": "MBJC", "quantity": 10, "last_close": 277.02, "ltp": 751},
+        {"symbol": "NESDO", "quantity": 11, "last_close": 540.01, "ltp": 830},
+        {"symbol": "NIFRA", "quantity": 64, "last_close": 250.01, "ltp": 878.46},
+        {"symbol": "PCIL", "quantity": 10, "last_close": 682.06, "ltp": 620},
+        {"symbol": "RNLI", "quantity": 12, "last_close": 451.05, "ltp": 368.79},
+        {"symbol": "SGHL", "quantity": 10, "last_close": 1000, "ltp": 1000},
+        {"symbol": "TAMOR", "quantity": 10, "last_close": 445.04, "ltp": 414},
+    ]
+
+    portfolio_df = pd.DataFrame(portfolio_rows)
+    portfolio_df["last_close_value"] = portfolio_df["quantity"] * portfolio_df["last_close"]
+    portfolio_df["ltp_value"] = portfolio_df["quantity"] * portfolio_df["ltp"]
+    portfolio_df["gain_loss"] = portfolio_df["ltp_value"] - portfolio_df["last_close_value"]
+    portfolio_df["gain_loss_pct"] = (portfolio_df["gain_loss"] / portfolio_df["last_close_value"] * 100).round(2)
+    portfolio_df = portfolio_df.sort_values(by="gain_loss", ascending=False)
+
+    portfolio_df = portfolio_df.merge(
+        df[['sym', 'ltp', 'chg', 'health_score', 'signal', 'interpretation_lean']].rename(columns={'sym': 'symbol', 'ltp': 'live_ltp'}),
+        on='symbol',
+        how='left'
+    )
+    portfolio_df['live_ltp'] = portfolio_df['live_ltp'].fillna(portfolio_df['ltp'])
+    portfolio_df['live_value'] = portfolio_df['quantity'] * portfolio_df['live_ltp']
+    portfolio_df['live_gain_loss'] = portfolio_df['live_value'] - portfolio_df['last_close_value']
+    portfolio_df['live_gain_loss_pct'] = ((portfolio_df['live_gain_loss'] / portfolio_df['last_close_value']) * 100).round(2)
+
     col_port1, col_port2 = st.columns(2)
     with col_port1:
-        st.markdown("##### Your Holdings Performance (Top Fundamentals)")
-        if len(df) > 0:
-            holdings = df.nlargest(4, 'health_score').copy()
-            holdings['portfolio_note'] = holdings['interpretation_headline']
-            st.dataframe(holdings[['sym', 'ltp', 'chg', 'health_score', 'signal', 'portfolio_note']], use_container_width=True, hide_index=True)
-    
+        st.markdown("##### Your Holdings")
+        st.dataframe(
+            portfolio_df[['symbol', 'quantity', 'last_close', 'live_ltp', 'last_close_value', 'live_value', 'live_gain_loss', 'live_gain_loss_pct']].sort_values(by='live_gain_loss', ascending=False),
+            use_container_width=True,
+            hide_index=True
+        )
+
     with col_port2:
-        st.markdown("##### Upcoming IPOs & FPOs")
-        st.info("📌 No upcoming IPOs in pipeline. Check back soon!")
+        st.markdown("##### Portfolio Summary")
+        total_last_value = float(portfolio_df['last_close_value'].sum())
+        total_live_value = float(portfolio_df['live_value'].sum())
+        total_gain_loss = total_live_value - total_last_value
+        st.metric("Last Close Value", f"NPR {total_last_value:,.2f}")
+        st.metric("Live Value", f"NPR {total_live_value:,.2f}")
+        st.metric("P/L", f"NPR {total_gain_loss:,.2f}", delta=f"{(total_gain_loss/total_last_value*100):+.2f}%")
+        st.info("📌 This portfolio view uses the holdings you provided and updates from the live market feed when available.")
 
 # ==========================================
 # 12. RISK & SYSTEM ALERTS (with Interpreter)
