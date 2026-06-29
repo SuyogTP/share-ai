@@ -190,7 +190,7 @@ def scrape_nepsealpha() -> list[dict]:
     except Exception as e:
         log.warning(f"NepseAlpha scrape failed: {e}")
 
-    log.info(f"  → {len(results)} records from NepseAlpha")
+    log.info(f"  -> {len(results)} records from NepseAlpha")
     return results
 
 
@@ -237,7 +237,7 @@ def scrape_sharesansar() -> list[dict]:
     except Exception as e:
         log.warning(f"ShareSansar scrape failed: {e}")
 
-    log.info(f"  → {len(results)} records from ShareSansar")
+    log.info(f"  -> {len(results)} records from ShareSansar")
     return results
 
 
@@ -280,7 +280,7 @@ def scrape_merolagani() -> list[dict]:
     except Exception as e:
         log.warning(f"Merolagani scrape failed: {e}")
 
-    log.info(f"  → {len(results)} records from Merolagani")
+    log.info(f"  -> {len(results)} records from Merolagani")
     return results
 
 
@@ -401,7 +401,7 @@ def save_data(records: list[dict]):
 
     with open(OUTPUT_JSON, "w") as f:
         json.dump(payload, f, indent=2, default=str)
-    log.info(f"Saved JSON → {OUTPUT_JSON}")
+    log.info(f"Saved JSON -> {OUTPUT_JSON}")
 
     if records:
         keys = records[0].keys()
@@ -409,7 +409,7 @@ def save_data(records: list[dict]):
             w = csv.DictWriter(f, fieldnames=keys, extrasaction="ignore")
             w.writeheader()
             w.writerows(records)
-        log.info(f"Saved CSV  → {OUTPUT_CSV}")
+        log.info(f"Saved CSV  -> {OUTPUT_CSV}")
 
 
 # ─── Main ────────────────────────────────────────────────────────────────────
@@ -426,7 +426,7 @@ def main():
 
     if na or ss or ml:
         merged = merge_sources(na, ss, ml)
-        log.info(f"Merged → {len(merged)} unique stocks")
+        log.info(f"Merged -> {len(merged)} unique stocks")
     else:
         log.warning("All live scrapes failed – using demo data")
         merged = generate_demo_data()
