@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, date
 from pathlib import Path
 from typing import Any
@@ -27,6 +28,31 @@ def _to_numeric(series: object, default: float = 0.0) -> pd.Series:
     if isinstance(series, pd.Series):
         return pd.to_numeric(series, errors="coerce").fillna(default)
     return pd.Series([series], dtype="float64").fillna(default)
+
+
+def _looks_like_real_symbol(value: object) -> bool:
+    if value is None:
+        return False
+    symbol = str(value).strip().upper()
+    if not symbol or len(symbol) < 2 or len(symbol) > 10:
+        return False
+    return bool(re.fullmatch(r"[A-Z0-9.-]+", symbol)) and not symbol.isdigit()
+
+
+def _sanitize_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    sanitized: list[dict[str, Any]] = []
+    for record in records or []:
+        symbol = record.get("symbol") or record.get("sym") or ""
+        if not _looks_like_real_symbol(symbol):
+            continue
+        ltp = float(record.get("ltp", record.get("price", 0)) or 0)
+        if ltp <= 0:
+            continue
+        cleaned = dict(record)
+        cleaned["symbol"] = str(symbol).strip().upper()
+        cleaned["name"] = cleaned.get("name") or cleaned.get("company_name") or cleaned["symbol"]
+        sanitized.append(cleaned)
+    return sanitized
 
 
 def _to_string(series: object, default: str = "") -> pd.Series:
@@ -80,9 +106,16 @@ def enrich_market_records(records: list[dict[str, Any]] | pd.DataFrame) -> pd.Da
     if df.empty:
         return df
 
+    df = df[df["symbol"].apply(lambda value: _looks_like_real_symbol(value)) | df["sym"].apply(lambda value: _looks_like_real_symbol(value))] if {"symbol", "sym"}.issubset(df.columns) else df
+    if df.empty:
+        return pd.DataFrame()
+
     df["symbol"] = _to_string(df.get("symbol", df.get("sym", ""))).str.upper().str.strip()
     df["name"] = _to_string(df.get("name", df.get("company_name", "")))
     df["ltp"] = _to_numeric(df.get("ltp", 0), 0.0)
+    df = df[df["ltp"] > 0].copy()
+    if df.empty:
+        return pd.DataFrame()
     df["change_pct"] = _to_numeric(df.get("change_pct", 0), 0.0)
     df["volume"] = _to_numeric(df.get("volume", 0), 0.0).astype(int)
     df["eps"] = _to_numeric(df.get("eps", 0), 0.0)
@@ -159,7 +192,10 @@ def fetch_live_records() -> list[dict[str, Any]]:
         sharesansar_data = scrape_sharesansar()
         nepsealpha_data = scrape_nepsealpha()
         if merolagani_data or sharesansar_data or nepsealpha_data:
-            return merge_sources(nepsealpha_data, sharesansar_data, merolagani_data)
+            merged = merge_sources(nepsealpha_data, sharesansar_data, merolagani_data)
+            sanitized = _sanitize_records(merged)
+            if len(sanitized) >= 10:
+                return sanitized
     except Exception:
         pass
     return generate_demo_data()

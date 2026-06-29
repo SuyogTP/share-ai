@@ -1,6 +1,6 @@
 import unittest
 
-from market_pipeline import enrich_market_records
+from market_pipeline import _sanitize_records, enrich_market_records
 
 
 class MarketPipelineTests(unittest.TestCase):
@@ -26,6 +26,16 @@ class MarketPipelineTests(unittest.TestCase):
         self.assertGreater(len(df), 0)
         self.assertIsInstance(df.loc[0, "trend_result"], dict)
         self.assertIn("lean", df.loc[0, "interpretation"])
+
+    def test_sanitize_records_drops_invalid_rows(self):
+        records = [
+            {"symbol": "NABIL", "ltp": 1000, "change_pct": 1.2, "volume": 10000},
+            {"symbol": "41", "ltp": 0, "change_pct": 0, "volume": 0},
+            {"symbol": "EBL", "ltp": 900, "change_pct": 0.5, "volume": 5000},
+        ]
+        cleaned = _sanitize_records(records)
+        self.assertEqual(len(cleaned), 2)
+        self.assertTrue(all(item["symbol"] != "41" for item in cleaned))
 
 
 if __name__ == "__main__":
