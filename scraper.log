@@ -93,3 +93,17 @@
 2026-06-29 17:04:54,354 [INFO] Scraping NepseAlpha �
 2026-06-29 17:04:55,618 [WARNING] NepseAlpha scrape failed: 403 Client Error: Forbidden for url: https://nepsealpha.com/nepse-data?page=1&per_page=50
 2026-06-29 17:04:55,618 [INFO]   -> 0 records from NepseAlpha
+2026-06-29 14:30:09,372 [INFO] ==================================================
+2026-06-29 14:30:09,372 [INFO] NEPSE Tracker – Scrape Run
+2026-06-29 14:30:09,372 [INFO] ==================================================
+2026-06-29 14:30:09,372 [INFO] Scraping NepseAlpha …
+2026-06-29 14:30:09,495 [WARNING] NepseAlpha scrape failed: 403 Client Error: Forbidden for url: https://nepsealpha.com/nepse-data?page=1&per_page=50
+2026-06-29 14:30:09,495 [INFO]   -> 0 records from NepseAlpha
+2026-06-29 14:30:11,496 [INFO] Scraping ShareSansar …
+2026-06-29 14:30:12,254 [INFO]   -> 351 records from ShareSansar
+2026-06-29 14:30:14,255 [INFO] Scraping Merolagani …
+2026-06-29 14:30:16,319 [INFO]   -> 100 records from Merolagani
+2026-06-29 14:30:16,322 [INFO] Merged -> 451 unique stocks
+2026-06-29 14:30:16,330 [INFO] Saved JSON -> data/data.json
+2026-06-29 14:30:16,331 [INFO] Saved CSV  -> data/data.csv
+2026-06-29 14:30:16,331 [INFO] Done ✓
