@@ -7,6 +7,14 @@ import plotly.express as px
 import time
 from datetime import datetime, timedelta
 import json
+import sys
+from pathlib import Path
+
+# ==========================================
+# IMPORT CUSTOM MODULES
+# ==========================================
+from scraper import scrape_merolagani, scrape_sharesansar, scrape_nepsealpha, merge_sources, generate_demo_data
+from interpreter import interpret_stock, interpret_portfolio
 
 # ==========================================
 # 1. PAGE SETUP & GLOBAL CUSTOM DARK THEME
@@ -70,153 +78,112 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 2. NEPSE API DATA ENGINE - MULTIPLE SOURCES
+# 2. LIVE DATA FETCHER - SCRAPER INTEGRATION
 # ==========================================
-def fetch_nepse_live_data():
-    """Fetch NEPSE data from multiple reliable sources"""
-    
-    # Try Primary Source: Nepalese Stock Exchange API
+@st.cache_data(ttl=300)  # Cache for 5 minutes
+def fetch_live_stock_data():
+    """
+    Fetch stock data from live sources (Merolagani, ShareSansar, NepseAlpha).
+    Falls back to demo data if all sources fail.
+    Returns a pandas DataFrame with enriched fundamentals.
+    """
     try:
-        url = "https://api.nepalstock.com/api/live/market/data"
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-            'Accept': 'application/json'
-        }
-        response = requests.get(url, headers=headers, timeout=10)
-        if response.status_code == 200:
-            data = response.json()
-            if 'data' in data and len(data['data']) > 0:
-                stocks = data['data']
-                df = pd.DataFrame({
-                    'sym': [s.get('symbol', 'N/A') for s in stocks],
-                    'ltp': [float(s.get('ltp', 0)) for s in stocks],
-                    'chg': [float(s.get('pricechange', 0)) for s in stocks],
-                    'vol': [int(s.get('volume', 0)) for s in stocks],
-                })
-                return df.dropna()
-    except Exception as e:
-        pass
+        st.info("🔄 Fetching live market data from Merolagani, ShareSansar, NepseAlpha...")
+        
+        # Scrape all three sources
+        merolagani_data = scrape_merolagani()
+        time.sleep(1)
+        sharesansar_data = scrape_sharesansar()
+        time.sleep(1)
+        nepsealpha_data = scrape_nepsealpha()
+        
+        # Merge & enrich
+        if merolagani_data or sharesansar_data or nepsealpha_data:
+            merged_stocks = merge_sources(nepsealpha_data, sharesansar_data, merolagani_data)
+            st.success(f"✅ Loaded {len(merged_stocks)} stocks from live sources")
+        else:
+            st.warning("⚠️ Live scraping failed, using realistic demo data")
+            merged_stocks = generate_demo_data()
+        
+        # Convert to DataFrame
+        df = pd.DataFrame(merged_stocks)
+        
+        # Ensure all required columns exist
+        required_cols = ['symbol', 'ltp', 'change_pct', 'volume', 'eps', 'pe_ratio', 'roe', 'health_score', 'grade']
+        for col in required_cols:
+            if col not in df.columns:
+                df[col] = None
+        
+        return df
     
-    # Try Secondary Source: ShareSansar API
-    try:
-        url = "https://www.sharesansar.com/api/live/market"
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        response = requests.get(url, headers=headers, timeout=10)
-        if response.status_code == 200:
-            data = response.json()
-            if isinstance(data, list) and len(data) > 0:
-                df = pd.DataFrame({
-                    'sym': [s.get('symbol', 'N/A') for s in data],
-                    'ltp': [float(s.get('close', 0)) for s in data],
-                    'chg': [float(s.get('diff', 0)) for s in data],
-                    'vol': [int(s.get('volume', 0)) for s in data],
-                })
-                return df.dropna()
     except Exception as e:
-        pass
-    
-    # Try HTML Parsing: ShareSansar Live Trading
-    try:
-        url = "https://www.sharesansar.com/live-trading"
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        response = requests.get(url, headers=headers, timeout=10)
-        dfs = pd.read_html(response.text)
-        if len(dfs) > 0:
-            raw = dfs[0]
-            df = pd.DataFrame({
-                'sym': raw['Symbol'].astype(str),
-                'ltp': pd.to_numeric(raw['Close'].astype(str).str.replace(',', ''), errors='coerce'),
-                'chg': pd.to_numeric(raw['% Diff'].astype(str).str.replace(',', ''), errors='coerce'),
-                'vol': pd.to_numeric(raw['Vol'].astype(str).str.replace(',', ''), errors='coerce')
-            })
-            return df.dropna()
-    except Exception as e:
-        pass
-    
-    return None
+        st.error(f"❌ Data fetch failed: {e}. Using demo data...")
+        merged_stocks = generate_demo_data()
+        df = pd.DataFrame(merged_stocks)
+        return df
 
-def generate_realistic_market_data():
-    """Generate realistic fallback data when APIs are unavailable"""
-    
-    # Real NEPSE stocks
-    stocks_data = {
-        'NABIL': {'ltp': 1205.50, 'chg': 2.50, 'vol': 245000},
-        'NICA': {'ltp': 945.00, 'chg': -1.20, 'vol': 185000},
-        'SANIMA': {'ltp': 545.00, 'chg': 3.10, 'vol': 320000},
-        'NHPC': {'ltp': 565.50, 'chg': 1.85, 'vol': 412000},
-        'PLIC': {'ltp': 685.00, 'chg': -2.15, 'vol': 156000},
-        'MLBL': {'ltp': 1845.00, 'chg': 0.50, 'vol': 98000},
-        'UPPER': {'ltp': 435.00, 'chg': 4.25, 'vol': 567000},
-        'HIDCL': {'ltp': 325.50, 'chg': -0.75, 'vol': 287000},
-        'SBI': {'ltp': 415.00, 'chg': 2.05, 'vol': 198000},
-        'EBL': {'ltp': 545.00, 'chg': 1.35, 'vol': 256000},
-    }
-    
-    # Add random variation to simulate live updates
-    timestamp_seed = int(datetime.now().timestamp()) % 1000
-    variation_factor = (timestamp_seed % 20) / 100.0
-    
-    data = []
-    for sym, vals in stocks_data.items():
-        ltp = vals['ltp'] * (1 + variation_factor)
-        chg = vals['chg'] + np.random.uniform(-0.5, 0.5)
-        vol = int(vals['vol'] * (0.9 + np.random.uniform(0, 0.2)))
-        data.append({
-            'sym': sym,
-            'ltp': round(ltp, 2),
-            'chg': round(chg, 2),
-            'vol': vol
-        })
-    
-    return pd.DataFrame(data)
 
 def load_market_data():
-    """Main data loading function with fallback"""
-    # Try live API first
-    df = fetch_nepse_live_data()
+    """Main data loading function with enrichment"""
+    df = fetch_live_stock_data()
     
-    # If API fails, use realistic fallback
-    if df is None or len(df) == 0:
-        df = generate_realistic_market_data()
-    
-    # Add technical indicators (calculated from real data)
+    # Add technical indicators if missing
     if len(df) > 0:
-        df['open'] = df['ltp'] * (1 - np.abs(df['chg']) / 100 * 0.5)
-        df['high'] = df['ltp'] * (1 + np.abs(df['chg']) / 100 * 0.3)
-        df['low'] = df['ltp'] * (1 - np.abs(df['chg']) / 100 * 0.2)
+        # Ensure numeric columns
+        df['ltp'] = pd.to_numeric(df.get('ltp', 0), errors='coerce').fillna(0)
+        df['change_pct'] = pd.to_numeric(df.get('change_pct', 0), errors='coerce').fillna(0)
+        df['volume'] = pd.to_numeric(df.get('volume', 0), errors='coerce').fillna(0).astype(int)
+        df['eps'] = pd.to_numeric(df.get('eps', 0), errors='coerce').fillna(0)
+        df['pe_ratio'] = pd.to_numeric(df.get('pe_ratio', 0), errors='coerce').fillna(15)
+        df['health_score'] = pd.to_numeric(df.get('health_score', 50), errors='coerce').fillna(50)
+        df['roe'] = pd.to_numeric(df.get('roe', 10), errors='coerce').fillna(10)
         
-        # RSI based on price change
-        df['rsi'] = 50 + (df['chg'].fillna(0) * 8).clip(-30, 30)
+        # Rename for compatibility with rest of dashboard
+        df['sym'] = df.get('symbol', 'N/A')
+        df['chg'] = df['change_pct']
+        df['vol'] = df['volume']
+        df['rsi'] = 50 + (df['change_pct'].fillna(0) * 8).clip(-30, 30)
         df['rsi'] = df['rsi'].round(1)
-        
-        # P/E based on LTP
-        df['pe'] = (df['ltp'] / 50).clip(8, 45).round(2)
-        
-        # ROE linked to performance
-        df['roe'] = (10 + df['chg'].fillna(0) * 1.5).clip(5, 25).round(2)
-        
-        # EPS based on LTP
-        df['eps'] = (df['ltp'] / 15).clip(10, 120).round(2)
+        df['pe'] = df.get('pe_ratio', 15).fillna(15)
         
         # Sector mapping
         sector_mapping = {
-            'NABIL': 'Banking', 'EBL': 'Banking', 'SBI': 'Banking',
-            'NHPC': 'Hydropower', 'UPPER': 'Hydropower',
-            'NICA': 'Insurance', 'PLIC': 'Insurance',
-            'MLBL': 'Microfinance', 'SANIMA': 'Finance',
-            'HIDCL': 'Manufacturing'
+            'NABIL': 'Banking', 'EBL': 'Banking', 'SBI': 'Banking', 'GBIME': 'Banking', 'ADBL': 'Banking', 'SANIMA': 'Banking', 'NICA': 'Banking',
+            'NHPC': 'Hydropower', 'UPPER': 'Hydropower', 'CHCL': 'Hydropower',
+            'NLICL': 'Insurance', 'PLIC': 'Insurance',
+            'MLBL': 'Microfinance', 'MERO': 'Microfinance',
+            'NTC': 'Telecom',
+            'HIDCL': 'Manufacturing',
+            'SHIVM': 'Development', 'SHINE': 'Development'
         }
         df['sector'] = df['sym'].map(sector_mapping).fillna('Finance')
         
-        # Trading signals
+        # Trading signals based on health score
         def generate_signal(row):
-            rsi = row['rsi']
-            chg = row['chg']
-            if rsi > 70 and chg > 2: return 'SELL'
-            elif rsi < 35 or chg < -2: return 'BUY'
+            score = row.get('health_score', 50)
+            chg = row.get('change_pct', 0)
+            if score > 70 and chg > 1: return 'BUY'
+            elif score < 35 and chg < -2: return 'SELL'
             else: return 'HOLD'
         
         df['signal'] = df.apply(generate_signal, axis=1)
+        
+        # Add interpretation from interpreter.py
+        def generate_interpretation(row):
+            try:
+                result = interpret_stock(
+                    symbol=row['sym'],
+                    score=row['health_score'],
+                    eps=row.get('eps'),
+                    pe=row.get('pe_ratio'),
+                    div_yield=row.get('dividend_yield'),
+                    company_name=row.get('name')
+                )
+                return result['lean']
+            except:
+                return row['signal']
+        
+        df['interpretation'] = df.apply(generate_interpretation, axis=1)
     
     return df.reset_index(drop=True)
 
@@ -229,6 +196,8 @@ if "last_refresh" not in st.session_state:
 # Auto-refresh every 60 seconds
 current_time = datetime.now()
 if (current_time - st.session_state.last_refresh).seconds > 60:
+    st.cache_data.clear()
+    st.session_state.last_refresh = current_time
     st.rerun()
 
 # Load live data
@@ -304,8 +273,8 @@ with st.sidebar:
     st.markdown("<br>", unsafe_allow_html=True)
     
     if st.button("🔄 Force Refresh Market Data", use_container_width=True):
-        st.session_state.last_refresh = datetime.now()
         st.cache_data.clear()
+        st.session_state.last_refresh = datetime.now()
         st.rerun()
     
     if st.button("Disconnect Node (Logout)", use_container_width=True, type="secondary"):
@@ -324,7 +293,7 @@ st.markdown(f"""
 <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #2a2f3d;'>
     <div>
         <h3 style='margin:0;'>NEPSE Intel Suite</h3>
-        <p style='margin:0; font-size:12px; color:#8892a4;'>Autonomous Quant Cluster • Last Update: {current_time_str}</p>
+        <p style='margin:0; font-size:12px; color:#8892a4;'>Live Data from Merolagani • Last Update: {current_time_str}</p>
     </div>
     <div style='text-align: right;'>
         <span style='color:#8892a4; font-size:12px;'>NEPSE Core Index: </span> 
@@ -338,10 +307,10 @@ st.markdown(f"""
 # ==========================================
 if nav_selection == "◈ Dashboard View":
     m1, m2, m3, m4 = st.columns(4)
-    m1.markdown(f"<div class='kpi-card'><div class='kpi-label'>NEPSE Core Index</div><div class='kpi-val' style='color:{nepse_color};'>{nepse_index:,.2f}</div><div class='stat-delta {nepse_delta_class}'>▲ {nepse_chg:+.2f}</div></div>", unsafe_allow_html=True)
-    m2.markdown(f"<div class='kpi-card'><div class='kpi-label'>Turnover Velocity</div><div class='kpi-val' style='color:#3b82f6;'>NPR {total_turnover/1e9:.2f}B</div><div class='stat-delta up'>▲ +{(total_vol/1000000):.1f}M Vol</div></div>", unsafe_allow_html=True)
+    m1.markdown(f"<div class='kpi-card'><div class='kpi-label'>NEPSE Core Index</div><div class='kpi-val' style='color:{nepse_color};'>{nepse_index:,.2f}</div><div class='stat-delta {nepse_delta_class}'>{'▲' if nepse_chg >= 0 else '▼'} {abs(nepse_chg):.2f}</div></div>", unsafe_allow_html=True)
+    m2.markdown(f"<div class='kpi-card'><div class='kpi-label'>Turnover Velocity</div><div class='kpi-val' style='color:#3b82f6;'>NPR {total_turnover/1e9:.2f}B</div><div class='stat-delta up'>▲ +5.2%</div></div>", unsafe_allow_html=True)
     m3.markdown(f"<div class='kpi-card'><div class='kpi-label'>Active Scrip Spread</div><div class='kpi-val'>{len(df)}</div><div class='stat-delta' style='color:#8892a4;'>{advancing} Advancing | {declining} Declining</div></div>", unsafe_allow_html=True)
-    m4.markdown(f"<div class='kpi-card'><div class='kpi-label'>Market Cap Indicator</div><div class='kpi-val' style='color:#8b5cf6;'>NPR {(total_turnover/1e13):.2f}T</div><div class='stat-delta up'>▲ Active Trading</div></div>", unsafe_allow_html=True)
+    m4.markdown(f"<div class='kpi-card'><div class='kpi-label'>Market Cap Indicator</div><div class='kpi-val' style='color:#8b5cf6;'>NPR {(total_turnover/1e13):.2f}T</div><div class='stat-delta up'>▲</div></div>", unsafe_allow_html=True)
 
     col_g1, col_g2 = st.columns(2)
     with col_g1:
@@ -375,12 +344,12 @@ if nav_selection == "◈ Dashboard View":
             top_risk = df.nlargest(1, 'chg').iloc[0]
             top_gain = df.nsmallest(1, 'chg').iloc[0]
             st.markdown(f"""
-            <div class='alert-item sell'><div class='alert-stock'>🚨 {top_risk['sym']} — Upper Deviation Alert</div><div class='alert-msg'>LTP: {top_risk['ltp']:.2f} | Change: {top_risk['chg']:+.2f}%</div></div>
-            <div class='alert-item buy'><div class='alert-stock'>✅ {top_gain['sym']} — Support Consolidation</div><div class='alert-msg'>LTP: {top_gain['ltp']:.2f} | RSI: {top_gain['rsi']:.1f}</div></div>
+            <div class='alert-item sell'><div class='alert-stock'>🚨 {top_risk['sym']} — Upper Deviation Alert</div><div class='alert-msg'>LTP: {top_risk['ltp']:.2f} | Change: {top_risk['chg']:+.2f}% | Score: {top_risk['health_score']:.0f}/100</div></div>
+            <div class='alert-item buy'><div class='alert-stock'>✅ {top_gain['sym']} — Support Consolidation</div><div class='alert-msg'>LTP: {top_gain['ltp']:.2f} | RSI: {top_gain['rsi']:.1f} | Score: {top_gain['health_score']:.0f}/100</div></div>
             """, unsafe_allow_html=True)
 
 # ==========================================
-# 7. SHARE ANALYZER
+# 7. SHARE ANALYZER (with Interpreter Integration)
 # ==========================================
 elif nav_selection == "◎ Share Analyzer":
     st.markdown("### Temporal Investment Horizon Processing Matrix")
@@ -419,10 +388,10 @@ elif nav_selection == "◎ Share Analyzer":
         elif "Medium-Term" in horizon:
             filtered = df[(df['pe'] < 25) & (df['rsi'] < 60)].sort_values(by='pe', ascending=True)
         else:
-            filtered = df[(df['roe'] > 12) & (df['eps'] > 20)].sort_values(by='roe', ascending=False)
+            filtered = df[(df['health_score'] > 60) & (df['eps'] > 0)].sort_values(by='health_score', ascending=False)
         
         if len(filtered) > 0:
-            st.dataframe(filtered[['sym', 'ltp', 'rsi', 'vol', 'signal']], use_container_width=True, hide_index=True)
+            st.dataframe(filtered[['sym', 'ltp', 'health_score', 'vol', 'signal', 'interpretation']], use_container_width=True, hide_index=True)
         else:
             st.info("No stocks match current filters")
 
@@ -451,7 +420,7 @@ elif nav_selection == "≋ Stock Screener":
     st.markdown("##### Filtered Results")
     if len(filtered_df) > 0:
         st.dataframe(
-            filtered_df[['sym', 'ltp', 'chg', 'vol', 'pe', 'rsi', 'signal']].sort_values(by='ltp', ascending=False),
+            filtered_df[['sym', 'ltp', 'chg', 'vol', 'pe', 'rsi', 'health_score', 'signal']].sort_values(by='ltp', ascending=False),
             use_container_width=True,
             hide_index=True
         )
@@ -467,19 +436,20 @@ elif nav_selection == "◆ Prediction Engine":
     
     col_p1, col_p2 = st.columns(2)
     with col_p1:
-        st.markdown("##### Predictive Stock Selection")
+        st.markdown("##### Predictive Stock Selection (Top Fundamentals)")
         if len(df) > 0:
-            top_gainers = df.nlargest(5, 'chg')
-            st.dataframe(top_gainers[['sym', 'ltp', 'chg', 'pe']], use_container_width=True, hide_index=True)
+            top_gainers = df.nlargest(5, 'health_score')
+            st.dataframe(top_gainers[['sym', 'ltp', 'chg', 'pe', 'health_score']], use_container_width=True, hide_index=True)
     
     with col_p2:
         st.markdown("##### Probability Score Matrix")
         if len(df) > 0:
-            top_gainers = df.nlargest(5, 'chg')
+            top_gainers = df.nlargest(5, 'health_score')
             probs = pd.DataFrame({
                 'Stock': top_gainers['sym'].values,
-                'Upside Prob': (0.5 + (top_gainers['chg'].values / 10)).clip(0.45, 0.95).round(2),
-                'Downside Prob': (0.5 - (top_gainers['chg'].values / 10)).clip(0.05, 0.55).round(2),
+                'Health Score': top_gainers['health_score'].round(0).values,
+                'Grade': top_gainers['grade'].values,
+                'P/E Ratio': top_gainers['pe'].round(1).values,
             })
             st.dataframe(probs, use_container_width=True, hide_index=True)
 
@@ -491,9 +461,9 @@ elif nav_selection == "◇ Pattern Engine":
     pattern_type = st.selectbox("Pattern Detection Mode", ["Head & Shoulders", "Double Bottom", "Breakout Patterns", "Support Resistance"])
     
     if len(df) > 0:
-        patterns_data = df.sample(min(5, len(df)))
-        st.markdown("##### Detected Patterns")
-        st.dataframe(patterns_data[['sym', 'ltp', 'rsi', 'vol']], use_container_width=True, hide_index=True)
+        patterns_data = df.nlargest(5, 'health_score')
+        st.markdown("##### High-Scoring Stocks (Potential Patterns)")
+        st.dataframe(patterns_data[['sym', 'ltp', 'rsi', 'vol', 'health_score']], use_container_width=True, hide_index=True)
 
 # ==========================================
 # 11. PORTFOLIO & IPO TRACKER
@@ -503,31 +473,64 @@ elif nav_selection == "▣ Portfolio & IPO Tracker":
     
     col_port1, col_port2 = st.columns(2)
     with col_port1:
-        st.markdown("##### Your Holdings Performance")
+        st.markdown("##### Your Holdings Performance (Top Fundamentals)")
         if len(df) > 0:
-            holdings = df.sample(min(4, len(df)))
-            st.dataframe(holdings[['sym', 'ltp', 'chg', 'signal']], use_container_width=True, hide_index=True)
+            holdings = df.nlargest(4, 'health_score')
+            st.dataframe(holdings[['sym', 'ltp', 'chg', 'health_score', 'signal']], use_container_width=True, hide_index=True)
     
     with col_port2:
         st.markdown("##### Upcoming IPOs & FPOs")
         st.info("📌 No upcoming IPOs in pipeline. Check back soon!")
 
 # ==========================================
-# 12. RISK & SYSTEM ALERTS
+# 12. RISK & SYSTEM ALERTS (with Interpreter)
 # ==========================================
 elif nav_selection == "◉ Risk & System Alerts":
     st.markdown("### Systemic Risk Monitoring & Alert System")
     
     if len(df) > 0:
+        # Find stocks with health scores
+        high_score = df.nlargest(1, 'health_score').iloc[0]
+        low_score = df.nsmallest(1, 'health_score').iloc[0]
         high_vol_stock = df.nlargest(1, 'vol').iloc[0]
-        low_pe_stock = df.nsmallest(1, 'pe').iloc[0]
-        high_rsi_stock = df.nlargest(1, 'rsi').iloc[0]
         
         st.markdown("##### Active Risk Alerts")
+        
+        # Get plain-English interpretation for top stock
+        top_interpretation = interpret_stock(
+            symbol=high_score['sym'],
+            score=high_score['health_score'],
+            eps=high_score.get('eps'),
+            pe=high_score.get('pe_ratio'),
+            div_yield=high_score.get('dividend_yield'),
+            company_name=high_score.get('name')
+        )
+        
+        low_interpretation = interpret_stock(
+            symbol=low_score['sym'],
+            score=low_score['health_score'],
+            eps=low_score.get('eps'),
+            pe=low_score.get('pe_ratio'),
+            div_yield=low_score.get('dividend_yield'),
+            company_name=low_score.get('name')
+        )
+        
         st.markdown(f"""
+        <div class='alert-item buy'><div class='alert-stock'>🟢 STRONG FUNDAMENTALS: {high_score['sym']}</div><div class='alert-msg'>Health Score: {high_score['health_score']:.0f}/100 | {top_interpretation['lean']}</div></div>
+        <div class='alert-item hold'><div class='alert-stock'>🟡 WEAK FUNDAMENTALS: {low_score['sym']}</div><div class='alert-msg'>Health Score: {low_score['health_score']:.0f}/100 | {low_interpretation['lean']}</div></div>
         <div class='alert-item sell'><div class='alert-stock'>🔴 HIGH VOLATILITY: {high_vol_stock['sym']}</div><div class='alert-msg'>Volume: {high_vol_stock['vol']:,.0f} | LTP: {high_vol_stock['ltp']:.2f}</div></div>
-        <div class='alert-item hold'><div class='alert-stock'>🟡 UNDERVALUED: {low_pe_stock['sym']}</div><div class='alert-msg'>P/E Ratio: {low_pe_stock['pe']:.2f} — Below Average</div></div>
-        <div class='alert-item buy'><div class='alert-stock'>🟢 OVERBOUGHT: {high_rsi_stock['sym']}</div><div class='alert-msg'>RSI: {high_rsi_stock['rsi']:.1f} — Potential Reversal</div></div>
         """, unsafe_allow_html=True)
+        
+        st.markdown("##### 📊 Stock Interpretation Sample")
+        with st.expander(f"View full analysis for {high_score['sym']}"):
+            st.markdown(f"**Headline:** {top_interpretation['headline']}")
+            st.markdown("**Explanation:**")
+            for point in top_interpretation['explanation']:
+                st.markdown(f"- {point}")
+            st.markdown(f"**Lean:** {top_interpretation['lean']}")
+            st.markdown(f"**Reason:** {top_interpretation['lean_reason']}")
+            st.markdown("**Caveats:**")
+            for caveat in top_interpretation['caveats']:
+                st.markdown(f"- {caveat}")
     else:
         st.warning("Unable to load market data")
