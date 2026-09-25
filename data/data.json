@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-24T15:10:44.966150Z",
-  "generated_date": "2026-09-24",
+  "generated_at": "2026-09-25T15:18:24.259764Z",
+  "generated_date": "2026-09-25",
   "total_stocks": 456,
   "stocks": [
     {
@@ -20,7 +20,7 @@
       "roe_score": 20,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965973Z"
+      "last_updated": "2026-09-25T15:18:24.259631Z"
     },
     {
       "symbol": "42",
@@ -39,7 +39,7 @@
       "roe_score": 5,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965791Z"
+      "last_updated": "2026-09-25T15:18:24.259443Z"
     },
     {
       "symbol": "68",
@@ -58,7 +58,7 @@
       "roe_score": 10,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965882Z"
+      "last_updated": "2026-09-25T15:18:24.259535Z"
     },
     {
       "symbol": "80",
@@ -77,7 +77,7 @@
       "roe_score": 10,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965922Z"
+      "last_updated": "2026-09-25T15:18:24.259580Z"
     },
     {
       "symbol": "76",
@@ -96,7 +96,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965907Z"
+      "last_updated": "2026-09-25T15:18:24.259561Z"
     },
     {
       "symbol": "29",
@@ -115,7 +115,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965744Z"
+      "last_updated": "2026-09-25T15:18:24.259395Z"
     },
     {
       "symbol": "63",
@@ -134,7 +134,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965863Z"
+      "last_updated": "2026-09-25T15:18:24.259517Z"
     },
     {
       "symbol": "2",
@@ -153,7 +153,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965649Z"
+      "last_updated": "2026-09-25T15:18:24.259295Z"
     },
     {
       "symbol": "4",
@@ -172,7 +172,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965657Z"
+      "last_updated": "2026-09-25T15:18:24.259304Z"
     },
     {
       "symbol": "5",
@@ -191,7 +191,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965660Z"
+      "last_updated": "2026-09-25T15:18:24.259308Z"
     },
     {
       "symbol": "7",
@@ -210,7 +210,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965670Z"
+      "last_updated": "2026-09-25T15:18:24.259317Z"
     },
     {
       "symbol": "9",
@@ -229,7 +229,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965677Z"
+      "last_updated": "2026-09-25T15:18:24.259324Z"
     },
     {
       "symbol": "10",
@@ -248,7 +248,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965680Z"
+      "last_updated": "2026-09-25T15:18:24.259327Z"
     },
     {
       "symbol": "11",
@@ -267,7 +267,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965684Z"
+      "last_updated": "2026-09-25T15:18:24.259331Z"
     },
     {
       "symbol": "12",
@@ -286,7 +286,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965687Z"
+      "last_updated": "2026-09-25T15:18:24.259335Z"
     },
     {
       "symbol": "13",
@@ -305,7 +305,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965691Z"
+      "last_updated": "2026-09-25T15:18:24.259338Z"
     },
     {
       "symbol": "14",
@@ -324,7 +324,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965694Z"
+      "last_updated": "2026-09-25T15:18:24.259342Z"
     },
     {
       "symbol": "16",
@@ -343,7 +343,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965700Z"
+      "last_updated": "2026-09-25T15:18:24.259349Z"
     },
     {
       "symbol": "17",
@@ -362,7 +362,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965704Z"
+      "last_updated": "2026-09-25T15:18:24.259353Z"
     },
     {
       "symbol": "18",
@@ -381,7 +381,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965708Z"
+      "last_updated": "2026-09-25T15:18:24.259357Z"
     },
     {
       "symbol": "19",
@@ -400,7 +400,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965711Z"
+      "last_updated": "2026-09-25T15:18:24.259360Z"
     },
     {
       "symbol": "20",
@@ -419,7 +419,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965714Z"
+      "last_updated": "2026-09-25T15:18:24.259364Z"
     },
     {
       "symbol": "21",
@@ -438,7 +438,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965718Z"
+      "last_updated": "2026-09-25T15:18:24.259367Z"
     },
     {
       "symbol": "22",
@@ -457,7 +457,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965721Z"
+      "last_updated": "2026-09-25T15:18:24.259371Z"
     },
     {
       "symbol": "24",
@@ -476,7 +476,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965727Z"
+      "last_updated": "2026-09-25T15:18:24.259378Z"
     },
     {
       "symbol": "25",
@@ -495,7 +495,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965731Z"
+      "last_updated": "2026-09-25T15:18:24.259381Z"
     },
     {
       "symbol": "26",
@@ -514,7 +514,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965734Z"
+      "last_updated": "2026-09-25T15:18:24.259385Z"
     },
     {
       "symbol": "27",
@@ -533,7 +533,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965738Z"
+      "last_updated": "2026-09-25T15:18:24.259389Z"
     },
     {
       "symbol": "28",
@@ -552,7 +552,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965741Z"
+      "last_updated": "2026-09-25T15:18:24.259392Z"
     },
     {
       "symbol": "30",
@@ -571,7 +571,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965747Z"
+      "last_updated": "2026-09-25T15:18:24.259399Z"
     },
     {
       "symbol": "31",
@@ -590,7 +590,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965750Z"
+      "last_updated": "2026-09-25T15:18:24.259403Z"
     },
     {
       "symbol": "34",
@@ -609,7 +609,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965759Z"
+      "last_updated": "2026-09-25T15:18:24.259412Z"
     },
     {
       "symbol": "35",
@@ -628,7 +628,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965763Z"
+      "last_updated": "2026-09-25T15:18:24.259417Z"
     },
     {
       "symbol": "36",
@@ -647,7 +647,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965769Z"
+      "last_updated": "2026-09-25T15:18:24.259423Z"
     },
     {
       "symbol": "37",
@@ -666,7 +666,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965772Z"
+      "last_updated": "2026-09-25T15:18:24.259426Z"
     },
     {
       "symbol": "39",
@@ -685,7 +685,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965779Z"
+      "last_updated": "2026-09-25T15:18:24.259433Z"
     },
     {
       "symbol": "41",
@@ -704,7 +704,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965787Z"
+      "last_updated": "2026-09-25T15:18:24.259439Z"
     },
     {
       "symbol": "43",
@@ -723,7 +723,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965794Z"
+      "last_updated": "2026-09-25T15:18:24.259447Z"
     },
     {
       "symbol": "44",
@@ -742,7 +742,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965797Z"
+      "last_updated": "2026-09-25T15:18:24.259450Z"
     },
     {
       "symbol": "45",
@@ -761,7 +761,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965801Z"
+      "last_updated": "2026-09-25T15:18:24.259454Z"
     },
     {
       "symbol": "47",
@@ -780,7 +780,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965808Z"
+      "last_updated": "2026-09-25T15:18:24.259461Z"
     },
     {
       "symbol": "50",
@@ -799,7 +799,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965817Z"
+      "last_updated": "2026-09-25T15:18:24.259470Z"
     },
     {
       "symbol": "51",
@@ -818,7 +818,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965820Z"
+      "last_updated": "2026-09-25T15:18:24.259474Z"
     },
     {
       "symbol": "52",
@@ -837,7 +837,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965824Z"
+      "last_updated": "2026-09-25T15:18:24.259477Z"
     },
     {
       "symbol": "54",
@@ -856,7 +856,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965831Z"
+      "last_updated": "2026-09-25T15:18:24.259484Z"
     },
     {
       "symbol": "55",
@@ -875,7 +875,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965834Z"
+      "last_updated": "2026-09-25T15:18:24.259488Z"
     },
     {
       "symbol": "57",
@@ -894,7 +894,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965844Z"
+      "last_updated": "2026-09-25T15:18:24.259497Z"
     },
     {
       "symbol": "58",
@@ -913,7 +913,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965847Z"
+      "last_updated": "2026-09-25T15:18:24.259500Z"
     },
     {
       "symbol": "60",
@@ -932,7 +932,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965854Z"
+      "last_updated": "2026-09-25T15:18:24.259507Z"
     },
     {
       "symbol": "62",
@@ -951,7 +951,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965860Z"
+      "last_updated": "2026-09-25T15:18:24.259514Z"
     },
     {
       "symbol": "65",
@@ -970,7 +970,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965870Z"
+      "last_updated": "2026-09-25T15:18:24.259523Z"
     },
     {
       "symbol": "66",
@@ -989,7 +989,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965873Z"
+      "last_updated": "2026-09-25T15:18:24.259527Z"
     },
     {
       "symbol": "69",
@@ -1008,7 +1008,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965885Z"
+      "last_updated": "2026-09-25T15:18:24.259539Z"
     },
     {
       "symbol": "72",
@@ -1027,7 +1027,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965895Z"
+      "last_updated": "2026-09-25T15:18:24.259548Z"
     },
     {
       "symbol": "77",
@@ -1046,7 +1046,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965913Z"
+      "last_updated": "2026-09-25T15:18:24.259570Z"
     },
     {
       "symbol": "83",
@@ -1065,7 +1065,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965931Z"
+      "last_updated": "2026-09-25T15:18:24.259590Z"
     },
     {
       "symbol": "84",
@@ -1084,7 +1084,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965935Z"
+      "last_updated": "2026-09-25T15:18:24.259594Z"
     },
     {
       "symbol": "86",
@@ -1103,7 +1103,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965942Z"
+      "last_updated": "2026-09-25T15:18:24.259602Z"
     },
     {
       "symbol": "87",
@@ -1122,7 +1122,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965948Z"
+      "last_updated": "2026-09-25T15:18:24.259608Z"
     },
     {
       "symbol": "88",
@@ -1141,7 +1141,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965951Z"
+      "last_updated": "2026-09-25T15:18:24.259611Z"
     },
     {
       "symbol": "92",
@@ -1160,7 +1160,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965966Z"
+      "last_updated": "2026-09-25T15:18:24.259624Z"
     },
     {
       "symbol": "93",
@@ -1179,7 +1179,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965969Z"
+      "last_updated": "2026-09-25T15:18:24.259628Z"
     },
     {
       "symbol": "95",
@@ -1198,7 +1198,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965976Z"
+      "last_updated": "2026-09-25T15:18:24.259635Z"
     },
     {
       "symbol": "96",
@@ -1217,7 +1217,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965980Z"
+      "last_updated": "2026-09-25T15:18:24.259638Z"
     },
     {
       "symbol": "97",
@@ -1236,7 +1236,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965985Z"
+      "last_updated": "2026-09-25T15:18:24.259643Z"
     },
     {
       "symbol": "98",
@@ -1255,7 +1255,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965989Z"
+      "last_updated": "2026-09-25T15:18:24.259647Z"
     },
     {
       "symbol": "99",
@@ -1274,7 +1274,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965992Z"
+      "last_updated": "2026-09-25T15:18:24.259650Z"
     },
     {
       "symbol": "ACLBSL",
@@ -1295,7 +1295,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964646Z"
+      "last_updated": "2026-09-25T15:18:24.258291Z"
     },
     {
       "symbol": "ADBL",
@@ -1316,7 +1316,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964664Z"
+      "last_updated": "2026-09-25T15:18:24.258305Z"
     },
     {
       "symbol": "ADBLD83",
@@ -1337,7 +1337,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964671Z"
+      "last_updated": "2026-09-25T15:18:24.258313Z"
     },
     {
       "symbol": "AHL",
@@ -1358,7 +1358,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964676Z"
+      "last_updated": "2026-09-25T15:18:24.258317Z"
     },
     {
       "symbol": "AHPC",
@@ -1379,7 +1379,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964679Z"
+      "last_updated": "2026-09-25T15:18:24.258320Z"
     },
     {
       "symbol": "AKJCL",
@@ -1400,7 +1400,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964682Z"
+      "last_updated": "2026-09-25T15:18:24.258324Z"
     },
     {
       "symbol": "AKPL",
@@ -1421,7 +1421,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964686Z"
+      "last_updated": "2026-09-25T15:18:24.258327Z"
     },
     {
       "symbol": "ALBSL",
@@ -1442,7 +1442,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964695Z"
+      "last_updated": "2026-09-25T15:18:24.258335Z"
     },
     {
       "symbol": "ALICL",
@@ -1463,7 +1463,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964700Z"
+      "last_updated": "2026-09-25T15:18:24.258340Z"
     },
     {
       "symbol": "ANLB",
@@ -1484,7 +1484,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964706Z"
+      "last_updated": "2026-09-25T15:18:24.258345Z"
     },
     {
       "symbol": "APHL",
@@ -1505,7 +1505,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964709Z"
+      "last_updated": "2026-09-25T15:18:24.258348Z"
     },
     {
       "symbol": "API",
@@ -1526,7 +1526,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964711Z"
+      "last_updated": "2026-09-25T15:18:24.258351Z"
     },
     {
       "symbol": "AVYAN",
@@ -1547,7 +1547,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964717Z"
+      "last_updated": "2026-09-25T15:18:24.258355Z"
     },
     {
       "symbol": "BANDIPUR",
@@ -1568,7 +1568,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964719Z"
+      "last_updated": "2026-09-25T15:18:24.258358Z"
     },
     {
       "symbol": "BARUN",
@@ -1589,7 +1589,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964722Z"
+      "last_updated": "2026-09-25T15:18:24.258361Z"
     },
     {
       "symbol": "BBC",
@@ -1610,7 +1610,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964724Z"
+      "last_updated": "2026-09-25T15:18:24.258363Z"
     },
     {
       "symbol": "BEDC",
@@ -1631,7 +1631,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964726Z"
+      "last_updated": "2026-09-25T15:18:24.258366Z"
     },
     {
       "symbol": "BFC",
@@ -1652,7 +1652,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964729Z"
+      "last_updated": "2026-09-25T15:18:24.258369Z"
     },
     {
       "symbol": "BGWT",
@@ -1673,7 +1673,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964732Z"
+      "last_updated": "2026-09-25T15:18:24.258372Z"
     },
     {
       "symbol": "BHCL",
@@ -1694,7 +1694,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964734Z"
+      "last_updated": "2026-09-25T15:18:24.258374Z"
     },
     {
       "symbol": "BHDC",
@@ -1715,7 +1715,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964736Z"
+      "last_updated": "2026-09-25T15:18:24.258377Z"
     },
     {
       "symbol": "BHL",
@@ -1736,7 +1736,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964739Z"
+      "last_updated": "2026-09-25T15:18:24.258379Z"
     },
     {
       "symbol": "BHPL",
@@ -1757,7 +1757,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964744Z"
+      "last_updated": "2026-09-25T15:18:24.258384Z"
     },
     {
       "symbol": "BJHL",
@@ -1778,7 +1778,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964746Z"
+      "last_updated": "2026-09-25T15:18:24.258386Z"
     },
     {
       "symbol": "BNHC",
@@ -1799,7 +1799,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964749Z"
+      "last_updated": "2026-09-25T15:18:24.258389Z"
     },
     {
       "symbol": "BNT",
@@ -1820,7 +1820,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964751Z"
+      "last_updated": "2026-09-25T15:18:24.258391Z"
     },
     {
       "symbol": "BPCL",
@@ -1841,7 +1841,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964754Z"
+      "last_updated": "2026-09-25T15:18:24.258394Z"
     },
     {
       "symbol": "BUNGAL",
@@ -1862,7 +1862,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964756Z"
+      "last_updated": "2026-09-25T15:18:24.258396Z"
     },
     {
       "symbol": "CBBL",
@@ -1883,7 +1883,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964761Z"
+      "last_updated": "2026-09-25T15:18:24.258401Z"
     },
     {
       "symbol": "CFCL",
@@ -1904,7 +1904,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964763Z"
+      "last_updated": "2026-09-25T15:18:24.258404Z"
     },
     {
       "symbol": "CGH",
@@ -1925,7 +1925,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964766Z"
+      "last_updated": "2026-09-25T15:18:24.258406Z"
     },
     {
       "symbol": "CHCL",
@@ -1946,7 +1946,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964770Z"
+      "last_updated": "2026-09-25T15:18:24.258410Z"
     },
     {
       "symbol": "CHDC",
@@ -1967,7 +1967,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964773Z"
+      "last_updated": "2026-09-25T15:18:24.258415Z"
     },
     {
       "symbol": "CHL",
@@ -1988,7 +1988,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964776Z"
+      "last_updated": "2026-09-25T15:18:24.258417Z"
     },
     {
       "symbol": "CIT",
@@ -2009,7 +2009,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964778Z"
+      "last_updated": "2026-09-25T15:18:24.258420Z"
     },
     {
       "symbol": "CITY",
@@ -2030,7 +2030,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964780Z"
+      "last_updated": "2026-09-25T15:18:24.258422Z"
     },
     {
       "symbol": "CKHL",
@@ -2051,7 +2051,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964783Z"
+      "last_updated": "2026-09-25T15:18:24.258425Z"
     },
     {
       "symbol": "CLI",
@@ -2072,7 +2072,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964787Z"
+      "last_updated": "2026-09-25T15:18:24.258427Z"
     },
     {
       "symbol": "CORBL",
@@ -2093,7 +2093,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964790Z"
+      "last_updated": "2026-09-25T15:18:24.258430Z"
     },
     {
       "symbol": "CREST",
@@ -2114,7 +2114,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964792Z"
+      "last_updated": "2026-09-25T15:18:24.258432Z"
     },
     {
       "symbol": "CSY",
@@ -2135,7 +2135,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964794Z"
+      "last_updated": "2026-09-25T15:18:24.258435Z"
     },
     {
       "symbol": "CYCL",
@@ -2156,7 +2156,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964799Z"
+      "last_updated": "2026-09-25T15:18:24.258439Z"
     },
     {
       "symbol": "CZBIL",
@@ -2177,7 +2177,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964801Z"
+      "last_updated": "2026-09-25T15:18:24.258441Z"
     },
     {
       "symbol": "DDBL",
@@ -2198,7 +2198,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964804Z"
+      "last_updated": "2026-09-25T15:18:24.258444Z"
     },
     {
       "symbol": "DHEL",
@@ -2219,7 +2219,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964806Z"
+      "last_updated": "2026-09-25T15:18:24.258446Z"
     },
     {
       "symbol": "DHPL",
@@ -2240,7 +2240,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964808Z"
+      "last_updated": "2026-09-25T15:18:24.258448Z"
     },
     {
       "symbol": "DOLTI",
@@ -2261,7 +2261,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964813Z"
+      "last_updated": "2026-09-25T15:18:24.258453Z"
     },
     {
       "symbol": "DORDI",
@@ -2282,7 +2282,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964815Z"
+      "last_updated": "2026-09-25T15:18:24.258456Z"
     },
     {
       "symbol": "EBL",
@@ -2303,7 +2303,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964818Z"
+      "last_updated": "2026-09-25T15:18:24.258458Z"
     },
     {
       "symbol": "EBLD85",
@@ -2324,7 +2324,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964820Z"
+      "last_updated": "2026-09-25T15:18:24.258460Z"
     },
     {
       "symbol": "ECL",
@@ -2345,7 +2345,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964825Z"
+      "last_updated": "2026-09-25T15:18:24.258465Z"
     },
     {
       "symbol": "EDBL",
@@ -2366,7 +2366,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964827Z"
+      "last_updated": "2026-09-25T15:18:24.258467Z"
     },
     {
       "symbol": "EHPL",
@@ -2387,7 +2387,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964830Z"
+      "last_updated": "2026-09-25T15:18:24.258470Z"
     },
     {
       "symbol": "ENL",
@@ -2408,7 +2408,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964832Z"
+      "last_updated": "2026-09-25T15:18:24.258472Z"
     },
     {
       "symbol": "FMDBL",
@@ -2429,7 +2429,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964835Z"
+      "last_updated": "2026-09-25T15:18:24.258475Z"
     },
     {
       "symbol": "FOWAD",
@@ -2450,7 +2450,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964837Z"
+      "last_updated": "2026-09-25T15:18:24.258477Z"
     },
     {
       "symbol": "GBBD85",
@@ -2471,7 +2471,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964839Z"
+      "last_updated": "2026-09-25T15:18:24.258479Z"
     },
     {
       "symbol": "GBBL",
@@ -2492,7 +2492,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964842Z"
+      "last_updated": "2026-09-25T15:18:24.258482Z"
     },
     {
       "symbol": "GBBLPO",
@@ -2513,7 +2513,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964844Z"
+      "last_updated": "2026-09-25T15:18:24.258484Z"
     },
     {
       "symbol": "GBIME",
@@ -2534,7 +2534,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964847Z"
+      "last_updated": "2026-09-25T15:18:24.258487Z"
     },
     {
       "symbol": "GBIMESY2",
@@ -2555,7 +2555,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964852Z"
+      "last_updated": "2026-09-25T15:18:24.258491Z"
     },
     {
       "symbol": "GBLBS",
@@ -2576,7 +2576,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964855Z"
+      "last_updated": "2026-09-25T15:18:24.258494Z"
     },
     {
       "symbol": "GCIL",
@@ -2597,7 +2597,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964857Z"
+      "last_updated": "2026-09-25T15:18:24.258496Z"
     },
     {
       "symbol": "GFCL",
@@ -2618,7 +2618,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964860Z"
+      "last_updated": "2026-09-25T15:18:24.258499Z"
     },
     {
       "symbol": "GHL",
@@ -2639,7 +2639,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964862Z"
+      "last_updated": "2026-09-25T15:18:24.258501Z"
     },
     {
       "symbol": "GIBF1",
@@ -2660,7 +2660,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964865Z"
+      "last_updated": "2026-09-25T15:18:24.258504Z"
     },
     {
       "symbol": "GILB",
@@ -2681,7 +2681,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964867Z"
+      "last_updated": "2026-09-25T15:18:24.258506Z"
     },
     {
       "symbol": "GLBSL",
@@ -2702,7 +2702,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964869Z"
+      "last_updated": "2026-09-25T15:18:24.258508Z"
     },
     {
       "symbol": "GLH",
@@ -2723,7 +2723,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964872Z"
+      "last_updated": "2026-09-25T15:18:24.258511Z"
     },
     {
       "symbol": "GMFBS",
@@ -2744,7 +2744,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964874Z"
+      "last_updated": "2026-09-25T15:18:24.258513Z"
     },
     {
       "symbol": "GMFIL",
@@ -2765,7 +2765,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964879Z"
+      "last_updated": "2026-09-25T15:18:24.258518Z"
     },
     {
       "symbol": "GMLI",
@@ -2786,7 +2786,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964881Z"
+      "last_updated": "2026-09-25T15:18:24.258520Z"
     },
     {
       "symbol": "GRDBL",
@@ -2807,7 +2807,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964884Z"
+      "last_updated": "2026-09-25T15:18:24.258523Z"
     },
     {
       "symbol": "GSY",
@@ -2828,7 +2828,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964886Z"
+      "last_updated": "2026-09-25T15:18:24.258525Z"
     },
     {
       "symbol": "GUFL",
@@ -2849,7 +2849,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964888Z"
+      "last_updated": "2026-09-25T15:18:24.258527Z"
     },
     {
       "symbol": "GVL",
@@ -2870,7 +2870,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964891Z"
+      "last_updated": "2026-09-25T15:18:24.258530Z"
     },
     {
       "symbol": "GWFD83",
@@ -2891,7 +2891,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964893Z"
+      "last_updated": "2026-09-25T15:18:24.258533Z"
     },
     {
       "symbol": "H8020",
@@ -2912,7 +2912,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964896Z"
+      "last_updated": "2026-09-25T15:18:24.258535Z"
     },
     {
       "symbol": "HBL",
@@ -2933,7 +2933,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964900Z"
+      "last_updated": "2026-09-25T15:18:24.258540Z"
     },
     {
       "symbol": "HDHPC",
@@ -2954,7 +2954,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964905Z"
+      "last_updated": "2026-09-25T15:18:24.258544Z"
     },
     {
       "symbol": "HDL",
@@ -2975,7 +2975,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964908Z"
+      "last_updated": "2026-09-25T15:18:24.258546Z"
     },
     {
       "symbol": "HEI",
@@ -2996,7 +2996,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964910Z"
+      "last_updated": "2026-09-25T15:18:24.258549Z"
     },
     {
       "symbol": "HEIP",
@@ -3017,7 +3017,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964912Z"
+      "last_updated": "2026-09-25T15:18:24.258553Z"
     },
     {
       "symbol": "HFIN",
@@ -3038,7 +3038,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964914Z"
+      "last_updated": "2026-09-25T15:18:24.258555Z"
     },
     {
       "symbol": "HHL",
@@ -3059,7 +3059,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964917Z"
+      "last_updated": "2026-09-25T15:18:24.258558Z"
     },
     {
       "symbol": "HIDCL",
@@ -3080,7 +3080,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964919Z"
+      "last_updated": "2026-09-25T15:18:24.258560Z"
     },
     {
       "symbol": "HIDCLP",
@@ -3101,7 +3101,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964921Z"
+      "last_updated": "2026-09-25T15:18:24.258563Z"
     },
     {
       "symbol": "HIMSTAR",
@@ -3122,7 +3122,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964926Z"
+      "last_updated": "2026-09-25T15:18:24.258566Z"
     },
     {
       "symbol": "HLBSL",
@@ -3143,7 +3143,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964928Z"
+      "last_updated": "2026-09-25T15:18:24.258568Z"
     },
     {
       "symbol": "HLI",
@@ -3164,7 +3164,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964933Z"
+      "last_updated": "2026-09-25T15:18:24.258572Z"
     },
     {
       "symbol": "HLICF",
@@ -3185,7 +3185,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964936Z"
+      "last_updated": "2026-09-25T15:18:24.258575Z"
     },
     {
       "symbol": "HPPL",
@@ -3206,7 +3206,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964938Z"
+      "last_updated": "2026-09-25T15:18:24.258578Z"
     },
     {
       "symbol": "HRL",
@@ -3227,7 +3227,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964940Z"
+      "last_updated": "2026-09-25T15:18:24.258580Z"
     },
     {
       "symbol": "HURJA",
@@ -3248,7 +3248,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964943Z"
+      "last_updated": "2026-09-25T15:18:24.258583Z"
     },
     {
       "symbol": "ICFC",
@@ -3269,7 +3269,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964945Z"
+      "last_updated": "2026-09-25T15:18:24.258585Z"
     },
     {
       "symbol": "ICFCD83",
@@ -3290,7 +3290,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964947Z"
+      "last_updated": "2026-09-25T15:18:24.258588Z"
     },
     {
       "symbol": "ICFCD88",
@@ -3311,7 +3311,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964949Z"
+      "last_updated": "2026-09-25T15:18:24.258590Z"
     },
     {
       "symbol": "ICFCD89",
@@ -3332,7 +3332,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964952Z"
+      "last_updated": "2026-09-25T15:18:24.258592Z"
     },
     {
       "symbol": "IGI",
@@ -3353,7 +3353,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964954Z"
+      "last_updated": "2026-09-25T15:18:24.258595Z"
     },
     {
       "symbol": "IHL",
@@ -3374,7 +3374,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964959Z"
+      "last_updated": "2026-09-25T15:18:24.258599Z"
     },
     {
       "symbol": "ILBS",
@@ -3395,7 +3395,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964962Z"
+      "last_updated": "2026-09-25T15:18:24.258602Z"
     },
     {
       "symbol": "ILI",
@@ -3416,7 +3416,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964964Z"
+      "last_updated": "2026-09-25T15:18:24.258604Z"
     },
     {
       "symbol": "JBBD87",
@@ -3437,7 +3437,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964966Z"
+      "last_updated": "2026-09-25T15:18:24.258607Z"
     },
     {
       "symbol": "JBBL",
@@ -3458,7 +3458,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964969Z"
+      "last_updated": "2026-09-25T15:18:24.258609Z"
     },
     {
       "symbol": "JBLB",
@@ -3479,7 +3479,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964971Z"
+      "last_updated": "2026-09-25T15:18:24.258611Z"
     },
     {
       "symbol": "JFL",
@@ -3500,7 +3500,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964973Z"
+      "last_updated": "2026-09-25T15:18:24.258614Z"
     },
     {
       "symbol": "JHAPA",
@@ -3521,7 +3521,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964976Z"
+      "last_updated": "2026-09-25T15:18:24.258617Z"
     },
     {
       "symbol": "JOSHI",
@@ -3542,7 +3542,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964978Z"
+      "last_updated": "2026-09-25T15:18:24.258619Z"
     },
     {
       "symbol": "JSLBB",
@@ -3563,7 +3563,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964981Z"
+      "last_updated": "2026-09-25T15:18:24.258622Z"
     },
     {
       "symbol": "KAHL",
@@ -3584,7 +3584,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964985Z"
+      "last_updated": "2026-09-25T15:18:24.258626Z"
     },
     {
       "symbol": "KBL",
@@ -3605,7 +3605,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964988Z"
+      "last_updated": "2026-09-25T15:18:24.258628Z"
     },
     {
       "symbol": "KBLD86",
@@ -3626,7 +3626,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964990Z"
+      "last_updated": "2026-09-25T15:18:24.258631Z"
     },
     {
       "symbol": "KBSH",
@@ -3647,7 +3647,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964993Z"
+      "last_updated": "2026-09-25T15:18:24.258633Z"
     },
     {
       "symbol": "KDBY",
@@ -3668,7 +3668,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964995Z"
+      "last_updated": "2026-09-25T15:18:24.258636Z"
     },
     {
       "symbol": "KDL",
@@ -3689,7 +3689,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.964997Z"
+      "last_updated": "2026-09-25T15:18:24.258638Z"
     },
     {
       "symbol": "KEF",
@@ -3710,7 +3710,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965000Z"
+      "last_updated": "2026-09-25T15:18:24.258641Z"
     },
     {
       "symbol": "KHPL",
@@ -3731,7 +3731,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965002Z"
+      "last_updated": "2026-09-25T15:18:24.258643Z"
     },
     {
       "symbol": "KKHC",
@@ -3752,7 +3752,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965004Z"
+      "last_updated": "2026-09-25T15:18:24.258645Z"
     },
     {
       "symbol": "KMCDB",
@@ -3773,7 +3773,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965007Z"
+      "last_updated": "2026-09-25T15:18:24.258648Z"
     },
     {
       "symbol": "KPCL",
@@ -3794,7 +3794,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965012Z"
+      "last_updated": "2026-09-25T15:18:24.258652Z"
     },
     {
       "symbol": "KSBBL",
@@ -3815,7 +3815,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965014Z"
+      "last_updated": "2026-09-25T15:18:24.258655Z"
     },
     {
       "symbol": "KSY",
@@ -3836,7 +3836,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965017Z"
+      "last_updated": "2026-09-25T15:18:24.258658Z"
     },
     {
       "symbol": "LBBL",
@@ -3857,7 +3857,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965019Z"
+      "last_updated": "2026-09-25T15:18:24.258660Z"
     },
     {
       "symbol": "LBBLD89",
@@ -3878,7 +3878,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965021Z"
+      "last_updated": "2026-09-25T15:18:24.258662Z"
     },
     {
       "symbol": "LEC",
@@ -3899,7 +3899,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965024Z"
+      "last_updated": "2026-09-25T15:18:24.258665Z"
     },
     {
       "symbol": "LICN",
@@ -3920,7 +3920,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965026Z"
+      "last_updated": "2026-09-25T15:18:24.258668Z"
     },
     {
       "symbol": "LLBS",
@@ -3941,7 +3941,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965029Z"
+      "last_updated": "2026-09-25T15:18:24.258671Z"
     },
     {
       "symbol": "LSH12",
@@ -3962,7 +3962,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965031Z"
+      "last_updated": "2026-09-25T15:18:24.258673Z"
     },
     {
       "symbol": "LSL",
@@ -3983,7 +3983,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965034Z"
+      "last_updated": "2026-09-25T15:18:24.258675Z"
     },
     {
       "symbol": "LUK",
@@ -4004,7 +4004,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965039Z"
+      "last_updated": "2026-09-25T15:18:24.258680Z"
     },
     {
       "symbol": "LVF2",
@@ -4025,7 +4025,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965041Z"
+      "last_updated": "2026-09-25T15:18:24.258682Z"
     },
     {
       "symbol": "MABEL",
@@ -4046,7 +4046,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965043Z"
+      "last_updated": "2026-09-25T15:18:24.258685Z"
     },
     {
       "symbol": "MAKAR",
@@ -4067,7 +4067,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965046Z"
+      "last_updated": "2026-09-25T15:18:24.258689Z"
     },
     {
       "symbol": "MANDU",
@@ -4088,7 +4088,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965048Z"
+      "last_updated": "2026-09-25T15:18:24.258691Z"
     },
     {
       "symbol": "MATRI",
@@ -4109,7 +4109,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965050Z"
+      "last_updated": "2026-09-25T15:18:24.258694Z"
     },
     {
       "symbol": "MBJC",
@@ -4130,7 +4130,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965053Z"
+      "last_updated": "2026-09-25T15:18:24.258696Z"
     },
     {
       "symbol": "MBL",
@@ -4151,7 +4151,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965055Z"
+      "last_updated": "2026-09-25T15:18:24.258699Z"
     },
     {
       "symbol": "MBLEF",
@@ -4172,7 +4172,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965060Z"
+      "last_updated": "2026-09-25T15:18:24.258701Z"
     },
     {
       "symbol": "MCHL",
@@ -4193,7 +4193,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965062Z"
+      "last_updated": "2026-09-25T15:18:24.258704Z"
     },
     {
       "symbol": "MDB",
@@ -4214,7 +4214,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965067Z"
+      "last_updated": "2026-09-25T15:18:24.258708Z"
     },
     {
       "symbol": "MEHL",
@@ -4235,7 +4235,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965069Z"
+      "last_updated": "2026-09-25T15:18:24.258710Z"
     },
     {
       "symbol": "MEL",
@@ -4256,7 +4256,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965072Z"
+      "last_updated": "2026-09-25T15:18:24.258713Z"
     },
     {
       "symbol": "MEN",
@@ -4277,7 +4277,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965074Z"
+      "last_updated": "2026-09-25T15:18:24.258715Z"
     },
     {
       "symbol": "MEPDL",
@@ -4298,7 +4298,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965076Z"
+      "last_updated": "2026-09-25T15:18:24.258718Z"
     },
     {
       "symbol": "MERO",
@@ -4319,7 +4319,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965078Z"
+      "last_updated": "2026-09-25T15:18:24.258720Z"
     },
     {
       "symbol": "MFIL",
@@ -4340,7 +4340,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965081Z"
+      "last_updated": "2026-09-25T15:18:24.258722Z"
     },
     {
       "symbol": "MFLD85",
@@ -4361,7 +4361,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965084Z"
+      "last_updated": "2026-09-25T15:18:24.258725Z"
     },
     {
       "symbol": "MHCL",
@@ -4382,7 +4382,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965086Z"
+      "last_updated": "2026-09-25T15:18:24.258728Z"
     },
     {
       "symbol": "MHL",
@@ -4403,7 +4403,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965088Z"
+      "last_updated": "2026-09-25T15:18:24.258730Z"
     },
     {
       "symbol": "MHNL",
@@ -4424,7 +4424,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965093Z"
+      "last_updated": "2026-09-25T15:18:24.258735Z"
     },
     {
       "symbol": "MKCL",
@@ -4445,7 +4445,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965096Z"
+      "last_updated": "2026-09-25T15:18:24.258737Z"
     },
     {
       "symbol": "MKHC",
@@ -4466,7 +4466,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965098Z"
+      "last_updated": "2026-09-25T15:18:24.258740Z"
     },
     {
       "symbol": "MKHL",
@@ -4487,7 +4487,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965100Z"
+      "last_updated": "2026-09-25T15:18:24.258742Z"
     },
     {
       "symbol": "MKJC",
@@ -4508,7 +4508,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965103Z"
+      "last_updated": "2026-09-25T15:18:24.258745Z"
     },
     {
       "symbol": "MLBBL",
@@ -4529,7 +4529,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965105Z"
+      "last_updated": "2026-09-25T15:18:24.258747Z"
     },
     {
       "symbol": "MLBL",
@@ -4550,7 +4550,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965107Z"
+      "last_updated": "2026-09-25T15:18:24.258749Z"
     },
     {
       "symbol": "MLBS",
@@ -4571,7 +4571,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965110Z"
+      "last_updated": "2026-09-25T15:18:24.258752Z"
     },
     {
       "symbol": "MLBSL",
@@ -4592,7 +4592,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965112Z"
+      "last_updated": "2026-09-25T15:18:24.258755Z"
     },
     {
       "symbol": "MMF1",
@@ -4613,7 +4613,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965114Z"
+      "last_updated": "2026-09-25T15:18:24.258757Z"
     },
     {
       "symbol": "MMKJL",
@@ -4634,7 +4634,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965123Z"
+      "last_updated": "2026-09-25T15:18:24.258761Z"
     },
     {
       "symbol": "MNBBL",
@@ -4655,7 +4655,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965125Z"
+      "last_updated": "2026-09-25T15:18:24.258764Z"
     },
     {
       "symbol": "MND84/85",
@@ -4676,7 +4676,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965127Z"
+      "last_updated": "2026-09-25T15:18:24.258766Z"
     },
     {
       "symbol": "MNMF1",
@@ -4697,7 +4697,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965130Z"
+      "last_updated": "2026-09-25T15:18:24.258769Z"
     },
     {
       "symbol": "MPFL",
@@ -4718,7 +4718,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965132Z"
+      "last_updated": "2026-09-25T15:18:24.258771Z"
     },
     {
       "symbol": "MSLB",
@@ -4739,7 +4739,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965136Z"
+      "last_updated": "2026-09-25T15:18:24.258776Z"
     },
     {
       "symbol": "NABBC",
@@ -4760,7 +4760,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965139Z"
+      "last_updated": "2026-09-25T15:18:24.258778Z"
     },
     {
       "symbol": "NABIL",
@@ -4781,7 +4781,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965141Z"
+      "last_updated": "2026-09-25T15:18:24.258781Z"
     },
     {
       "symbol": "NABILP",
@@ -4802,7 +4802,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965143Z"
+      "last_updated": "2026-09-25T15:18:24.258783Z"
     },
     {
       "symbol": "NADEP",
@@ -4823,7 +4823,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965146Z"
+      "last_updated": "2026-09-25T15:18:24.258786Z"
     },
     {
       "symbol": "NBF2",
@@ -4844,7 +4844,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965149Z"
+      "last_updated": "2026-09-25T15:18:24.258788Z"
     },
     {
       "symbol": "NBF3",
@@ -4865,7 +4865,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965151Z"
+      "last_updated": "2026-09-25T15:18:24.258791Z"
     },
     {
       "symbol": "NBL",
@@ -4886,7 +4886,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965153Z"
+      "last_updated": "2026-09-25T15:18:24.258793Z"
     },
     {
       "symbol": "NBLD85",
@@ -4907,7 +4907,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965156Z"
+      "last_updated": "2026-09-25T15:18:24.258796Z"
     },
     {
       "symbol": "NBLD87",
@@ -4928,7 +4928,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965158Z"
+      "last_updated": "2026-09-25T15:18:24.258798Z"
     },
     {
       "symbol": "NCCD86",
@@ -4949,7 +4949,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965161Z"
+      "last_updated": "2026-09-25T15:18:24.258800Z"
     },
     {
       "symbol": "NESDO",
@@ -4970,7 +4970,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965163Z"
+      "last_updated": "2026-09-25T15:18:24.258803Z"
     },
     {
       "symbol": "NFS",
@@ -4991,7 +4991,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965166Z"
+      "last_updated": "2026-09-25T15:18:24.258805Z"
     },
     {
       "symbol": "NGPL",
@@ -5012,7 +5012,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965168Z"
+      "last_updated": "2026-09-25T15:18:24.258808Z"
     },
     {
       "symbol": "NHDL",
@@ -5033,7 +5033,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965170Z"
+      "last_updated": "2026-09-25T15:18:24.258810Z"
     },
     {
       "symbol": "NHPC",
@@ -5054,7 +5054,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965173Z"
+      "last_updated": "2026-09-25T15:18:24.258813Z"
     },
     {
       "symbol": "NIBD84",
@@ -5075,7 +5075,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965175Z"
+      "last_updated": "2026-09-25T15:18:24.258815Z"
     },
     {
       "symbol": "NIBLGF",
@@ -5096,7 +5096,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965177Z"
+      "last_updated": "2026-09-25T15:18:24.258817Z"
     },
     {
       "symbol": "NIBLSTF",
@@ -5117,7 +5117,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965180Z"
+      "last_updated": "2026-09-25T15:18:24.258822Z"
     },
     {
       "symbol": "NIBSF2",
@@ -5138,7 +5138,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965182Z"
+      "last_updated": "2026-09-25T15:18:24.258824Z"
     },
     {
       "symbol": "NICA",
@@ -5159,7 +5159,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965184Z"
+      "last_updated": "2026-09-25T15:18:24.258826Z"
     },
     {
       "symbol": "NICAD85/86",
@@ -5180,7 +5180,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965187Z"
+      "last_updated": "2026-09-25T15:18:24.258829Z"
     },
     {
       "symbol": "NICD88",
@@ -5201,7 +5201,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965189Z"
+      "last_updated": "2026-09-25T15:18:24.258831Z"
     },
     {
       "symbol": "NICFC",
@@ -5222,7 +5222,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965194Z"
+      "last_updated": "2026-09-25T15:18:24.258834Z"
     },
     {
       "symbol": "NICGF2",
@@ -5243,7 +5243,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965196Z"
+      "last_updated": "2026-09-25T15:18:24.258836Z"
     },
     {
       "symbol": "NICL",
@@ -5264,7 +5264,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965199Z"
+      "last_updated": "2026-09-25T15:18:24.258838Z"
     },
     {
       "symbol": "NICLBSL",
@@ -5285,7 +5285,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965201Z"
+      "last_updated": "2026-09-25T15:18:24.258841Z"
     },
     {
       "symbol": "NICSF",
@@ -5306,7 +5306,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965203Z"
+      "last_updated": "2026-09-25T15:18:24.258843Z"
     },
     {
       "symbol": "NIFRA",
@@ -5327,7 +5327,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965206Z"
+      "last_updated": "2026-09-25T15:18:24.258846Z"
     },
     {
       "symbol": "NIFRAGED",
@@ -5348,7 +5348,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965208Z"
+      "last_updated": "2026-09-25T15:18:24.258848Z"
     },
     {
       "symbol": "NIL",
@@ -5369,7 +5369,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965210Z"
+      "last_updated": "2026-09-25T15:18:24.258850Z"
     },
     {
       "symbol": "NIMB",
@@ -5390,7 +5390,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965213Z"
+      "last_updated": "2026-09-25T15:18:24.258853Z"
     },
     {
       "symbol": "NIMBPO",
@@ -5411,7 +5411,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965215Z"
+      "last_updated": "2026-09-25T15:18:24.258855Z"
     },
     {
       "symbol": "NLG",
@@ -5432,7 +5432,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965218Z"
+      "last_updated": "2026-09-25T15:18:24.258858Z"
     },
     {
       "symbol": "NLIC",
@@ -5453,7 +5453,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965220Z"
+      "last_updated": "2026-09-25T15:18:24.258861Z"
     },
     {
       "symbol": "NLICL",
@@ -5474,7 +5474,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965222Z"
+      "last_updated": "2026-09-25T15:18:24.258863Z"
     },
     {
       "symbol": "NLO",
@@ -5495,7 +5495,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965225Z"
+      "last_updated": "2026-09-25T15:18:24.258866Z"
     },
     {
       "symbol": "NMB",
@@ -5516,7 +5516,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965227Z"
+      "last_updated": "2026-09-25T15:18:24.258869Z"
     },
     {
       "symbol": "NMBHF2",
@@ -5537,7 +5537,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965229Z"
+      "last_updated": "2026-09-25T15:18:24.258871Z"
     },
     {
       "symbol": "NMBMF",
@@ -5558,7 +5558,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965232Z"
+      "last_updated": "2026-09-25T15:18:24.258873Z"
     },
     {
       "symbol": "NMBUR93/94",
@@ -5579,7 +5579,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965234Z"
+      "last_updated": "2026-09-25T15:18:24.258876Z"
     },
     {
       "symbol": "NMFBS",
@@ -5600,7 +5600,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965236Z"
+      "last_updated": "2026-09-25T15:18:24.258878Z"
     },
     {
       "symbol": "NMFBSP",
@@ -5621,7 +5621,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965239Z"
+      "last_updated": "2026-09-25T15:18:24.258881Z"
     },
     {
       "symbol": "NMIC",
@@ -5642,7 +5642,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965241Z"
+      "last_updated": "2026-09-25T15:18:24.258883Z"
     },
     {
       "symbol": "NMLBBL",
@@ -5663,7 +5663,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965246Z"
+      "last_updated": "2026-09-25T15:18:24.258887Z"
     },
     {
       "symbol": "NRIC",
@@ -5684,7 +5684,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965248Z"
+      "last_updated": "2026-09-25T15:18:24.258890Z"
     },
     {
       "symbol": "NRM",
@@ -5705,7 +5705,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965251Z"
+      "last_updated": "2026-09-25T15:18:24.258892Z"
     },
     {
       "symbol": "NRN",
@@ -5726,7 +5726,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965253Z"
+      "last_updated": "2026-09-25T15:18:24.258895Z"
     },
     {
       "symbol": "NSIF2",
@@ -5747,7 +5747,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965255Z"
+      "last_updated": "2026-09-25T15:18:24.258897Z"
     },
     {
       "symbol": "NSY",
@@ -5768,7 +5768,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965258Z"
+      "last_updated": "2026-09-25T15:18:24.258900Z"
     },
     {
       "symbol": "NTC",
@@ -5789,7 +5789,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965260Z"
+      "last_updated": "2026-09-25T15:18:24.258902Z"
     },
     {
       "symbol": "NUBL",
@@ -5810,7 +5810,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965263Z"
+      "last_updated": "2026-09-25T15:18:24.258905Z"
     },
     {
       "symbol": "NWCL",
@@ -5831,7 +5831,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965265Z"
+      "last_updated": "2026-09-25T15:18:24.258907Z"
     },
     {
       "symbol": "NYADI",
@@ -5852,7 +5852,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965267Z"
+      "last_updated": "2026-09-25T15:18:24.258909Z"
     },
     {
       "symbol": "OHL",
@@ -5873,7 +5873,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965272Z"
+      "last_updated": "2026-09-25T15:18:24.258914Z"
     },
     {
       "symbol": "OMPL",
@@ -5894,7 +5894,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965274Z"
+      "last_updated": "2026-09-25T15:18:24.258916Z"
     },
     {
       "symbol": "PBD88",
@@ -5915,7 +5915,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965277Z"
+      "last_updated": "2026-09-25T15:18:24.258919Z"
     },
     {
       "symbol": "PBD93",
@@ -5936,7 +5936,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965279Z"
+      "last_updated": "2026-09-25T15:18:24.258921Z"
     },
     {
       "symbol": "PBLD87",
@@ -5957,7 +5957,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965282Z"
+      "last_updated": "2026-09-25T15:18:24.258923Z"
     },
     {
       "symbol": "PCBL",
@@ -5978,7 +5978,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965284Z"
+      "last_updated": "2026-09-25T15:18:24.258926Z"
     },
     {
       "symbol": "PCIL",
@@ -5999,7 +5999,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965286Z"
+      "last_updated": "2026-09-25T15:18:24.258928Z"
     },
     {
       "symbol": "PFL",
@@ -6020,7 +6020,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965289Z"
+      "last_updated": "2026-09-25T15:18:24.258931Z"
     },
     {
       "symbol": "PHCL",
@@ -6041,7 +6041,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965291Z"
+      "last_updated": "2026-09-25T15:18:24.258934Z"
     },
     {
       "symbol": "PMHPL",
@@ -6062,7 +6062,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965293Z"
+      "last_updated": "2026-09-25T15:18:24.258936Z"
     },
     {
       "symbol": "PMLI",
@@ -6083,7 +6083,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965298Z"
+      "last_updated": "2026-09-25T15:18:24.258953Z"
     },
     {
       "symbol": "PPCL",
@@ -6104,7 +6104,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965301Z"
+      "last_updated": "2026-09-25T15:18:24.258957Z"
     },
     {
       "symbol": "PPL",
@@ -6125,7 +6125,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965303Z"
+      "last_updated": "2026-09-25T15:18:24.258959Z"
     },
     {
       "symbol": "PRIN",
@@ -6146,7 +6146,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965306Z"
+      "last_updated": "2026-09-25T15:18:24.258962Z"
     },
     {
       "symbol": "PROFL",
@@ -6167,7 +6167,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965308Z"
+      "last_updated": "2026-09-25T15:18:24.258964Z"
     },
     {
       "symbol": "PRSF",
@@ -6188,7 +6188,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965310Z"
+      "last_updated": "2026-09-25T15:18:24.258969Z"
     },
     {
       "symbol": "PRVU",
@@ -6209,7 +6209,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965313Z"
+      "last_updated": "2026-09-25T15:18:24.258971Z"
     },
     {
       "symbol": "PSF",
@@ -6230,7 +6230,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965315Z"
+      "last_updated": "2026-09-25T15:18:24.258973Z"
     },
     {
       "symbol": "PURE",
@@ -6251,7 +6251,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965317Z"
+      "last_updated": "2026-09-25T15:18:24.258976Z"
     },
     {
       "symbol": "RADHI",
@@ -6272,7 +6272,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965320Z"
+      "last_updated": "2026-09-25T15:18:24.258978Z"
     },
     {
       "symbol": "RAWA",
@@ -6293,7 +6293,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965326Z"
+      "last_updated": "2026-09-25T15:18:24.258982Z"
     },
     {
       "symbol": "RBBD83",
@@ -6314,7 +6314,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965329Z"
+      "last_updated": "2026-09-25T15:18:24.258985Z"
     },
     {
       "symbol": "RBBF40",
@@ -6335,7 +6335,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965331Z"
+      "last_updated": "2026-09-25T15:18:24.258987Z"
     },
     {
       "symbol": "RBCL",
@@ -6356,7 +6356,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965334Z"
+      "last_updated": "2026-09-25T15:18:24.258990Z"
     },
     {
       "symbol": "RBCLPO",
@@ -6377,7 +6377,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965336Z"
+      "last_updated": "2026-09-25T15:18:24.258992Z"
     },
     {
       "symbol": "RFPL",
@@ -6398,7 +6398,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965338Z"
+      "last_updated": "2026-09-25T15:18:24.258995Z"
     },
     {
       "symbol": "RHGCL",
@@ -6419,7 +6419,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965341Z"
+      "last_updated": "2026-09-25T15:18:24.258997Z"
     },
     {
       "symbol": "RHPL",
@@ -6440,7 +6440,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965343Z"
+      "last_updated": "2026-09-25T15:18:24.258999Z"
     },
     {
       "symbol": "RIDI",
@@ -6461,7 +6461,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965345Z"
+      "last_updated": "2026-09-25T15:18:24.259002Z"
     },
     {
       "symbol": "RLEL",
@@ -6482,7 +6482,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965348Z"
+      "last_updated": "2026-09-25T15:18:24.259004Z"
     },
     {
       "symbol": "RLFL",
@@ -6503,7 +6503,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965350Z"
+      "last_updated": "2026-09-25T15:18:24.259007Z"
     },
     {
       "symbol": "RMF1",
@@ -6524,7 +6524,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965353Z"
+      "last_updated": "2026-09-25T15:18:24.259009Z"
     },
     {
       "symbol": "RMF2",
@@ -6545,7 +6545,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965355Z"
+      "last_updated": "2026-09-25T15:18:24.259012Z"
     },
     {
       "symbol": "RNLI",
@@ -6566,7 +6566,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965357Z"
+      "last_updated": "2026-09-25T15:18:24.259014Z"
     },
     {
       "symbol": "RSDC",
@@ -6587,7 +6587,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965360Z"
+      "last_updated": "2026-09-25T15:18:24.259017Z"
     },
     {
       "symbol": "RSML",
@@ -6608,7 +6608,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965362Z"
+      "last_updated": "2026-09-25T15:18:24.259019Z"
     },
     {
       "symbol": "RSY",
@@ -6629,7 +6629,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965364Z"
+      "last_updated": "2026-09-25T15:18:24.259021Z"
     },
     {
       "symbol": "RSY2",
@@ -6650,7 +6650,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965367Z"
+      "last_updated": "2026-09-25T15:18:24.259024Z"
     },
     {
       "symbol": "RURU",
@@ -6671,7 +6671,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965369Z"
+      "last_updated": "2026-09-25T15:18:24.259026Z"
     },
     {
       "symbol": "SABBL",
@@ -6692,7 +6692,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965372Z"
+      "last_updated": "2026-09-25T15:18:24.259029Z"
     },
     {
       "symbol": "SADBL",
@@ -6713,7 +6713,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965374Z"
+      "last_updated": "2026-09-25T15:18:24.259031Z"
     },
     {
       "symbol": "SAEF2",
@@ -6734,7 +6734,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965376Z"
+      "last_updated": "2026-09-25T15:18:24.259034Z"
     },
     {
       "symbol": "SAGAR",
@@ -6755,7 +6755,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965379Z"
+      "last_updated": "2026-09-25T15:18:24.259036Z"
     },
     {
       "symbol": "SAHAS",
@@ -6776,7 +6776,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965381Z"
+      "last_updated": "2026-09-25T15:18:24.259038Z"
     },
     {
       "symbol": "SAIL",
@@ -6797,7 +6797,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965383Z"
+      "last_updated": "2026-09-25T15:18:24.259041Z"
     },
     {
       "symbol": "SALICO",
@@ -6818,7 +6818,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965386Z"
+      "last_updated": "2026-09-25T15:18:24.259043Z"
     },
     {
       "symbol": "SANIMA",
@@ -6839,7 +6839,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965388Z"
+      "last_updated": "2026-09-25T15:18:24.259046Z"
     },
     {
       "symbol": "SANVI",
@@ -6860,7 +6860,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965391Z"
+      "last_updated": "2026-09-25T15:18:24.259048Z"
     },
     {
       "symbol": "SAPDBL",
@@ -6881,7 +6881,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965393Z"
+      "last_updated": "2026-09-25T15:18:24.259051Z"
     },
     {
       "symbol": "SAPIL",
@@ -6902,7 +6902,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965396Z"
+      "last_updated": "2026-09-25T15:18:24.259053Z"
     },
     {
       "symbol": "SARBTM",
@@ -6923,7 +6923,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965398Z"
+      "last_updated": "2026-09-25T15:18:24.259056Z"
     },
     {
       "symbol": "SBCF",
@@ -6944,7 +6944,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965400Z"
+      "last_updated": "2026-09-25T15:18:24.259058Z"
     },
     {
       "symbol": "SBI",
@@ -6965,7 +6965,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965403Z"
+      "last_updated": "2026-09-25T15:18:24.259060Z"
     },
     {
       "symbol": "SBID83",
@@ -6986,7 +6986,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965405Z"
+      "last_updated": "2026-09-25T15:18:24.259063Z"
     },
     {
       "symbol": "SBID89",
@@ -7007,7 +7007,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965407Z"
+      "last_updated": "2026-09-25T15:18:24.259065Z"
     },
     {
       "symbol": "SBL",
@@ -7028,7 +7028,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965410Z"
+      "last_updated": "2026-09-25T15:18:24.259068Z"
     },
     {
       "symbol": "SBLD89",
@@ -7049,7 +7049,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965412Z"
+      "last_updated": "2026-09-25T15:18:24.259070Z"
     },
     {
       "symbol": "SCB",
@@ -7070,7 +7070,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965415Z"
+      "last_updated": "2026-09-25T15:18:24.259073Z"
     },
     {
       "symbol": "SDBD87",
@@ -7091,7 +7091,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965417Z"
+      "last_updated": "2026-09-25T15:18:24.259075Z"
     },
     {
       "symbol": "SEF",
@@ -7112,7 +7112,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965419Z"
+      "last_updated": "2026-09-25T15:18:24.259078Z"
     },
     {
       "symbol": "SEF2",
@@ -7133,7 +7133,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965422Z"
+      "last_updated": "2026-09-25T15:18:24.259080Z"
     },
     {
       "symbol": "SFEF",
@@ -7154,7 +7154,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965424Z"
+      "last_updated": "2026-09-25T15:18:24.259083Z"
     },
     {
       "symbol": "SFMF",
@@ -7175,7 +7175,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965426Z"
+      "last_updated": "2026-09-25T15:18:24.259085Z"
     },
     {
       "symbol": "SGHC",
@@ -7196,7 +7196,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965429Z"
+      "last_updated": "2026-09-25T15:18:24.259087Z"
     },
     {
       "symbol": "SGHL",
@@ -7217,7 +7217,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965431Z"
+      "last_updated": "2026-09-25T15:18:24.259090Z"
     },
     {
       "symbol": "SGIC",
@@ -7238,7 +7238,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965434Z"
+      "last_updated": "2026-09-25T15:18:24.259092Z"
     },
     {
       "symbol": "SHEL",
@@ -7259,7 +7259,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965436Z"
+      "last_updated": "2026-09-25T15:18:24.259095Z"
     },
     {
       "symbol": "SHINE",
@@ -7280,7 +7280,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965438Z"
+      "last_updated": "2026-09-25T15:18:24.259099Z"
     },
     {
       "symbol": "SHIVM",
@@ -7301,7 +7301,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965441Z"
+      "last_updated": "2026-09-25T15:18:24.259101Z"
     },
     {
       "symbol": "SHL",
@@ -7322,7 +7322,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965443Z"
+      "last_updated": "2026-09-25T15:18:24.259104Z"
     },
     {
       "symbol": "SHLB",
@@ -7343,7 +7343,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965448Z"
+      "last_updated": "2026-09-25T15:18:24.259108Z"
     },
     {
       "symbol": "SHPC",
@@ -7364,7 +7364,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965451Z"
+      "last_updated": "2026-09-25T15:18:24.259110Z"
     },
     {
       "symbol": "SICL",
@@ -7385,7 +7385,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965455Z"
+      "last_updated": "2026-09-25T15:18:24.259113Z"
     },
     {
       "symbol": "SIFC",
@@ -7406,7 +7406,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965458Z"
+      "last_updated": "2026-09-25T15:18:24.259115Z"
     },
     {
       "symbol": "SIGS2",
@@ -7427,7 +7427,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965460Z"
+      "last_updated": "2026-09-25T15:18:24.259118Z"
     },
     {
       "symbol": "SIGS3",
@@ -7448,7 +7448,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965463Z"
+      "last_updated": "2026-09-25T15:18:24.259120Z"
     },
     {
       "symbol": "SIKLES",
@@ -7469,7 +7469,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965465Z"
+      "last_updated": "2026-09-25T15:18:24.259123Z"
     },
     {
       "symbol": "SINDU",
@@ -7490,7 +7490,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965467Z"
+      "last_updated": "2026-09-25T15:18:24.259125Z"
     },
     {
       "symbol": "SIPD",
@@ -7511,7 +7511,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965470Z"
+      "last_updated": "2026-09-25T15:18:24.259127Z"
     },
     {
       "symbol": "SJCL",
@@ -7532,7 +7532,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965472Z"
+      "last_updated": "2026-09-25T15:18:24.259130Z"
     },
     {
       "symbol": "SJLIC",
@@ -7553,7 +7553,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965476Z"
+      "last_updated": "2026-09-25T15:18:24.259137Z"
     },
     {
       "symbol": "SKBBL",
@@ -7574,7 +7574,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965479Z"
+      "last_updated": "2026-09-25T15:18:24.259140Z"
     },
     {
       "symbol": "SKHEL",
@@ -7595,7 +7595,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965481Z"
+      "last_updated": "2026-09-25T15:18:24.259142Z"
     },
     {
       "symbol": "SKHL",
@@ -7616,7 +7616,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965483Z"
+      "last_updated": "2026-09-25T15:18:24.259145Z"
     },
     {
       "symbol": "SLBBL",
@@ -7637,7 +7637,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965486Z"
+      "last_updated": "2026-09-25T15:18:24.259147Z"
     },
     {
       "symbol": "SLBSL",
@@ -7658,7 +7658,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965488Z"
+      "last_updated": "2026-09-25T15:18:24.259150Z"
     },
     {
       "symbol": "SLCF",
@@ -7679,7 +7679,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965490Z"
+      "last_updated": "2026-09-25T15:18:24.259152Z"
     },
     {
       "symbol": "SMATA",
@@ -7700,7 +7700,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965493Z"
+      "last_updated": "2026-09-25T15:18:24.259155Z"
     },
     {
       "symbol": "SMB",
@@ -7721,7 +7721,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965496Z"
+      "last_updated": "2026-09-25T15:18:24.259157Z"
     },
     {
       "symbol": "SMFBS",
@@ -7742,7 +7742,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965498Z"
+      "last_updated": "2026-09-25T15:18:24.259160Z"
     },
     {
       "symbol": "SMH",
@@ -7763,7 +7763,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965503Z"
+      "last_updated": "2026-09-25T15:18:24.259164Z"
     },
     {
       "symbol": "SMHL",
@@ -7784,7 +7784,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965506Z"
+      "last_updated": "2026-09-25T15:18:24.259167Z"
     },
     {
       "symbol": "SMJC",
@@ -7805,7 +7805,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965508Z"
+      "last_updated": "2026-09-25T15:18:24.259169Z"
     },
     {
       "symbol": "SMPDA",
@@ -7826,7 +7826,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965511Z"
+      "last_updated": "2026-09-25T15:18:24.259171Z"
     },
     {
       "symbol": "SNLI",
@@ -7847,7 +7847,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965513Z"
+      "last_updated": "2026-09-25T15:18:24.259174Z"
     },
     {
       "symbol": "SNORL",
@@ -7868,7 +7868,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965515Z"
+      "last_updated": "2026-09-25T15:18:24.259176Z"
     },
     {
       "symbol": "SOHL",
@@ -7889,7 +7889,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965518Z"
+      "last_updated": "2026-09-25T15:18:24.259179Z"
     },
     {
       "symbol": "SONA",
@@ -7910,7 +7910,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965531Z"
+      "last_updated": "2026-09-25T15:18:24.259181Z"
     },
     {
       "symbol": "SOPL",
@@ -7931,7 +7931,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965534Z"
+      "last_updated": "2026-09-25T15:18:24.259184Z"
     },
     {
       "symbol": "SPC",
@@ -7952,7 +7952,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965536Z"
+      "last_updated": "2026-09-25T15:18:24.259186Z"
     },
     {
       "symbol": "SPDL",
@@ -7973,7 +7973,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965541Z"
+      "last_updated": "2026-09-25T15:18:24.259190Z"
     },
     {
       "symbol": "SPHL",
@@ -7994,7 +7994,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965543Z"
+      "last_updated": "2026-09-25T15:18:24.259193Z"
     },
     {
       "symbol": "SPIL",
@@ -8015,7 +8015,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965546Z"
+      "last_updated": "2026-09-25T15:18:24.259195Z"
     },
     {
       "symbol": "SPL",
@@ -8036,7 +8036,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965548Z"
+      "last_updated": "2026-09-25T15:18:24.259197Z"
     },
     {
       "symbol": "SRLI",
@@ -8057,7 +8057,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965550Z"
+      "last_updated": "2026-09-25T15:18:24.259200Z"
     },
     {
       "symbol": "SSHL",
@@ -8078,7 +8078,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965553Z"
+      "last_updated": "2026-09-25T15:18:24.259202Z"
     },
     {
       "symbol": "STC",
@@ -8099,7 +8099,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965555Z"
+      "last_updated": "2026-09-25T15:18:24.259205Z"
     },
     {
       "symbol": "SWASTIK",
@@ -8120,7 +8120,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965558Z"
+      "last_updated": "2026-09-25T15:18:24.259207Z"
     },
     {
       "symbol": "SWBBL",
@@ -8141,7 +8141,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965560Z"
+      "last_updated": "2026-09-25T15:18:24.259210Z"
     },
     {
       "symbol": "SWMF",
@@ -8162,7 +8162,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965562Z"
+      "last_updated": "2026-09-25T15:18:24.259212Z"
     },
     {
       "symbol": "SYPNL",
@@ -8183,7 +8183,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965567Z"
+      "last_updated": "2026-09-25T15:18:24.259216Z"
     },
     {
       "symbol": "TAMOR",
@@ -8204,7 +8204,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965569Z"
+      "last_updated": "2026-09-25T15:18:24.259219Z"
     },
     {
       "symbol": "TPC",
@@ -8225,7 +8225,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965572Z"
+      "last_updated": "2026-09-25T15:18:24.259221Z"
     },
     {
       "symbol": "TPKHL",
@@ -8246,7 +8246,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965574Z"
+      "last_updated": "2026-09-25T15:18:24.259224Z"
     },
     {
       "symbol": "TRH",
@@ -8267,7 +8267,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965576Z"
+      "last_updated": "2026-09-25T15:18:24.259226Z"
     },
     {
       "symbol": "TSHL",
@@ -8288,7 +8288,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965579Z"
+      "last_updated": "2026-09-25T15:18:24.259228Z"
     },
     {
       "symbol": "TTL",
@@ -8309,7 +8309,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965581Z"
+      "last_updated": "2026-09-25T15:18:24.259231Z"
     },
     {
       "symbol": "TVCL",
@@ -8330,7 +8330,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965583Z"
+      "last_updated": "2026-09-25T15:18:24.259235Z"
     },
     {
       "symbol": "UAIL",
@@ -8351,7 +8351,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965586Z"
+      "last_updated": "2026-09-25T15:18:24.259237Z"
     },
     {
       "symbol": "UHEWA",
@@ -8372,7 +8372,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965588Z"
+      "last_updated": "2026-09-25T15:18:24.259240Z"
     },
     {
       "symbol": "ULBSL",
@@ -8393,7 +8393,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965593Z"
+      "last_updated": "2026-09-25T15:18:24.259244Z"
     },
     {
       "symbol": "ULHC",
@@ -8414,7 +8414,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965595Z"
+      "last_updated": "2026-09-25T15:18:24.259247Z"
     },
     {
       "symbol": "UMHL",
@@ -8435,7 +8435,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965600Z"
+      "last_updated": "2026-09-25T15:18:24.259249Z"
     },
     {
       "symbol": "UMRH",
@@ -8456,7 +8456,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965602Z"
+      "last_updated": "2026-09-25T15:18:24.259251Z"
     },
     {
       "symbol": "UNHPL",
@@ -8477,7 +8477,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965604Z"
+      "last_updated": "2026-09-25T15:18:24.259254Z"
     },
     {
       "symbol": "UNLB",
@@ -8498,7 +8498,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965607Z"
+      "last_updated": "2026-09-25T15:18:24.259256Z"
     },
     {
       "symbol": "UPCL",
@@ -8519,7 +8519,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965609Z"
+      "last_updated": "2026-09-25T15:18:24.259259Z"
     },
     {
       "symbol": "UPPER",
@@ -8540,7 +8540,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965611Z"
+      "last_updated": "2026-09-25T15:18:24.259261Z"
     },
     {
       "symbol": "USHEC",
@@ -8561,7 +8561,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965614Z"
+      "last_updated": "2026-09-25T15:18:24.259264Z"
     },
     {
       "symbol": "USHL",
@@ -8582,7 +8582,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965616Z"
+      "last_updated": "2026-09-25T15:18:24.259266Z"
     },
     {
       "symbol": "USLB",
@@ -8603,7 +8603,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965621Z"
+      "last_updated": "2026-09-25T15:18:24.259270Z"
     },
     {
       "symbol": "VLBS",
@@ -8624,7 +8624,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965624Z"
+      "last_updated": "2026-09-25T15:18:24.259273Z"
     },
     {
       "symbol": "VLUCL",
@@ -8645,7 +8645,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965626Z"
+      "last_updated": "2026-09-25T15:18:24.259276Z"
     },
     {
       "symbol": "YMHL",
@@ -8666,7 +8666,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965629Z"
+      "last_updated": "2026-09-25T15:18:24.259278Z"
     },
     {
       "symbol": "1",
@@ -8685,7 +8685,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965642Z"
+      "last_updated": "2026-09-25T15:18:24.259289Z"
     },
     {
       "symbol": "3",
@@ -8704,7 +8704,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965653Z"
+      "last_updated": "2026-09-25T15:18:24.259299Z"
     },
     {
       "symbol": "6",
@@ -8723,7 +8723,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965663Z"
+      "last_updated": "2026-09-25T15:18:24.259311Z"
     },
     {
       "symbol": "8",
@@ -8742,7 +8742,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965673Z"
+      "last_updated": "2026-09-25T15:18:24.259320Z"
     },
     {
       "symbol": "15",
@@ -8761,7 +8761,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965697Z"
+      "last_updated": "2026-09-25T15:18:24.259345Z"
     },
     {
       "symbol": "23",
@@ -8780,7 +8780,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965724Z"
+      "last_updated": "2026-09-25T15:18:24.259374Z"
     },
     {
       "symbol": "32",
@@ -8799,7 +8799,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965753Z"
+      "last_updated": "2026-09-25T15:18:24.259406Z"
     },
     {
       "symbol": "33",
@@ -8818,7 +8818,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965756Z"
+      "last_updated": "2026-09-25T15:18:24.259409Z"
     },
     {
       "symbol": "38",
@@ -8837,7 +8837,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965775Z"
+      "last_updated": "2026-09-25T15:18:24.259429Z"
     },
     {
       "symbol": "40",
@@ -8856,7 +8856,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965784Z"
+      "last_updated": "2026-09-25T15:18:24.259436Z"
     },
     {
       "symbol": "46",
@@ -8875,7 +8875,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965805Z"
+      "last_updated": "2026-09-25T15:18:24.259457Z"
     },
     {
       "symbol": "48",
@@ -8894,7 +8894,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965811Z"
+      "last_updated": "2026-09-25T15:18:24.259464Z"
     },
     {
       "symbol": "49",
@@ -8913,7 +8913,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965814Z"
+      "last_updated": "2026-09-25T15:18:24.259467Z"
     },
     {
       "symbol": "53",
@@ -8932,7 +8932,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965827Z"
+      "last_updated": "2026-09-25T15:18:24.259480Z"
     },
     {
       "symbol": "56",
@@ -8951,7 +8951,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965838Z"
+      "last_updated": "2026-09-25T15:18:24.259491Z"
     },
     {
       "symbol": "59",
@@ -8970,7 +8970,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965850Z"
+      "last_updated": "2026-09-25T15:18:24.259503Z"
     },
     {
       "symbol": "61",
@@ -8989,7 +8989,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965857Z"
+      "last_updated": "2026-09-25T15:18:24.259510Z"
     },
     {
       "symbol": "64",
@@ -9008,7 +9008,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965866Z"
+      "last_updated": "2026-09-25T15:18:24.259520Z"
     },
     {
       "symbol": "67",
@@ -9027,7 +9027,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965879Z"
+      "last_updated": "2026-09-25T15:18:24.259532Z"
     },
     {
       "symbol": "70",
@@ -9046,7 +9046,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965888Z"
+      "last_updated": "2026-09-25T15:18:24.259542Z"
     },
     {
       "symbol": "71",
@@ -9065,7 +9065,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965891Z"
+      "last_updated": "2026-09-25T15:18:24.259545Z"
     },
     {
       "symbol": "73",
@@ -9084,7 +9084,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965898Z"
+      "last_updated": "2026-09-25T15:18:24.259551Z"
     },
     {
       "symbol": "74",
@@ -9103,7 +9103,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965901Z"
+      "last_updated": "2026-09-25T15:18:24.259554Z"
     },
     {
       "symbol": "75",
@@ -9122,7 +9122,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965904Z"
+      "last_updated": "2026-09-25T15:18:24.259557Z"
     },
     {
       "symbol": "78",
@@ -9141,7 +9141,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965916Z"
+      "last_updated": "2026-09-25T15:18:24.259574Z"
     },
     {
       "symbol": "79",
@@ -9160,7 +9160,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965919Z"
+      "last_updated": "2026-09-25T15:18:24.259577Z"
     },
     {
       "symbol": "81",
@@ -9179,7 +9179,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965925Z"
+      "last_updated": "2026-09-25T15:18:24.259584Z"
     },
     {
       "symbol": "82",
@@ -9198,7 +9198,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965928Z"
+      "last_updated": "2026-09-25T15:18:24.259587Z"
     },
     {
       "symbol": "85",
@@ -9217,7 +9217,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965938Z"
+      "last_updated": "2026-09-25T15:18:24.259597Z"
     },
     {
       "symbol": "89",
@@ -9236,7 +9236,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965954Z"
+      "last_updated": "2026-09-25T15:18:24.259614Z"
     },
     {
       "symbol": "90",
@@ -9255,7 +9255,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965957Z"
+      "last_updated": "2026-09-25T15:18:24.259618Z"
     },
     {
       "symbol": "91",
@@ -9274,7 +9274,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965963Z"
+      "last_updated": "2026-09-25T15:18:24.259621Z"
     },
     {
       "symbol": "100",
@@ -9293,7 +9293,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 3,
-      "last_updated": "2026-09-24T15:10:44.965995Z"
+      "last_updated": "2026-09-25T15:18:24.259654Z"
     },
     {
       "symbol": "C30MF",
@@ -9314,7 +9314,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 0,
-      "last_updated": "2026-09-24T15:10:44.964758Z"
+      "last_updated": "2026-09-25T15:18:24.258399Z"
     },
     {
       "symbol": "DLBS",
@@ -9335,7 +9335,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 0,
-      "last_updated": "2026-09-24T15:10:44.964811Z"
+      "last_updated": "2026-09-25T15:18:24.258451Z"
     },
     {
       "symbol": "HATHY",
@@ -9356,7 +9356,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 0,
-      "last_updated": "2026-09-24T15:10:44.964898Z"
+      "last_updated": "2026-09-25T15:18:24.258537Z"
     },
     {
       "symbol": "MSHL",
@@ -9377,7 +9377,7 @@
       "roe_score": 0,
       "pbv_score": 0,
       "momentum_score": 0,
-      "last_updated": "2026-09-24T15:10:44.965134Z"
+      "last_updated": "2026-09-25T15:18:24.258774Z"
     }
   ]
 }
