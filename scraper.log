@@ -1217,3 +1217,16 @@
 2026-10-23 15:08:29,420 [INFO] Saved JSON -> data/data.json
 2026-10-23 15:08:29,421 [INFO] Saved CSV  -> data/data.csv
 2026-10-23 15:08:29,421 [INFO] Done ✓
+2026-10-26 16:48:40,815 [INFO] ==================================================
+2026-10-26 16:48:40,815 [INFO] NEPSE Tracker – Scrape Run
+2026-10-26 16:48:40,815 [INFO] ==================================================
+2026-10-26 16:48:40,815 [INFO] Scraping NepseAlpha …
+2026-10-26 16:48:42,237 [INFO]   -> 0 records from NepseAlpha
+2026-10-26 16:48:44,238 [INFO] Scraping ShareSansar …
+2026-10-26 16:48:44,800 [INFO]   -> 341 records from ShareSansar
+2026-10-26 16:48:46,802 [INFO] Scraping Merolagani …
+2026-10-26 16:48:49,331 [INFO]   -> 100 records from Merolagani
+2026-10-26 16:48:49,334 [INFO] Merged -> 441 unique stocks
+2026-10-26 16:48:49,341 [INFO] Saved JSON -> data/data.json
+2026-10-26 16:48:49,343 [INFO] Saved CSV  -> data/data.csv
+2026-10-26 16:48:49,343 [INFO] Done ✓
